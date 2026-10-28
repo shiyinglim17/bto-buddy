@@ -14,7 +14,7 @@ Public-sector AI prototype · fictional applicant profiles only · not an offici
 <a href="#7-evaluation-method">Evaluation</a> ·
 <a href="#8-results">Results</a> ·
 <a href="#10-limitations">Limitations</a> ·
-<a href="#15-ai-coding-agent-usage">AI usage</a>
+<a href="#16-ai-coding-agent-usage">AI usage</a>
 </p>
 
 <p><b>Demo video:</b> <a href="https://tinyurl.com/bto-buddy-demo">https://tinyurl.com/bto-buddy-demo</a></p>
@@ -169,6 +169,13 @@ From a fresh clone with no `.env`, no `data/private_corpus/` and no `references/
 
 ## 2. At a glance: built vs designed
 
+> **This is a first-draft prototype of a much broader idea.** BTO Buddy is meant to become an
+> all-in-one preparation platform where *any* BTO applicant (singles, seniors, families,
+> second-timers, PR households) can get answers for their own profile. This version covers
+> one user group, first-timer couples, so it tests the approach on a narrow slice and
+> **cannot yet show the platform's value** for most applicants. See
+> [Limitations](#10-limitations).
+
 I designed a four-configuration ablation (A → B → C → D). Under time pressure I built and
 evaluated **A, B and D**, but not C.
 
@@ -235,6 +242,13 @@ official services.
 HDB. If applicants arrive better prepared, there could be fewer hotline enquiries and fewer
 ineligible applications to process. That is a **hypothesis this prototype does not test**;
 validating and quantifying it would need user testing.
+
+**Vision vs this prototype.** The value of BTO Buddy grows with coverage: the more applicant
+profiles it can handle, the less any applicant has to search through pages written for
+someone else. The long-term aim is one place where every type of applicant can describe
+their situation and get grounded, sourced preparation guidance. This prototype is the first
+slice of that: first-timer couples only, to test whether grounding and verification make
+the answers reliable before scaling the knowledge base.
 
 **Research question:** does grounding one LLM in a small, verified, source-attributed
 knowledge base, plus claim verification, reduce critical errors compared with the same
@@ -413,7 +427,9 @@ configuration and for the verifier: temperature 0, reasoning effort `low`, stric
     unreliable. That is the argument for grounding it, not for trusting it directly.
 - **Rejected:** fine-tuning (no rights-cleared training data, and policy changes over time);
   local inference (fictional data needs no on-premise processing, and reviewer hardware
-  varies). Revisit both for real applicant data.
+  varies). Revisit both for real applicant data. In hindsight, local inference would have removed the token
+  quota that cut my evaluation short (see
+  [What I would have done differently](#12-what-i-would-have-done-differently)).
 
 ---
 
@@ -566,14 +582,18 @@ What I can and cannot conclude:
 
 ## 10. Limitations
 
-**My biggest constraints were time, compute and API free-tier quotas.** Here is how each one
-affected the evaluation:
+**The most fundamental limitation is scope.** BTO Buddy is meant to serve every type of
+applicant, but this first draft covers only first-timer couples. So even where the results
+look promising, they cannot show that the idea works as the all-in-one platform it is meant
+to be. **My biggest practical constraints were time, compute and API free-tier quotas.**
+Here is how each of these affected the evaluation:
 
 | Constraint | What it cost | Metrics most affected |
 |---|---|---|
 | **Time** (single-developer prototype against a fixed deadline) | C not built (D-069); no blind human scoring; claim labels made by the agent post hoc; retrieval aliases not tuned | **Critical-error rate, required-information coverage and actionability are unreported.** Conflict identification stays near 0 because C's deterministic checks don't exist. Required-rule recall is not applicable |
 | **Free-tier API quota** (Groq: 8K tokens/min, 200K tokens/day) | One run per configuration; held-out B and D stopped at 7/30 cases; D's held-out judge never ran; one dev case lost to HTTP 413; latency inflated by waits | **All held-out B and D metrics** (answer coverage 7/27 and 5/27 reflect failures), **held-out verifier accuracy** (not measurable), median latency, run-to-run variance (unmeasured) |
 | **Compute and model access** | No second model family to judge (generator = verifier); Gemini comparison abandoned; no local or fine-tuned models | **Verifier false-approval rate** (6/22 on dev, with shared blind spots); model-selection rigour (no head-to-head) |
+| **Limited policy scope coverage** | The knowledge base covers only first-timer couples (fiancé/fiancée or married), from 7 captured HDB sources (5 pages, 2 PDFs) distilled into 89 facts across 7 topics. Singles, seniors, PR and second-timer households, resale flats, grants, loans and financing are excluded; the HFE FAQs were left out because robots.txt disallows them; other relevant pages are link-only | **Answer coverage outside the core tiers** (out-of-scope requests are declined, not answered); **retrieval recall** when a question needs a fact that was never authored; **representativeness**: the benchmark tests only in-scope households, so performance on real, broader enquiries is unknown; **the overall value proposition**, which depends on serving all applicant types, is untested |
 
 **Limitations from my original project approach:**
 - **Policy currency.** Facts reflect the 28 Oct 2026 snapshot and may miss later changes. A
@@ -596,6 +616,11 @@ author-written cases with no statistical power for small differences.
 
 ## 11. Enhancements if the constraints were removed
 
+- **Broaden the policy scope (the most important step):** add the other applicant profiles
+  (singles, seniors, second-timers, PR and mixed-citizenship households, families with
+  children) and the topics now excluded (resale, grants and loans as explained context),
+  with facts and benchmark cases for each. Only then can the all-in-one value be tested
+  with real users.
 - **More time:** build C (extraction, quote guard, coverage gate, rules wired in), then run
   the full A–D ablation. Do blind human scoring with a second annotator and report agreement.
 - **Paid API tier or more days:** complete the held-out run, run each configuration 3–5
@@ -607,7 +632,47 @@ author-written cases with no statistical power for small differences.
 
 ---
 
-## 12. Deployment considerations
+## 12. What I would have done differently
+
+Looking back, most of my gaps came from the order I did things in, not from the design.
+
+1. **Budget the API quota before running anything.** One full pass over the 48 cases (A, B
+   and D) needs about 340K tokens, at the per-call usage I measured. The free tier allows
+   200K a day. I ran dev experiments, re-runs and the held-out set on the same day, so
+   held-out B and D stopped at 7 of 30 cases. Next time I would plan runs over several days
+   (or use a paid tier for the final run), and run the held-out set on a fresh day's quota.
+2. **Build the thinnest end-to-end slice first.** I spent much of the time on requirements,
+   source capture, fact authoring and the benchmark before the first model output. All of
+   that was useful, but it left about 1.5 hours for configurations B, C and D. Getting A → B
+   → D working on a few facts early, then deepening the data, would have left time for C.
+3. **Wire the rules in before polishing them.** The rule engine is built and tested but
+   never affects an answer. Conflict detection (0/3 on dev) and missing-information recall
+   are exactly what its deterministic checks were for. Connecting even a small rule set to
+   the pipeline would have tested the "structured reasoning" half of my hypothesis.
+4. **Use a different model family as the verifier judge.** The same model generating and
+   judging caused 4 of the 6 false approvals (a shared misreading of who a fact applies to).
+5. **Schedule blind human scoring as a fixed task, not a final step.** The blinded scoring
+   sheet exists, but there was no time left to score it, so my pre-registered primary
+   metrics are unreported.
+6. **Have a backup model ready on day one.** Gemini was too slow to evaluate, so model
+   selection had no head-to-head comparison.
+7. **Run the clean-machine and log-export checks early.** The final-day audit found that the
+   corpus scripts could overwrite tracked data on a clean clone. Exporting and redacting the
+   agent logs also took time that could have been planned for.
+8. **Run the RAG pipeline on a local open-weight model instead of a rate-limited API.** I
+   rejected local inference at model selection ([Model selection](#6-model-selection)), but
+   in hindsight the binding constraint was the API's token quota, not model quality. A
+   smaller open-weight model served locally (e.g. through Ollama) has no daily token cap. I
+   could then have completed the held-out run, repeated each configuration to measure
+   variance, and iterated on retrieval and prompts as often as needed. The trade-offs are a
+   weaker model than gpt-oss-120b, slower inference on a laptop, and a heavier setup for
+   reviewers, so I would keep the API as an optional backend. Whether a local model would
+   have *answered* more accurately is untested; what it would clearly have bought is a
+   complete and repeatable evaluation.
+
+---
+
+## 13. Deployment considerations
 
 *(Described, not implemented.)* **Target users and environment:** first-time couples
 preparing a BTO application, using a web assistant run by a public agency beside the
@@ -628,7 +693,7 @@ re-verified; and every answer shows its "sources retrieved" date.
 
 ---
 
-## 13. Development narrative
+## 14. Development narrative
 
 - **Phase 0–1:** I turned the assessment brief and my own approach document into a
   requirements register and a decision log (`docs/decisions.md`, D-001 onward), then
@@ -658,7 +723,7 @@ re-verified; and every answer shows its "sources retrieved" date.
   (provider-agnostic), `rank-bm25` (deterministic, explainable retrieval), Streamlit (single
   Python UI), and the standard library for evaluation statistics.
 
-## 14. Repository map
+## 15. Repository map
 
 | Path | Contents |
 |---|---|
@@ -672,7 +737,7 @@ re-verified; and every answer shows its "sources retrieved" date.
 
 ---
 
-## 15. AI coding agent usage
+## 16. AI coding agent usage
 
 - **Tool:** Claude Code (Anthropic). I used it throughout for requirements extraction, design
   drafting, code, tests, evaluation tooling and documentation.

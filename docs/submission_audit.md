@@ -21,11 +21,11 @@ reviews it.
 | REQ-EVL-001 | Justified evaluation method | README §7 "Why this method" | Ablation rationale; blind human scoring planned | ✅ |
 | REQ-EVL-002 | Honest limitations | README §8 (warnings), §10 | Disclosure of incomplete held-out, unscored primary metrics, model threshold failure | ✅ |
 | REQ-MOD-001 | Operational model justification | README §6 | Latency, cost, portability, data handling, task fit; rejected options | ✅ (no head-to-head; disclosed) |
-| REQ-DOC-001 | Objectives, rationale, implementation, results, execution, limitations | README §1–§13 | All sections present | ✅ |
-| REQ-DOC-002 | 150–250-word deployment section | README §12 | 210 words (`awk` + `wc -w`) | ✅ |
-| REQ-DOC-003 | Development narrative | README §13 | Consistent with `docs/decisions.md` D-052 to D-073 | ✅ |
+| REQ-DOC-001 | Objectives, rationale, implementation, results, execution, limitations | README §1–§14 | All sections present | ✅ |
+| REQ-DOC-002 | 150–250-word deployment section | README §13 | 210 words (`awk` + `wc -w`) | ✅ |
+| REQ-DOC-003 | Development narrative | README §14 | Consistent with `docs/decisions.md` D-052 to D-073 | ✅ |
 | REQ-DOC-004 | Write-up matches code; no overclaiming | README §2 built-vs-designed table; §3 below | Every number traced to a saved output (§3) | ✅ |
-| REQ-DOC-005 | Limitations and enhancements if constraints removed | README §10, §11 | Both present | ✅ |
+| REQ-DOC-005 | Limitations and enhancements if constraints removed | README §10, §11, §12 | Limitations, enhancements and "what I would have done differently" present | ✅ |
 | REQ-SUB-001 | Full deployment/execution instructions | README §1 | Step-by-step Docker guide, troubleshooting, clean-clone smoke test | ✅ |
 | REQ-SUB-002 | Dockerised | `Dockerfile`; README §1 | `--no-cache` build from a fresh clone; health `ok`; live answers in the container (2026-10-29) | ✅ |
 | REQ-SUB-003 | 3–5 min demo video, URL in README | README header | Link `https://tinyurl.com/bto-buddy-demo` present; 3–5 min length and access settings to be confirmed by the developer | ✅ (link) |
@@ -34,8 +34,8 @@ reviews it.
 | REQ-SUB-006 | Repo unchanged during evaluation | Process | Developer's responsibility after submission | ⚠️ developer |
 | REQ-SUB-007 | Submit via designated channel | Private | Not verifiable from the repo | ⚠️ developer |
 | REQ-SUB-008 | Deadline | Private | Not verifiable from the repo | ⚠️ developer |
-| REQ-SUB-009 | Coding-agent section at end of README | README §15 (last section) | Position checked | ✅ |
-| REQ-SUB-010 | All coding-agent session logs uploaded; location in README | README §15 → `ai_logs/` | 5/5 sessions exported (transcripts + redacted JSONL, about 17 MB); redactions in `ai_logs/REDACTIONS.md`; post-export scan clean. Session 05 is a snapshot and two wire-only prompts are missing (disclosed) | ⚠️ re-export session 05 at the very end |
+| REQ-SUB-009 | Coding-agent section at end of README | README §16 (last section) | Position checked | ✅ |
+| REQ-SUB-010 | All coding-agent session logs uploaded; location in README | README §16 → `ai_logs/` | 5/5 sessions exported (transcripts + redacted JSONL, about 17 MB); redactions in `ai_logs/REDACTIONS.md`; post-export scan clean. Session 05 is a snapshot and two wire-only prompts are missing (disclosed) | ⚠️ re-export session 05 at the very end |
 | REQ-NFR-001 | Runs from README on a clean machine | README §1 smoke test | 8/8 steps passed from a fresh clone (macOS); Linux/Windows untested | ✅ (macOS) |
 | REQ-NFR-002 | Code quality | `pyproject.toml`, `tests/` | `uv run pytest`, `ruff check`, `ruff format --check`, `mypy --strict`: all pass | ✅ |
 | REQ-NFR-003 | Developer can explain the rationale | Code comments; `docs/decisions.md` | Rationale comments at non-obvious choices; 73 decisions with reasons | ✅ |
