@@ -105,6 +105,9 @@ verifier's judgements are never ground truth** [APP p.25, 27].
 
 ### 3.3 Dev/held-out split — PROPOSED (needs approval before dataset creation, D-019)
 
+*Phase 3a (2026-10-29):* candidate benchmark built to this recommendation (D-063, D-064,
+D-065 PROPOSED); see [../evaluation_benchmark.md](../evaluation_benchmark.md).
+
 **Recommendation: a fixed, stratified, group-aware split. 18 development / 30 held-out.**
 
 | Category | Dev | Held-out |
@@ -131,6 +134,8 @@ verifier's judgements are never ground truth** [APP p.25, 27].
   cases per category, which is too few to iterate on prompts per category.
 
 ## 4. Metrics — REQ-EVL-024..026 (APPROVED hierarchy, D-004)
+
+**Operational definitions: [evaluation/metric_spec.md](../../evaluation/metric_spec.md) (D-066, PROPOSED).** It makes the primary metrics architecture-neutral and moves rule-ID recall to diagnostic D1.
 
 All definitions must be **operational, with denominators, and frozen before evaluation**
 (REQ-EVL-026). The definitions below come from [APP p.24, 26]. Where the source is silent,

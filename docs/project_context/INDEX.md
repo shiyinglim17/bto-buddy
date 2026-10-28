@@ -19,7 +19,19 @@ APPROVED** (D-054 and D-058 as revised).
 - **Details:** [../data_sources.md](../data_sources.md) §12–§19, with scope boundaries and
   evidence gaps in §17.
 
-**Next:** the benchmark (Dataset C).
+**Phase 3a (benchmark design, 2026-10-29):**
+- A candidate benchmark of 48 cases (18 dev / 30 sealed held-out), with its rubric and claim
+  protocol: [../evaluation_benchmark.md](../evaluation_benchmark.md).
+- Metric specification (architecture-neutral primary metrics, diagnostics, failure handling):
+  [../../evaluation/metric_spec.md](../../evaluation/metric_spec.md).
+- D-063 to D-066 are PROPOSED.
+- Dev labels approved; the developer reports the held-out review complete (2026-10-29).
+- The benchmark is **not frozen** until the developer confirms and approves the freeze.
+
+**Phase 3 carried to-dos:**
+1. live-page drift check;
+2. rights clearance;
+3. README data section with the D-054/D-057 disclosures.
 
 **What exists:**
 - the uv project and lockfile, Docker image and Streamlit shell;
@@ -29,7 +41,9 @@ APPROVED** (D-054 and D-058 as revised).
   `source_coverage.csv`, `visual_resources.json`, and `corpus/` (checklist, reports,
   verification, version);
 - `scripts/snapshots.py` and `scripts/corpus.py`;
-- tests: smoke, corpus tooling, KB, rules.
+- `evaluation/`: benchmark loader and validator, dev cases, held-out inputs, manifest,
+  claim template (held-out labels in Git-ignored `evaluation/heldout/`);
+- tests: smoke, corpus tooling, KB, rules, benchmark.
 
 No LLM stages, retrieval, model choice or evaluation datasets exist yet.
 

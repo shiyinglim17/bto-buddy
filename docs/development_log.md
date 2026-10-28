@@ -355,3 +355,130 @@ registry, and build that registry using verified facts only.
   - live-page spot-check for drift (G-15);
   - developer rights clearance (REQ-LIC-015);
   - README data section (03 §8), including the D-054 and D-057 disclosures.
+
+## 2026-10-29: Phase 3a, evaluation benchmark design (candidate, not frozen)
+
+**Carried over from Phase 2b:**
+1. live-page drift check;
+2. rights clearance;
+3. README data section (evaluation_benchmark §10).
+
+**Done:**
+- **Two context facts verified** (CTX-HFE-001, CTX-GRANT-001; 53 verified in total), because
+  out-of-scope redirect labels need them.
+- **Rubric and claim protocol:** `docs/evaluation_benchmark.md`, with the rubric written
+  before the cases, the claim-level protocol, sampling, split, leakage, QA, the
+  manual-validation list and limitations.
+- **`evaluation/benchmark.py`:** the `CaseInput`/`CaseLabel` schema, locked held-out loader,
+  validator (traceability, split, family and hash checks) and engine cross-check.
+- **48 candidate cases:**
+  - 18 dev cases in `dev.jsonl`;
+  - 30 held-out inputs in `test_inputs.jsonl`;
+  - held-out labels in Git-ignored `evaluation/heldout/test_labels.jsonl`, with the SHA-256
+    in `manifest.json`;
+  - review sheets for both.
+  - 20 cases are flagged for source checking (dev 4, held-out 16).
+  - 34 families; 0 cross-split near-duplicates (maximum Jaccard 0.49).
+  - 22 of 24 rules are exercised.
+- **Engine cross-check:** found 1 label error (DEV-05), corrected against HH-CIT-001. R-APP-002
+  was added as optional to 3 cases.
+- **Claim template:** 4 dev claims. Tests: `tests/test_benchmark.py`. 92 tests pass.
+- **Access rule:** CLAUDE.md now forbids agents from reading `evaluation/heldout/`. The
+  authoring script, which contained the held-out labels, was deleted after generation.
+
+**Open for the developer:**
+1. Review and approve the labels using the two review sheets.
+2. Decide D-063 to D-065.
+3. Back up `evaluation/heldout/`.
+4. Then freeze (evaluation_benchmark §8) and write `metric_spec.md` before any prompt work.
+
+## 2026-10-29: Dev label review, batch 1 (DEV-03, DEV-08, DEV-09, DEV-14)
+
+The developer gave review notes on four dev cases; the agent checked each against the cited
+sections (S01, S02, S05; authored summaries only) and applied the agreed edits to `dev.jsonl`.
+- **DEV-03 (edited):** the 30-day date is now approximate (inclusive counting not stated;
+  new major PC-X3). **Label error found:** the old key point advised doing Step 2 in October,
+  but the case date is 1 November; replaced with "details must be updated" (new major PC-X4).
+- **DEV-08 (edited):** key point reworded as meeting one published condition, not overall
+  eligibility. I-05 removed from `unresolved_refs`: he is already 21, so the assessment date
+  cannot change the result, and keeping it contradicted rubric §2.6.
+- **DEV-09 (approved unchanged):** both constraints are explicit in HFE-STEPS-001; 21 days
+  apart is inside the window under any counting convention.
+- **DEV-14 (edited):** S01 does list a flat bought from HDB as a subsidy, so the inference holds
+  for this profile; the FT(PMC) ownership/sale criterion is now a separate conditional point;
+  added the mixed first-/second-timer point (PRI-FT-001), PC-VERDICT (was missing) and major
+  PC-X2.
+- **Rubric:** §2.7 gains a key-point coverage row so fact-only cases are scored; its definition
+  is deferred to `metric_spec.md`.
+- **Review sheet:** `dev_review_sheet.csv` gains a `key_points` column. The held-out sheet was
+  not regenerated (D-064), so it still lacks that column.
+- Checks: benchmark validate errors=0, engine disagreements none; `tests/test_benchmark.py` 9 pass.
+
+## 2026-10-29: Dev label review, batch 2 (DEV-13) and snapshot assumption A-01
+
+- **DEV-13 (edited):** "engaged in May" vs "my wife" may be informal wording or a marriage
+  since May. The key points now require a neutral clarifying question allowing both readings.
+  R-HH-001 is added as conditional (the engine returns `cannot_determine` on `relationship`;
+  the label had omitted it), HH-MARRY-001 is added to evidence, and major PC-X1 prohibits
+  settling either side or telling the user they are wrong.
+- **Rubric §2.6:** conflict labels never presume user error (generalises DEV-13).
+- **A-01 (snapshot assumption):** the 2026-10-28 snapshot is assumed to still apply on the
+  2026-11-01 `as_of`. Recorded in evaluation_benchmark §4 (with the date-sensitive
+  facts/rules), §9, D-063 (still PROPOSED) and `manifest.json` (`policy_snapshot_assumption`).
+  It is unverified until the G-15 drift check.
+- **QA gap noted:** `engine_crosscheck` does not flag engine `cannot_determine` rules missing
+  from `conditional_rule_ids`, which is how DEV-13's omission slipped through.
+
+## 2026-10-29: Undetermined-rule warning added; dev labels approved
+
+- **New QA warning:** `validate` now also lists rules the engine returns `cannot_determine` for
+  that the label omits entirely (`engine_undetermined_unlabelled`). It is report-only and
+  prints rule IDs only. Regression test added in `tests/test_benchmark.py`.
+- **Dev triage, 13 warnings in 10 cases:**
+  - 10 legitimate omissions: R-HH-006 in 9 cases (field never asked); R-APP-003/R-HFE-004
+    in DEV-04/13 (downstream of the missing `hfe_status`).
+  - 3 real omissions fixed: DEV-13 R-APP-002 as optional; DEV-14 R-HH-007 and R-PRI-002 as
+    conditional.
+  - Recorded in evaluation_benchmark §6.
+- **Dev labels approved:** all 18 dev labels are `approved` on the developer's instruction,
+  and the review sheet records the decisions. The triage fixes were applied immediately
+  before approval.
+- **Held-out labels:** still `candidate`. Developer review is pending, and the warning
+  applies there too via `validate --heldout` (developer only).
+
+## 2026-10-29: Held-out review sheet regeneration script
+
+- The developer reported that `evaluation/heldout/test_review_sheet.csv` had been truncated
+  to its header by a CSV-editing script. No generator existed in the repo, because the
+  original authoring script was deleted (it held the labels).
+- Added `scripts/regen_heldout_review_sheet.py` (stdlib only, **developer-run**, D-064):
+  - reads the labels, inputs and manifest read-only, and compares their SHA-256 before and
+    after the run;
+  - reuses the sheet's existing header exactly;
+  - writes atomically (temp file, fsync, `os.replace`);
+  - refuses to overwrite a non-empty sheet without `--force`;
+  - prints counts only.
+- Tested by the agent only on a mock tree built from dev data, never on `evaluation/heldout/`.
+  The output matched `dev_review_sheet.csv` cell for cell (20 columns, 0 mismatches).
+- Review entries already typed into the truncated sheet cannot be recovered from the labels.
+
+## 2026-10-29: Metric specification (D-066, PROPOSED)
+
+- The developer reports the held-out label review complete and approved (done privately; the
+  agent did not access `evaluation/heldout/`). They asked that the `undetermined-but-unlabelled`
+  warnings **not** become labels, since only question-relevant requirements are scored.
+- **Wrote `evaluation/metric_spec.md` from dev cases only:**
+  - **Primary metrics, judged blind on the visible answer** (architecture-neutral): critical
+    errors, required-information coverage (content key points), claim-level factual
+    correctness and unsupported rate, missing-information and conflict identification,
+    abstention and over-abstention, answer coverage, actionability.
+  - **Diagnostics:** rule triggering, citations, retrieval recall@k, verifier.
+  - **Failure, withheld-answer and rerun rules;** statistics.
+  - **Dev denominators:** 18 cases; 33 content and 11 interaction key points; 6 missing-field
+    instances; 3 conflicts; 3 abstention cases; 15 yes/partial cases; 9 yes cases; 52 gold
+    facts; 17 required-rule instances.
+- **Finding behind the coverage unit:** required-rule actions are broader than the question in
+  some cases (e.g. R-HH-001 marriage registration in DEV-15, which asks about applicant
+  roles). Key points are therefore the coverage unit; rule IDs move to diagnostic D1.
+- Cross-references updated: INDEX, 05 §4, the register (Q-14 to Q-17), evaluation_benchmark §8.
+- **Not done:** no freeze; no change to held-out files, labels or hashes.

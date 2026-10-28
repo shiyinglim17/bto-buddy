@@ -164,21 +164,21 @@ decisions. Page numbers are physical PDF pages.
 | REQ-EVL-011 | Same model, equivalent instructions, same cases, same labels and policy version | APPROVED | [APP p.3, 25]; D-003 | 05 §1 | eval_harness | Run metadata identical except config |
 | REQ-EVL-012 | C vs D reuse identical pre-verification outputs | APPROVED | D-003 | 05 §1 | eval_harness | D computed from saved C outputs |
 | REQ-EVL-013 | If constrained: A, C, D; document omission of B | APPROVED | [APP p.26]; D-003 | 05 §1 | README | Statement if B omitted |
-| REQ-EVL-014 | 48 fictional cases, 6 categories × 8 (total) | APPROVED | [APP p.15–16]; D-019 | 05 §3.1 | benchmark_dataset | Dataset counts |
-| REQ-EVL-015 | Dev/held-out split preserving categories; exact split proposed before creation | APPROVED (split PROPOSED 18/30) | [APP p.16]; D-019 | 05 §3.3 | benchmark_dataset | Approved split recorded; split file |
-| REQ-EVL-016 | Label protocol: rule inventory → templates → fictional profiles → manual outcomes → independent review → freeze | APPROVED | [APP p.16] | 05 §3.2 | benchmark_dataset | Label provenance notes |
-| REQ-EVL-017 | Policy-derived scenarios; no LLM-invented eligibility labels | APPROVED | [APP p.16] | 05 §3.2 | benchmark_dataset | Each label cites fact IDs |
-| REQ-EVL-018 | Second reviewer sample or disclosed author-validated source audit | APPROVED | [APP p.16] | 05 §3.2 | README | Disclosure statement |
-| REQ-EVL-019 | Freeze held-out; edits only for documented annotation errors | APPROVED | [APP p.16] | 05 §3.2 | benchmark_dataset | Hash of frozen set; change log |
-| REQ-EVL-020 | Reference label fields (rule IDs, missing fields, expected behaviour, prohibited conclusions, sources, answerable flag) | APPROVED | [APP p.24] | 05 §4.4 | benchmark_dataset | Schema-validated labels |
-| REQ-EVL-021 | Scoring rules (recall vs reference sets, claim-level unsupported rate, substantive citation support, rubric, abstention only where required) | APPROVED | [APP p.24] | 05 §4.4 | eval_harness | Scoring code mirrors rules |
-| REQ-EVL-022 | Safeguards (separate before optimisation; near-duplicates same side; verifier not sole truth; ambiguous labels reviewed; raw counts; disclose post-hoc changes) | APPROVED | [APP p.24–25]; BD-08 | 05 §4.5 | eval_harness, README | Checklist in results doc |
+| REQ-EVL-014 | 48 fictional cases, 6 categories × 8 (total) | APPROVED | [APP p.15–16]; D-019 | 05 §3.1 | benchmark_dataset | Dataset counts **Phase 3a:** 48 candidate cases, 6 × 8 (evaluation_benchmark §4). |
+| REQ-EVL-015 | Dev/held-out split preserving categories; exact split proposed before creation | APPROVED (split PROPOSED 18/30) | [APP p.16]; D-019 | 05 §3.3 | benchmark_dataset | Approved split recorded; split file **Phase 3a:** 18/30, 3/5 per category, group-aware (D-063 PROPOSED). |
+| REQ-EVL-016 | Label protocol: rule inventory → templates → fictional profiles → manual outcomes → independent review → freeze | APPROVED | [APP p.16] | 05 §3.2 | benchmark_dataset | Label provenance notes **Phase 3a:** rubric written before the cases; rule inventory = policy_rules.yaml. |
+| REQ-EVL-017 | Policy-derived scenarios; no LLM-invented eligibility labels | APPROVED | [APP p.16] | 05 §3.2 | benchmark_dataset | Each label cites fact IDs **Phase 3a:** labels cite verified facts and approved rules only; no model-generated labels. |
+| REQ-EVL-018 | Second reviewer sample or disclosed author-validated source audit | APPROVED | [APP p.16] | 05 §3.2 | README | Disclosure statement **Phase 3a:** developer review sheets; disclosed as author-validated. |
+| REQ-EVL-019 | Freeze held-out; edits only for documented annotation errors | APPROVED | [APP p.16] | 05 §3.2 | benchmark_dataset | Hash of frozen set; change log **Phase 3a:** SHA-256 commitment; frozen only after developer approval (D-064). |
+| REQ-EVL-020 | Reference label fields (rule IDs, missing fields, expected behaviour, prohibited conclusions, sources, answerable flag) | APPROVED | [APP p.24] | 05 §4.4 | benchmark_dataset | Schema-validated labels **Phase 3a:** `CaseLabel` schema in `evaluation/benchmark.py`. |
+| REQ-EVL-021 | Scoring rules (recall vs reference sets, claim-level unsupported rate, substantive citation support, rubric, abstention only where required) | APPROVED | [APP p.24] | 05 §4.4 | eval_harness | Scoring code mirrors rules **Phase 3a:** rubric §2.7 maps label fields to metrics; metric_spec.md still to write. |
+| REQ-EVL-022 | Safeguards (separate before optimisation; near-duplicates same side; verifier not sole truth; ambiguous labels reviewed; raw counts; disclose post-hoc changes) | APPROVED | [APP p.24–25]; BD-08 | 05 §4.5 | eval_harness, README | Checklist in results doc **Phase 3a:** families on one side, cross-split near-duplicate check, held-out labels sealed (D-064). |
 | REQ-EVL-023 | Critical/major/minor rubric; critical primary, major separate | APPROVED | [APP p.25]; D-004 | 05 §4.3 | eval_harness | Rubric in annotation guide |
 | REQ-EVL-024 | Primary metrics: critical-error rate, required-rule recall, missing-info recall, unsupported-claim rate, appropriate abstention | APPROVED | D-004 | 05 §4.1 | eval_harness | Results table |
 | REQ-EVL-025 | Supporting: citation precision, factual correctness, answer coverage, latency, cost | APPROVED (answer coverage definition OPEN) | D-004 | 05 §4.2 | eval_harness | Results table |
 | REQ-EVL-026 | Operational definitions with denominators frozen before evaluation | APPROVED | D-004 | 05 §4 | eval_harness | Frozen metric spec committed before held-out run |
 | REQ-EVL-027 | Retrieval recall@k on labelled queries | APPROVED (k, query set PROPOSED) | [APP p.20]; D-004 | 05 §5 | retrieval_qrels, eval_harness | Recall@k table |
-| REQ-EVL-028 | Independent verifier evaluation (precision/recall per class, false-alarm, false-approval, latency/cost) | APPROVED (set size PROPOSED 60) | [APP p.27]; D-004, D-020 | 05 §6 | verifier_claim_set, eval_harness | Verifier metrics table |
+| REQ-EVL-028 | Independent verifier evaluation (precision/recall per class, false-alarm, false-approval, latency/cost) | APPROVED (set size PROPOSED 60) | [APP p.27]; D-004, D-020 | 05 §6 | verifier_claim_set, eval_harness | Verifier metrics table **Phase 3a:** claim protocol D-065 (PROPOSED); template with 4 dev claims. |
 | REQ-EVL-029 | Runtime verifier never ground truth; offline labels independent | APPROVED | [APP p.25, 27] | 05 §2 | eval_harness | Label provenance |
 | REQ-EVL-030 | Raw counts + percentages; paired comparisons; bootstrap / exact McNemar as options | APPROVED (tests PROPOSED) | [APP p.27]; D-001 | 05 §7 | eval_harness | Stats in results |
 | REQ-EVL-031 | README: controlled benchmark, not population-level evidence | APPROVED | [APP p.27] | 05 §7 | README | Statement present |
@@ -290,10 +290,10 @@ decisions. Page numbers are physical PDF pages.
 | Q-11 | Is any experiment planned on the private corpus (affects REQ-DAT-013)? *Proposed: D-050* | 03 §2.2 | Phase 2 |
 | ~~Q-12~~ | ~~Coverage gate placement~~ → **resolved D-033** (after extraction, before rules/retrieval) | 04 §2 | Done |
 | Q-13 | Add a data-privacy criterion to the model scorecard? (C-17) | 04 §6.3 | Model selection |
-| Q-14 | Claim segmentation / "checkable claim" annotation guide | 05 §4.1 | Before eval |
-| Q-15 | Definition of "answer coverage" (C-16) | 05 §4.2 | Before eval |
-| Q-16 | Keep "human-review burden" as a supporting metric? (C-15) | 05 §4.2 | Before eval |
-| Q-17 | Who/what scores claim-level judgements: manual, validated LLM-as-judge, or hybrid? | 05 §4.4 | Before eval |
+| Q-14 | Claim segmentation / "checkable claim" annotation guide | 05 §4.1 | Before eval. PROPOSED answer: metric_spec §4.3 (D-066) |
+| Q-15 | Definition of "answer coverage" (C-16) | 05 §4.2 | Before eval. PROPOSED answer: metric_spec §4.6 (D-066) |
+| Q-16 | Keep "human-review burden" as a supporting metric? (C-15) | 05 §4.2 | Before eval. PROPOSED answer: metric_spec §6 (D-066) |
+| Q-17 | Who/what scores claim-level judgements: manual, validated LLM-as-judge, or hybrid? | 05 §4.4 | Before eval. PROPOSED answer: metric_spec §3 (D-066) |
 | ~~Q-18~~ | ~~Brief receipt date~~ → developer-set completion target 2026-10-29 07:00 (private notes, development log) | 06 §3 | Done |
 | Q-19 | Log redaction of organisation name: does redacting it in this Phase 0 session satisfy D-010, or escalate? | 06 §7 | Pre-submission |
 | Q-20 | Approve proposed benchmark split 18/30 (stratified, group-aware; K-fold not recommended) | 05 §3.3 | Before dataset creation |
