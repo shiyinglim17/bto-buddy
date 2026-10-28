@@ -87,7 +87,7 @@ prints `ok`.
 |---|---|---|
 | Red banner "No LLM API key is configured" at the top | `.env` not passed, empty, or edited after the container started | Check the key line in `.env`, stop the container (`Ctrl+C`) and run step 5 again with `--env-file .env` |
 | "No guidance could be produced" with an error mentioning 401 or an invalid key | The key is wrong or revoked | Create a new key in the Groq console and put it in `.env` |
-| "No guidance could be produced: rate_limit … 429" | Groq free-tier limit: 8K tokens/minute, **200K tokens/day** | Wait a minute (per-minute limit) or until the next day (daily limit). See §10 |
+| "No guidance could be produced: rate_limit … 429" | Groq free-tier limit: 8K tokens/minute, **200K tokens/day** | Wait a minute (per-minute limit) or until the next day (daily limit). See [Limitations](#10-limitations) |
 | `Bind for 0.0.0.0:8501 failed: port is already allocated` | Something else uses port 8501 | Use `-p 8502:8501` and open <http://localhost:8502> |
 | `Cannot connect to the Docker daemon` | Docker is not running | Start Docker Desktop and repeat step 1 |
 
@@ -142,8 +142,8 @@ only 5 of 18. All reported numbers come from the saved runs.
 
 **What cannot be reproduced from this repository:**
 - **Source capture and fact authoring.** `scripts/corpus.py` and `scripts/snapshots.py` need
-  my HDB snapshots, which I do not redistribute (§5). The pages can be recaptured by hand
-  (`docs/data_sources.md` §7), but they may have changed since 28 Oct 2026. The tracked
+  my HDB snapshots, which I do not redistribute (see [Data](#5-data-provenance-licensing-and-privacy)). The pages can be recaptured by hand
+  ([data sources: acquisition method](docs/data_sources.md#7-acquisition-method-and-completeness)), but they may have changed since 28 Oct 2026. The tracked
   `policy_facts.jsonl` is the reproducible starting point. Without snapshots, both scripts
   stop with a message and change nothing.
 - **Held-out metrics.** The labels are sealed and only their SHA-256 is tracked (D-064). The
@@ -177,14 +177,14 @@ evaluated **A, B and D**, but not C.
 | **Knowledge base:** 89 independently authored facts, each with source URL, section, retrieval date and validation status (53 `verified`, 36 `snapshot_checked`) | ✅ Built, frozen (`kb-2026-10-28.1`) | `data/policy_facts.jsonl`, `data/corpus/corpus_version.json` |
 | **Rule registry:** 24 declarative YAML rules, three-valued logic, no `eval` | ✅ Built and unit-tested · ❌ **not wired into answers** | `data/policy_rules.yaml`, `src/bto_buddy/policy.py`, `tests/test_rules.py` |
 | **A: direct LLM baseline** | ✅ Built, evaluated (dev + held-out) | `pipeline.run_direct` |
-| **B: BM25 retrieval + grounded generation**, citations restricted to retrieved facts | ✅ Built, evaluated (dev; held-out 7/30, see §8.2) | `retrieval.py`, `pipeline.run_rag` |
-| **C: LLM profile extraction → coverage gate → rules ∥ retrieval** | ❌ Designed, **not built** (D-069) | `docs/architecture.md` §3 |
+| **B: BM25 retrieval + grounded generation**, citations restricted to retrieved facts | ✅ Built, evaluated (dev; held-out 7/30, see [Held-out results](#82-held-out-set-30-cases-frozen-benchmark-run-once-on-2026-10-29)) | `retrieval.py`, `pipeline.run_rag` |
+| **C: LLM profile extraction → coverage gate → rules ∥ retrieval** | ❌ Designed, **not built** (D-069) | [Architecture: end-to-end design](docs/architecture.md#3-end-to-end-architecture) |
 | **D: claim verifier** (deterministic checks + one batched LLM judge), **applied to B, not C** | ✅ Built, evaluated (dev; held-out judge rate-limited) | `verification.py`, `pipeline.run_verified` (D-071) |
 | **Streamlit app:** A/B/D toggle, 3 demo presets, verified/unconfirmed/withheld display, source links | ✅ Built, tested in Docker | `src/bto_buddy/app.py` |
 | **Benchmark:** 48 synthetic cases (18 dev / 30 held-out), frozen | ✅ | `evaluation/benchmark/`, `docs/evaluation_benchmark.md` |
 | **Evaluation harness:** runner, blinded scoring sheet, diagnostics, automated metrics with paired statistics | ✅ | `evaluation/run.py`, `evaluation/metrics.py` |
 | **Blind human scoring** of the primary metrics (critical errors, coverage, actionability) | ❌ Not done | `evaluation/results/scoring/` holds the blinded, unscored answer sheet |
-| **Full held-out run** | ⚠️ A complete; B and D 7/30 (free-tier daily token cap) | §8.2 |
+| **Full held-out run** | ⚠️ A complete; B and D 7/30 (free-tier daily token cap) | [Held-out results](#82-held-out-set-30-cases-frozen-benchmark-run-once-on-2026-10-29) |
 
 ---
 
@@ -240,7 +240,7 @@ validating and quantifying it would need user testing.
 knowledge base, plus claim verification, reduce critical errors compared with the same
 model answering from its own knowledge? My original design also tested structured reasoning
 (profile extraction plus deterministic rules, configuration C). I built the rule engine but
-not C, so that part of the question is still open (§2).
+not C, so that part of the question is still open (see [Built vs designed](#2-at-a-glance-built-vs-designed)).
 
 **Scope (D-008):**
 
@@ -318,7 +318,7 @@ built configuration calls it.
 - **Retrieval:** BM25 with deterministic tokenisation, accent folding and a small reviewable
   synonym map. One fact is one passage. *Why not embeddings or a vector database:* the
   corpus is 89 short facts; BM25 is deterministic, explainable and needs no extra service
-  (D-031). The trade-off is low recall on colloquial questions (§8.1).
+  (D-031). The trade-off is low recall on colloquial questions (see [Development results](#81-development-set-18-paired-cases)).
 - **No agents or orchestration frameworks:** a fixed pipeline with at most 3 LLM calls is
   easier to test, cost and explain (D-030).
 
@@ -376,7 +376,7 @@ that the rule registry validates against the KB but does not influence answers (
   for final scoring (D-064). I reviewed and approved them; no model or agent read them, and
   only aggregate metrics were printed.
 - **Fidelity limits:** the cases are author-written, so they reflect my view of likely
-  misunderstandings, not measured real-world frequencies (§10).
+  misunderstandings, not measured real-world frequencies (see [Limitations](#10-limitations)).
 
 **Representativeness: what the data covers and doesn't.** Only first-timer couples (fiancé/
 fiancée or married) in the Core and Limited tiers. HDB policy as published on 28 Oct 2026,
@@ -466,7 +466,7 @@ flowchart LR
 
 ### 8.1 Development set (18 paired cases)
 
-Source: `evaluation/results/metrics_dev.json` (reproducible offline, §1.2). Full report:
+Source: `evaluation/results/metrics_dev.json` (reproducible offline; see [Offline vs live](#12-what-is-reproducible-offline-vs-live)). Full report:
 [evaluation/results/evaluation_report.md](evaluation/results/evaluation_report.md).
 
 | Metric | A | B | D |
@@ -684,7 +684,7 @@ re-verified; and every answer shows its "sources retrieved" date.
   loader released for final scoring; and it was required to flag failures rather than hide
   them, such as the model's threshold failure and the held-out quota failure.
 - **What the agent produced that I did not independently check:** the dev claim-level labels
-  (§8.1) and the first drafts of most code and documents.
+  (see [Development results](#81-development-set-18-paired-cases)) and the first drafts of most code and documents.
 - **Session logs:** all five sessions are in [`ai_logs/`](ai_logs/README.md), as readable
   transcripts (`session_NN.md`) and full redacted JSONL (`sessions/`). I redacted only
   secrets (none found), identifying local paths and e-mails, assessment identifiers, private
