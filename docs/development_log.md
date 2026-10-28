@@ -116,8 +116,11 @@ themselves live in [decisions.md](decisions.md). Requirement IDs are in
 | `git check-ignore` | `.env`, private corpus raw/processed, `references/private/*`, `.cache/`, `tmp/`, `*.log`, Streamlit secrets, `.venv`, tool caches, `.DS_Store` all ignored; `.env.example` trackable |
 
 **Noted:**
-- `scripts/capture_sources.py` would need **Playwright**, which is not in the D-036 dependency
-  list. It needs approval before Phase 2 capture, as a dev-only dependency.
+- **Playwright approved (D-042, option 2).** Added as the opt-in `capture` group (1.64.1);
+  `uv.lock` now has 54 packages. Verified:
+  - absent from the default `uv sync` env and the Docker (`--no-dev`) install set;
+  - Chromium headless shell 156 installed to the user cache, outside the repo;
+  - offline launch expanded a local `<details>` accordion. No external site was accessed.
 
 **Next:**
 1. Implement the pure core: `schemas.py` and `policy.py` (facts/rules loading, rule

@@ -134,7 +134,7 @@ decisions. Page numbers are physical PDF pages.
 | REQ-ARC-009 | Answers link to actual HDB webpages | APPROVED | [APP p.13] | 04 §4 | report_ui | Every supported claim shows a URL |
 | REQ-ARC-010 | BM25 only (+ aliases, topic filter, rule-linked facts); dense/hybrid/rerank only if dev recall@5 < 0.90 because of paraphrase | APPROVED | [APP p.17, 21]; D-031 | architecture §4.2 | retriever | Recall@k table; escalation decision only on the trigger |
 | REQ-ARC-011 | One generation model; no unnecessary orchestration | APPROVED | [APP p.21] | 04 §6.1 | generator | Config |
-| REQ-ARC-012 | Dependencies limited to pydantic, pyyaml, rank-bm25, openai (compatible client), streamlit; dev pytest/ruff/mypy/types-PyYAML; stdlib statistics | APPROVED | [APP p.21]; D-036 | architecture §11.1 | all | `pyproject.toml` / `uv.lock` match the list |
+| REQ-ARC-012 | Dependencies limited to pydantic, pyyaml, rank-bm25, openai (compatible client), streamlit; dev pytest/ruff/mypy/types-PyYAML; opt-in capture group playwright (scripts only); stdlib statistics | APPROVED | [APP p.21]; D-036, D-042 | architecture §11.1 | all | `pyproject.toml` / `uv.lock` match the list |
 | REQ-ARC-013 | Never assume missing applicant values | APPROVED | [APP p.19] | 04 §3 | profile_extractor | Missing-info benchmark category |
 | REQ-ARC-014 | Missing evidence ≠ requirement absent | APPROVED | [APP p.20] | 04 §3 | generator, verifier | Prohibited-conclusion labels |
 | REQ-ARC-015 | Linear 8-stage pipeline, ≤3 LLM calls; A–D from one pipeline; pure modules don't import the LLM client | APPROVED | D-030 | architecture §3, §11.2 | pipeline | Integration tests per config; import-boundary test |

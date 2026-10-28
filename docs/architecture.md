@@ -464,6 +464,7 @@ with whitelisted operators (`eq`, `ne`, `lt`, `gte`, `in`, `is_null`, `all`, `an
 | `pyyaml` | runtime | Rule registry format (D-022) | — |
 | `rank-bm25` | runtime | Standard BM25Okapi, pure Python | Vector DB / embeddings |
 | `openai` | runtime | **OpenAI-compatible client.** Groq, OpenRouter, Gemini's compatible endpoint, Together, Cerebras and Ollama all expose this API, so changing provider or model is configuration, not code. Gives timeouts and retries. Doesn't commit us to OpenAI as a provider | Several provider SDKs |
+| `playwright` | opt-in `capture` group (D-042) | Controlled capture of approved pages for `scripts/capture_sources.py`; never runtime or Docker | Manual saving of rendered pages |
 | `streamlit` | runtime (app) | Quick Python-native demo UI (Q-23) | FastAPI + frontend |
 | `pytest`, `ruff`, `mypy`, `types-PyYAML` | dev | Tests, lint, strict typing | — |
 

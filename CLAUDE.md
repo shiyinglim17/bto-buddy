@@ -104,7 +104,7 @@ and RAG baselines.
 - No autonomous agents, orchestration frameworks or vector DBs. Use one generation model.
 - Retrieval is BM25 + aliases + topic filter + rule-linked facts. Propose anything else only
   if dev recall@5 < 0.90 because of paraphrase (D-031).
-- **Dependencies are limited to D-036.** Anything else needs an approved decision.
+- **Dependencies are limited to D-036 + D-042** (Playwright, opt-in `capture` group, scripts only). Anything else needs an approved decision.
 - Infographics and videos are links in `data/visual_resources.json`, never runtime evidence.
 
 ## Engineering rules
@@ -212,6 +212,9 @@ caches out of the build context.
 
 - Add a dependency with `uv add <pkg>` (or `uv add --dev <pkg>`), with a justification comment
   in `pyproject.toml`. Never hand-edit `uv.lock`.
+- Source capture tooling (opt-in, D-042): `uv sync --group capture`, then
+  `uv run --group capture playwright install chromium` (once per machine). Run capture only
+  with an approved page list.
 - Evaluation commands: add them here only after they have been verified.
 
 **Secret scan before a push** (until a dedicated tool is approved):

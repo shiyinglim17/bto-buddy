@@ -23,6 +23,11 @@ dev = [
     "ruff>=0.6",
     "mypy>=1.10",
 ]
+# Opt-in only (`--group capture`): controlled browser capture of approved HDB pages for
+# scripts/capture_sources.py (D-042, REQ-SRC-006). Never installed by default or in Docker.
+capture = [
+    "playwright>=1.48,<2",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]
