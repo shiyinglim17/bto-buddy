@@ -1,0 +1,40 @@
+# --- Private / restricted material (never commit) ---
+# Original assessment brief, project-approach PDF and private submission notes.
+references/private/
+# HDB HTML snapshots, extracted source-derived passages and any index built from them.
+# Redistribution permission has not been established (see docs/project_context/03_data_and_licensing.md).
+data/private_corpus/
+
+# --- Secrets and credentials ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+credentials*.json
+service-account*.json
+
+# --- Local environments ---
+.venv/
+venv/
+env/
+.python-version
+
+# --- Python caches and build artefacts ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# --- Editor / OS ---
+.DS_Store
+.vscode/
+.idea/
