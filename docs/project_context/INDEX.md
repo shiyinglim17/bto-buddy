@@ -49,8 +49,9 @@ APPROVED** (D-054 and D-058 as revised).
 output, and the pre-registered acceptance thresholds were not met in direct generation).
 Configuration A (direct LLM) is built: `llm.py`, `generation.py`, `pipeline.py`,
 `prompts/generate_v1.md`, `evaluation/run.py`; dev run `20261028T203350Z-A-dev`. Contract
-additions are D-068 (PROPOSED). Retrieval, rules in the pipeline, and configurations B–D are
-not built yet.
+additions are D-068 (PROPOSED). **Config B (BM25 RAG) is built (D-069, D-070); C and D are
+deferred.** The README holds the results and limitations; the dev runs are A
+`20261028T203350Z-A-dev` and B `20261028T205255Z-B-dev`.
 
 ## Files
 

@@ -70,5 +70,77 @@
  "ANS-c83373da": {
   "run_id": "20261028T203350Z-A-dev",
   "case_id": "DEV-18"
+ },
+ "ANS-4574ea97": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-01"
+ },
+ "ANS-b23c9349": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-02"
+ },
+ "ANS-42ff9186": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-03"
+ },
+ "ANS-25b216c8": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-04"
+ },
+ "ANS-6c71e188": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-05"
+ },
+ "ANS-e9dce30e": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-06"
+ },
+ "ANS-dfb35f1f": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-07"
+ },
+ "ANS-a8b6f2ab": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-08"
+ },
+ "ANS-3b2cadfc": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-09"
+ },
+ "ANS-e09f3cb4": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-10"
+ },
+ "ANS-80328ec1": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-11"
+ },
+ "ANS-2252c0de": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-12"
+ },
+ "ANS-4154597f": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-13"
+ },
+ "ANS-5cd409a2": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-14"
+ },
+ "ANS-eb7f0575": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-15"
+ },
+ "ANS-f0a5501a": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-16"
+ },
+ "ANS-95cd7365": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-17"
+ },
+ "ANS-ea4e3086": {
+  "run_id": "20261028T205255Z-B-dev",
+  "case_id": "DEV-18"
  }
 }

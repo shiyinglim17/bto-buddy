@@ -262,6 +262,27 @@ class CoverageDecision(_Frozen):
     out_of_scope_reasons: list[OutOfScopeReason]
 
 
+class Evidence(_Frozen):
+    """One retrieved fact, with the official source it maps to (manifest-resolved)."""
+
+    fact_id: str
+    statement: str
+    exceptions: list[str]
+    source_url: HttpUrl
+    section: str
+    origin: Literal["rule", "bm25"]
+    bm25_score: float | None = None
+    rank: int | None = None
+
+
+class EvidenceBundle(_Frozen):
+    items: list[Evidence]
+    query: str
+    k: int
+    kb_version: str
+    evidence_gaps: list[EvidenceGap]
+
+
 class GeneratedClaim(_Frozen):
     claim_id: str
     text: str = Field(min_length=1)

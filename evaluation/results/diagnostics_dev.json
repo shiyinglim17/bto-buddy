@@ -1,0 +1,301 @@
+{
+ "note": "Automated structural diagnostics on dev runs. NOT the primary metrics (those are the\ndeveloper's blind judgements, metric_spec \u00a73-4): these count what the structured output\ncontains, never whether the content is correct.",
+ "runs": {
+  "20261028T203350Z-A-dev": {
+   "n": 18,
+   "failed": 0,
+   "retried": 0,
+   "missing_fields_listed": "2/6",
+   "conflicts_flagged": "0/3",
+   "out_of_scope_flagged": "3/3",
+   "whole_answer_out_of_scope_on_answerable": "0/9",
+   "policy_claims": 34,
+   "policy_claims_with_official_source": 0,
+   "cited_fact_ids_in_case_gold": "0/0",
+   "distinct_facts_cited": 0,
+   "latency_ms_median": 4332,
+   "cost_usd_total": 0.00954,
+   "tokens_in_mean": 1707,
+   "tokens_out_mean": 457
+  },
+  "20261028T205255Z-B-dev": {
+   "n": 18,
+   "failed": 1,
+   "retried": 1,
+   "missing_fields_listed": "3/6",
+   "conflicts_flagged": "0/3",
+   "out_of_scope_flagged": "3/3",
+   "whole_answer_out_of_scope_on_answerable": "0/9",
+   "policy_claims": 35,
+   "policy_claims_with_official_source": 33,
+   "cited_fact_ids_in_case_gold": "19/50",
+   "distinct_facts_cited": 18,
+   "latency_ms_median": 15699,
+   "cost_usd_total": 0.01272,
+   "tokens_in_mean": 2649,
+   "tokens_out_mean": 516
+  }
+ },
+ "retrieval": {
+  "kb_version": "kb-2026-10-28.1",
+  "query": "question + situation",
+  "@3": {
+   "hits": 12,
+   "gold": 52,
+   "recall": 0.231,
+   "ceiling_normalised": 0.3,
+   "misses": {
+    "DEV-01": [
+     "APP-HFE-001",
+     "HFE-APPLY-001",
+     "HFE-SINGPASS-001",
+     "HFE-STEPS-001",
+     "HFE-TIME-001",
+     "HH-COUPLE-001",
+     "HH-MARRY-001"
+    ],
+    "DEV-02": [
+     "APP-BALLOT-001",
+     "APP-CHANGE-001",
+     "APP-CHANGE-002",
+     "APP-CHANGE-003",
+     "APP-FEE-001",
+     "HFE-HOUSEHOLD-001",
+     "HFE-HOUSEHOLD-002",
+     "HFE-VALID-001"
+    ],
+    "DEV-04": [
+     "APP-HFE-001",
+     "HH-AGE-001",
+     "HH-AGE-002",
+     "HH-COUPLE-001"
+    ],
+    "DEV-05": [
+     "HH-COUPLE-002"
+    ],
+    "DEV-06": [
+     "HH-PROP-001"
+    ],
+    "DEV-07": [
+     "HH-AGE-001",
+     "HH-AGE-002"
+    ],
+    "DEV-08": [
+     "HH-AGE-001"
+    ],
+    "DEV-09": [
+     "HFE-STEPS-002"
+    ],
+    "DEV-10": [
+     "APP-HFE-001",
+     "HFE-RENEW-001",
+     "HFE-VALID-001"
+    ],
+    "DEV-11": [
+     "HH-COUPLE-001"
+    ],
+    "DEV-13": [
+     "APP-HFE-001",
+     "HH-COUPLE-001",
+     "HH-COUPLE-002",
+     "HH-MARRY-001"
+    ],
+    "DEV-14": [
+     "HH-SUBSIDY-001",
+     "PRI-FT-001"
+    ],
+    "DEV-15": [
+     "HH-AGE-001",
+     "HH-AGE-002"
+    ],
+    "DEV-16": [
+     "CTX-HFE-001"
+    ],
+    "DEV-17": [
+     "PRI-GEN-001"
+    ],
+    "DEV-18": [
+     "HH-OTHER-001"
+    ]
+   }
+  },
+  "@5": {
+   "hits": 17,
+   "gold": 52,
+   "recall": 0.327,
+   "ceiling_normalised": 0.362,
+   "misses": {
+    "DEV-01": [
+     "APP-HFE-001",
+     "HFE-APPLY-001",
+     "HFE-SINGPASS-001",
+     "HFE-STEPS-001",
+     "HFE-TIME-001",
+     "HH-COUPLE-001",
+     "HH-MARRY-001"
+    ],
+    "DEV-02": [
+     "APP-BALLOT-001",
+     "APP-CHANGE-001",
+     "APP-CHANGE-002",
+     "APP-CHANGE-003",
+     "APP-FEE-001",
+     "HFE-HOUSEHOLD-001",
+     "HFE-HOUSEHOLD-002",
+     "HFE-VALID-001"
+    ],
+    "DEV-04": [
+     "APP-HFE-001",
+     "HH-AGE-001",
+     "HH-AGE-002",
+     "HH-COUPLE-001"
+    ],
+    "DEV-05": [
+     "HH-COUPLE-002"
+    ],
+    "DEV-07": [
+     "HH-AGE-001",
+     "HH-AGE-002"
+    ],
+    "DEV-09": [
+     "HFE-STEPS-002"
+    ],
+    "DEV-10": [
+     "APP-HFE-001",
+     "HFE-RENEW-001",
+     "HFE-VALID-001"
+    ],
+    "DEV-11": [
+     "HH-COUPLE-001"
+    ],
+    "DEV-13": [
+     "APP-HFE-001",
+     "HH-COUPLE-001",
+     "HH-MARRY-001"
+    ],
+    "DEV-14": [
+     "HH-SUBSIDY-001",
+     "PRI-FT-001"
+    ],
+    "DEV-15": [
+     "HH-AGE-001",
+     "HH-AGE-002"
+    ],
+    "DEV-18": [
+     "HH-OTHER-001"
+    ]
+   }
+  },
+  "@8": {
+   "hits": 22,
+   "gold": 52,
+   "recall": 0.423,
+   "ceiling_normalised": 0.423,
+   "misses": {
+    "DEV-01": [
+     "APP-HFE-001",
+     "HFE-APPLY-001",
+     "HFE-SINGPASS-001",
+     "HFE-STEPS-001",
+     "HFE-TIME-001",
+     "HH-COUPLE-001",
+     "HH-MARRY-001"
+    ],
+    "DEV-02": [
+     "APP-BALLOT-001",
+     "APP-CHANGE-001",
+     "APP-CHANGE-002",
+     "APP-CHANGE-003",
+     "APP-FEE-001",
+     "HFE-HOUSEHOLD-001",
+     "HFE-HOUSEHOLD-002",
+     "HFE-VALID-001"
+    ],
+    "DEV-04": [
+     "APP-HFE-001",
+     "HH-AGE-001",
+     "HH-AGE-002"
+    ],
+    "DEV-05": [
+     "HH-COUPLE-002"
+    ],
+    "DEV-07": [
+     "HH-AGE-001",
+     "HH-AGE-002"
+    ],
+    "DEV-10": [
+     "HFE-RENEW-001"
+    ],
+    "DEV-11": [
+     "HH-COUPLE-001"
+    ],
+    "DEV-13": [
+     "APP-HFE-001",
+     "HH-COUPLE-001",
+     "HH-MARRY-001"
+    ],
+    "DEV-14": [
+     "HH-SUBSIDY-001",
+     "PRI-FT-001"
+    ],
+    "DEV-15": [
+     "HH-AGE-001"
+    ],
+    "DEV-18": [
+     "HH-OTHER-001"
+    ]
+   }
+  },
+  "@12": {
+   "hits": 27,
+   "gold": 52,
+   "recall": 0.519,
+   "ceiling_normalised": 0.519,
+   "misses": {
+    "DEV-01": [
+     "APP-HFE-001",
+     "HFE-APPLY-001",
+     "HFE-SINGPASS-001",
+     "HFE-STEPS-001",
+     "HFE-TIME-001",
+     "HH-COUPLE-001",
+     "HH-MARRY-001"
+    ],
+    "DEV-02": [
+     "APP-BALLOT-001",
+     "APP-CHANGE-001",
+     "APP-CHANGE-003",
+     "APP-FEE-001",
+     "HFE-HOUSEHOLD-001",
+     "HFE-HOUSEHOLD-002",
+     "HFE-VALID-001"
+    ],
+    "DEV-04": [
+     "APP-HFE-001",
+     "HH-AGE-001",
+     "HH-AGE-002"
+    ],
+    "DEV-07": [
+     "HH-AGE-001"
+    ],
+    "DEV-10": [
+     "HFE-RENEW-001"
+    ],
+    "DEV-11": [
+     "HH-COUPLE-001"
+    ],
+    "DEV-13": [
+     "APP-HFE-001",
+     "HH-COUPLE-001",
+     "HH-MARRY-001"
+    ],
+    "DEV-15": [
+     "HH-AGE-001"
+    ],
+    "DEV-18": [
+     "HH-OTHER-001"
+    ]
+   }
+  }
+ }
+}

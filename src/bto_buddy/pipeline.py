@@ -10,15 +10,19 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Literal
 
+from bto_buddy import policy, retrieval
 from bto_buddy.generation import GENERATE_PROMPT, NO_EVIDENCE, GenerationResult, generate
 from bto_buddy.llm import LLMClient, estimate_cost_usd
 from bto_buddy.schemas import (
     CoverageDecision,
     DisplayedClaim,
+    EvidenceBundle,
+    EvidenceGap,
     FinalGuidance,
     GenerationOutput,
     RunMetadata,
     UserRequest,
+    VisualResource,
 )
 
 ConfigId = Literal["A", "B", "C", "D"]
@@ -37,9 +41,84 @@ FAILURE_SUMMARY = (
 
 
 def run(request: UserRequest, config_id: ConfigId, client: LLMClient) -> FinalGuidance:
-    if config_id != "A":
-        raise NotImplementedError(f"configuration {config_id} is not built yet")
-    return run_direct(request, client)
+    if config_id == "A":
+        return run_direct(request, client)
+    if config_id == "B":
+        return run_rag(request, client)
+    raise NotImplementedError(f"configuration {config_id} is not built (D-069)")
+
+
+_INDEX: retrieval.Index | None = None
+
+
+def get_index() -> retrieval.Index:
+    """Built once per process from the tracked KB; deterministic."""
+    global _INDEX
+    if _INDEX is None:
+        _INDEX = retrieval.build_index(policy.load_kb())
+    return _INDEX
+
+
+def run_rag(request: UserRequest, client: LLMClient, k: int = retrieval.DEFAULT_K) -> FinalGuidance:
+    """Configuration B: BM25 over the authored KB (question + situation), the retrieved facts
+    in the shared prompt's evidence slot, citations restricted to the bundle."""
+    started = datetime.now(UTC)
+    index = get_index()
+    bundle = retrieval.retrieve(index, f"{request.question} {request.situation_text}", k)
+    allowed = frozenset(e.fact_id for e in bundle.items)
+    result = generate(
+        request, client, evidence=retrieval.evidence_block(bundle), allowed_fact_ids=allowed
+    )
+    out = result.output or GenerationOutput(summary=FAILURE_SUMMARY, claims=[])
+    by_id = {e.fact_id: e for e in bundle.items}
+    claims = [
+        DisplayedClaim(
+            claim=c,
+            verification=None,
+            sources=sorted({by_id[f].source_url for f in c.cited_fact_ids}, key=str),
+        )
+        for c in out.claims
+    ]
+    return FinalGuidance(
+        request_id=request.request_id,
+        coverage=_coverage_from_model(out),
+        summary=out.summary,
+        claims=claims,
+        preparation_steps=[],
+        missing_profile_fields=out.missing_profile_fields,
+        profile_conflicts=out.profile_conflicts,
+        evidence_gaps=[*bundle.evidence_gaps, *_uncited_gaps(out, bundle)],
+        out_of_scope_reasons=out.out_of_scope_reasons,
+        visual_resources=visual_resources_for(request),
+        policy_period=f"Sources retrieved 2026-10-28 ({bundle.kb_version})",
+        disclaimer=DISCLAIMER,
+        run=_metadata("B", client, result, started, kb_version=bundle.kb_version),
+    )
+
+
+def _uncited_gaps(out: GenerationOutput, bundle: EvidenceBundle) -> list[EvidenceGap]:
+    """A policy claim with no citation is not shown as established (REQ-ARC-014). This is a
+    report rule, not verification: it never judges whether a cited fact supports the claim."""
+    return [
+        EvidenceGap(
+            topic=None,
+            claim_id=c.claim_id,
+            kind="claim_uncited",
+            detail=f"Not confirmed by our sources: {c.text}",
+            official_source_url="https://www.hdb.gov.sg",
+        )
+        for c in out.claims
+        if c.kind == "policy_fact" and not c.cited_fact_ids
+    ]
+
+
+# Learning resources (links only, never evidence). Shown when the question mentions the HFE;
+# a keyword match keeps this deterministic until C's topic tags exist.
+def visual_resources_for(request: UserRequest) -> list[VisualResource]:
+    text = f"{request.question} {request.situation_text}".lower()
+    if "hfe" not in text and "eligibility letter" not in text:
+        return []
+    return [v for v in policy.load_visual_resources() if v.kind in ("infographic", "video")]
 
 
 def run_direct(request: UserRequest, client: LLMClient) -> FinalGuidance:
@@ -61,7 +140,7 @@ def run_direct(request: UserRequest, client: LLMClient) -> FinalGuidance:
         profile_conflicts=out.profile_conflicts,
         evidence_gaps=[],
         out_of_scope_reasons=out.out_of_scope_reasons,
-        visual_resources=[],
+        visual_resources=visual_resources_for(request),  # display-only links
         policy_period=POLICY_PERIOD_A,
         disclaimer=DISCLAIMER,
         run=_metadata("A", client, result, started),
@@ -82,7 +161,11 @@ def _coverage_from_model(out: GenerationOutput) -> CoverageDecision:
 
 
 def _metadata(
-    config_id: ConfigId, client: LLMClient, result: GenerationResult, started: datetime
+    config_id: ConfigId,
+    client: LLMClient,
+    result: GenerationResult,
+    started: datetime,
+    kb_version: str | None = None,
 ) -> RunMetadata:
     a = result.attempts
     tokens_in = sum(x.input_tokens for x in a)
@@ -93,7 +176,7 @@ def _metadata(
         prompt_versions={"generate": GENERATE_PROMPT},
         temperature=client.temperature,
         reasoning_effort=client.reasoning_effort,
-        kb_version=None,
+        kb_version=kb_version,
         rules_version=None,
         started_at=started,
         llm_calls=len(a),

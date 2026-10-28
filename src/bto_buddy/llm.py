@@ -24,7 +24,10 @@ DEFAULT_BASE_URL = "https://api.groq.com/openai/v1"
 DEFAULT_MODEL = "openai/gpt-oss-120b"
 TEMPERATURE = 0.0
 REASONING_EFFORT = "low"
-MAX_COMPLETION_TOKENS = 6000
+# 4096 (was 6000 in the saved dev runs): Groq counts this cap towards the 8K tokens-per-minute
+# limit, so 6000 + a ~2.6K-token B prompt was rejected with HTTP 413 (DEV-12). Observed
+# outputs never exceeded ~1.1K tokens.
+MAX_COMPLETION_TOKENS = 4096
 TIMEOUT_S = 60.0  # per HTTP attempt; Groq answered in ~2 s in model selection
 # SDK retries (429 and 5xx, honouring retry-after): the 8K tokens-per-minute plan limit makes
 # 429s routine during evaluation runs, and a throttled call is not a model failure.

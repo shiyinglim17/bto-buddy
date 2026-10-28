@@ -570,3 +570,60 @@ sections (S01, S02, S05; authored summaries only) and applied the agreed edits t
     HTTP 503.
   - **Groq's 8K tokens-per-minute limit** throttles runs but caused no failures.
 - **Q-13 / C-17:** privacy was handled qualitatively in model selection (register updated).
+
+## 2026-10-29: Configuration B, app, Docker and README (D-069 approved, D-070)
+
+**Retrieval** (`retrieval.py`)
+- BM25 over 89 usable facts, with one fact as one passage.
+- Dev recall at k = 3 / 5 / 8 / 12: 0.23 / 0.33 / 0.42 / 0.52 (52 gold facts). 9/18 cases
+  miss at least one gold fact at k = 12.
+- Query variants tried: question only, and no synonyms. Neither helped materially.
+- D-031's trigger for an alternative retrieval method is met, but there was no time to act
+  on it. Disclosed.
+
+**Configuration B** (`pipeline.run_rag`)
+- Evidence goes into the shared prompt's slot. Citations are restricted to the bundle and
+  mapped to official URLs. An uncited policy claim becomes an `evidence_gap`.
+
+**Dev run `20261028T205255Z-B-dev`**
+- 17/18 ok. DEV-12 failed with HTTP 413: `max_completion_tokens` 6000 plus the prompt went
+  over the 8K tokens-per-minute limit, so the cap is now 4096 (D-070). DEV-09 needed one
+  retry.
+- 33/35 policy claims have an official source.
+- Missing fields 3/6, conflicts 0/3, out-of-scope 3/3.
+- Median latency 15.7 s (includes rate-limit waits). Cost US$0.0127.
+- **Observations, not scores:**
+  - B correctly gives the 9-month validity and the core-occupier route;
+  - B over-generalises an FT(PMC) "unconfirmed" note into "eligibility for engaged couples is
+    unconfirmed" (DEV-07, DEV-10, DEV-13);
+  - neither A nor B flags conflicts.
+- Combined blinded sheet: `evaluation/results/scoring/sheet-c286058da9/`. The A-only sheet
+  was replaced.
+- Diagnostics: `evaluation/results/diagnostics_dev.json` (`evaluation.run diagnostics`).
+
+**App** (`app.py`)
+- Live pipeline with an A/B toggle and three presets (dev cases DEV-01, DEV-04, DEV-10) that
+  only fill the inputs.
+- Signals are shown in separate sections. Source links per claim. Learning resources as
+  links. A clear message when the API key is missing.
+- New smoke test for that message.
+
+**Docker**
+- The image builds, the health check returns 200, a live B inference ran inside the
+  container (9-month validity, citing `HFE-VALID-001`), the missing-key error is correct,
+  and there is no `private_corpus` in the image.
+- Rebuilt after the token-cap change.
+
+**README**
+- Full rewrite: run instructions, scope, what is and isn't built, architecture, data and
+  licensing, model selection, evaluation design, dev diagnostics, error analysis,
+  limitations, a 211-word deployment section, narrative and AI usage.
+
+**Checks:** 129 tests pass; ruff, format, strict mypy and `uv lock --check` are clean.
+
+**Still open:**
+1. developer blind scoring (no primary metrics yet);
+2. demo video link;
+3. AI session log export to `ai_logs/` with redactions;
+4. final rights clearance and the G-15 drift check;
+5. benchmark freeze, held-out run, and configurations C and D (deferred).

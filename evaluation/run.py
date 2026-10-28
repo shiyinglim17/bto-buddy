@@ -3,6 +3,7 @@
   uv run python -m evaluation.run run --config A --split dev [--cases DEV-01,DEV-02]
   uv run python -m evaluation.run check <run_id>          # completeness + contract + label join
   uv run python -m evaluation.run sheet <run_id> [...]     # blinded scoring sheet (metric_spec §3)
+  uv run python -m evaluation.run diagnostics <run_id> [...]  # structural diagnostics + retrieval
 
 The generation process sees `CaseInput` only (as_of, situation_text, question); labels are
 loaded only by `check` and `sheet`, after generation, and only for dev. The held-out split
@@ -22,9 +23,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from bto_buddy import llm
+from bto_buddy import llm, pipeline
 from bto_buddy.generation import GENERATE_PROMPT, SCHEMA_NAME, load_prompt, strict_json_schema
-from bto_buddy.pipeline import ConfigId, render_answer, run_direct
+from bto_buddy.pipeline import ConfigId, render_answer
 from bto_buddy.schemas import FinalGuidance, GenerationOutput, UserRequest
 from evaluation.benchmark import CaseInput, load_dev, load_test_inputs
 
@@ -57,8 +58,8 @@ def _git_commit() -> str | None:
 
 
 def run(config: ConfigId, split: str, case_ids: list[str] | None, final: bool) -> Path:
-    if config != "A":
-        raise SystemExit(f"configuration {config} is not built yet")
+    if config not in ("A", "B"):
+        raise SystemExit(f"configuration {config} is not built (D-069)")
     if split == "test" and not final:
         raise SystemExit("the held-out split runs only in the final evaluation (--final)")
     cases = [i for i, _ in load_dev()] if split == "dev" else load_test_inputs()
@@ -92,7 +93,8 @@ def run(config: ConfigId, split: str, case_ids: list[str] | None, final: bool) -
             json.dumps(strict_json_schema(GenerationOutput), sort_keys=True).encode()
         ).hexdigest(),
         "prices_usd_per_m": llm.PRICES.get(client.model_id),
-        "kb_version": None,
+        "kb_version": pipeline.get_index().kb_version if config == "B" else None,
+        "retrieval_k": pipeline.retrieval.DEFAULT_K if config == "B" else None,
         "rules_version": None,
         "git_commit": _git_commit(),
         "started_at": datetime.now(UTC).isoformat(),
@@ -100,7 +102,7 @@ def run(config: ConfigId, split: str, case_ids: list[str] | None, final: bool) -
     n_failed = 0
     with (out_dir / "predictions.jsonl").open("w") as f:
         for case in cases:
-            g, attempts = _run_case(case, client)
+            g, attempts = _run_case(case, client, config)
             n_failed += g.run.status == "failed"
             row = {
                 "case_id": case.case_id,
@@ -125,10 +127,12 @@ def run(config: ConfigId, split: str, case_ids: list[str] | None, final: bool) -
     return out_dir
 
 
-def _run_case(case: CaseInput, client: llm.LLMClient) -> tuple[FinalGuidance, list[dict[str, Any]]]:
+def _run_case(
+    case: CaseInput, client: llm.LLMClient, config: ConfigId
+) -> tuple[FinalGuidance, list[dict[str, Any]]]:
     """Wrap the client so every attempt's raw response is kept alongside the prediction."""
     recorder = _RecordingClient(client)
-    g = run_direct(to_request(case), recorder)
+    g = pipeline.run(to_request(case), config, recorder)
     return g, recorder.records
 
 
@@ -222,6 +226,99 @@ def sheet(run_ids: list[str]) -> Path:
     return out_dir
 
 
+def retrieval_recall(ks: tuple[int, ...] = (3, 5, 8, 12)) -> dict[str, Any]:
+    """Diagnostic D3 on dev: gold = label evidence_fact_ids; query = question + situation (as
+    in B). Micro recall, plus recall normalised by min(k, |gold|) because several cases have
+    more gold facts than k."""
+    from bto_buddy import retrieval
+
+    index = pipeline.get_index()
+    out: dict[str, Any] = {"kb_version": index.kb_version, "query": "question + situation"}
+    for k in ks:
+        hit = tot = ceil = 0
+        misses: dict[str, list[str]] = {}
+        for inp, lab in load_dev():
+            gold = set(lab.evidence_fact_ids)
+            if not gold:
+                continue
+            got = {
+                f.fact_id
+                for f, _ in retrieval.search(index, f"{inp.question} {inp.situation_text}", k)
+            }
+            hit += len(gold & got)
+            tot += len(gold)
+            ceil += min(k, len(gold))
+            if gold - got:
+                misses[inp.case_id] = sorted(gold - got)
+        out[f"@{k}"] = {
+            "hits": hit,
+            "gold": tot,
+            "recall": round(hit / tot, 3),
+            "ceiling_normalised": round(hit / ceil, 3),
+            "misses": misses,
+        }
+    return out
+
+
+def diagnostics(run_ids: list[str]) -> dict[str, Any]:
+    """Automated structural diagnostics on dev runs. NOT the primary metrics (those are the
+    developer's blind judgements, metric_spec §3-4): these count what the structured output
+    contains, never whether the content is correct."""
+    labels = {lab.case_id: lab for _, lab in load_dev()}
+    report: dict[str, Any] = {"note": diagnostics.__doc__, "runs": {}}
+    for run_id in run_ids:
+        preds = load_predictions(run_id)
+        r: dict[str, Any] = {"n": len(preds)}
+        g = [p["final_guidance"] for p in preds]
+        lab = [labels[p["case_id"]] for p in preds]
+        r["failed"] = sum(x["run"]["status"] == "failed" for x in g)
+        r["retried"] = sum(x["run"]["llm_calls"] > 1 for x in g)
+        pairs = list(zip(g, lab, strict=True))
+        req = [(f, x) for x, lb in pairs for f in lb.required_missing_fields]
+        listed = sum(f in {m["field"] for m in x["missing_profile_fields"]} for f, x in req)
+        r["missing_fields_listed"] = f"{listed}/{len(req)}"
+        conf = [(c, x) for x, lb in pairs for c in lb.expected_conflicts]
+        flagged = sum(
+            bool(set(c.fields) & {f for pc in x["profile_conflicts"] for f in pc["fields"]})
+            for c, x in conf
+        )
+        r["conflicts_flagged"] = f"{flagged}/{len(conf)}"
+        no = [x for x, lb in pairs if lb.answerable == "no"]
+        r["out_of_scope_flagged"] = f"{sum(bool(x['out_of_scope_reasons']) for x in no)}/{len(no)}"
+        yes = [x for x, lb in pairs if lb.answerable == "yes"]
+        whole = sum(x["coverage"]["status"] == "out_of_scope" for x in yes)
+        r["whole_answer_out_of_scope_on_answerable"] = f"{whole}/{len(yes)}"
+        pol = [c for x in g for c in x["claims"] if c["claim"]["kind"] == "policy_fact"]
+        r["policy_claims"] = len(pol)
+        r["policy_claims_with_official_source"] = sum(bool(c["sources"]) for c in pol)
+        cited = {f for c in pol for f in c["claim"]["cited_fact_ids"]}
+        n_cites = n_gold = 0
+        for x, lb in pairs:
+            for c in x["claims"]:
+                n_cites += len(c["claim"]["cited_fact_ids"])
+                n_gold += len(set(c["claim"]["cited_fact_ids"]) & set(lb.evidence_fact_ids))
+        r["cited_fact_ids_in_case_gold"] = f"{n_gold}/{n_cites}"
+        r["distinct_facts_cited"] = len(cited)
+        lat = sorted(x["run"]["latency_ms"] for x in g)
+        r["latency_ms_median"] = lat[len(lat) // 2]
+        r["cost_usd_total"] = round(sum(x["run"]["estimated_cost_usd"] or 0 for x in g), 5)
+        r["tokens_in_mean"] = round(sum(x["run"]["input_tokens"] for x in g) / len(g))
+        r["tokens_out_mean"] = round(sum(x["run"]["output_tokens"] for x in g) / len(g))
+        report["runs"][run_id] = r
+    report["retrieval"] = retrieval_recall()
+    out = RESULTS / "diagnostics_dev.json"
+    out.write_text(json.dumps(report, indent=1))
+    print(json.dumps({k: v for k, v in report["runs"].items()}, indent=1))
+    print(
+        {
+            k: {kk: vv for kk, vv in v.items() if kk != "misses"}
+            for k, v in report["retrieval"].items()
+            if k.startswith("@")
+        }
+    )
+    return report
+
+
 def main() -> None:
     args = sys.argv[1:]
     if args[:1] == ["run"]:
@@ -231,6 +328,8 @@ def main() -> None:
         run(config, split, cases, "--final" in args)  # type: ignore[arg-type]
     elif args[:1] == ["check"] and len(args) == 2:
         sys.exit(0 if check(args[1])["ok"] else 1)
+    elif args[:1] == ["diagnostics"] and len(args) >= 2:
+        diagnostics(args[1:])
     elif args[:1] == ["sheet"] and len(args) >= 2:
         sheet(args[1:])
     else:

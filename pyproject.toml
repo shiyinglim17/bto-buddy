@@ -17,6 +17,8 @@ dependencies = [
     "pydantic>=2.7,<3",
     # Declarative rule registry data/policy_rules.yaml, read with safe_load only (D-036, D-038).
     "pyyaml>=6,<7",
+    # BM25Okapi for lexical retrieval over the authored KB (D-031, D-036). Small, uses numpy.
+    "rank-bm25>=0.2.2,<0.3",
     # Demo UI; Python-native, single entry point (D-036). Not production hosting (D-026).
     "streamlit>=1.40,<2",
 ]
@@ -60,3 +62,8 @@ strict = true
 mypy_path = "src"
 packages = ["bto_buddy"]
 plugins = ["pydantic.mypy"]
+
+# rank-bm25 ships no type information; its one call site is wrapped in retrieval.py.
+[[tool.mypy.overrides]]
+module = ["rank_bm25"]
+ignore_missing_imports = true
