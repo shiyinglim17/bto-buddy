@@ -50,8 +50,9 @@ flowchart TD
 the retrieval corpus is `data/policy_facts.jsonl`.
 
 **Coverage-gate placement.** The diagram doesn't place the gate. [APP p.21] says it runs
-"before generating a response". Placing it after profile extraction and before retrieval is
-the author's reading, PROPOSED (Q-12).
+"before generating a response". It is now **APPROVED (D-033)**: it runs after profile
+extraction and before rules and retrieval. The full implementation design is in
+[../architecture.md](../architecture.md) (D-030 to D-040).
 
 | Stage | Planned component | Status |
 |---|---|---|
@@ -125,18 +126,19 @@ exist.
 
 | Component | Recommended approach | Why (as given) | Status |
 |---|---|---|---|
-| UI | Streamlit | Quick, Python-native demonstration | PROPOSED |
-| Structured profile | Pydantic | Validated input/output contracts | PROPOSED (matches APPROVED pipeline diagram) |
+| UI | Streamlit | Quick, Python-native demonstration | APPROVED (D-036) |
+| Structured profile | Pydantic | Validated input/output contracts | APPROVED (D-030, D-036) |
 | Knowledge base | ~~Curated official HTML/text passages~~ → `data/policy_facts.jsonl` | Small, auditable corpus | SUPERSEDED → D-005 |
-| Retrieval | BM25 *or* lightweight embeddings | Simple and measurable | BM25 APPROVED; embeddings PROPOSED |
-| Generation | One selected LLM API | Avoid unnecessary model orchestration | APPROVED principle; model OPEN |
-| Verification | Claim-level evidence checks | Testable assurance layer | APPROVED |
-| Rules | Small Python functions for deterministic checks | Better than LLM guessing for explicit conditions | APPROVED |
-| Evaluation | Python, Pandas, scikit-learn | Reproducible metrics and comparisons | PROPOSED |
+| Retrieval | ~~BM25 *or* lightweight embeddings~~ → BM25 (`rank-bm25`) + aliases + topic filter + rule-linked facts | Simple and measurable | APPROVED (D-031); embeddings only on the trigger |
+| Generation | One selected LLM API, through an OpenAI-compatible client | Avoid unnecessary model orchestration | APPROVED (D-036); model OPEN |
+| Verification | Deterministic checks, then a batched LLM judge | Testable assurance layer | APPROVED (D-034); judge model OPEN |
+| Rules | ~~Small Python functions~~ → declarative YAML conditions, whitelisted operators | Better than LLM guessing for explicit conditions | APPROVED (D-038) |
+| Evaluation | ~~Python, Pandas, scikit-learn~~ → Python stdlib | Reproducible metrics and comparisons | APPROVED (D-036) |
 | Deployment | Docker | Meets the assessment requirement | MANDATORY (REQ-SUB-002) |
 
-**REQ-ARC-010:** start with BM25. Add embeddings **only if** they demonstrably improve
-recall on the benchmark (retrieval recall@k, [05 §5](05_evaluation.md)).
+**REQ-ARC-010 / D-031:** BM25 only. Propose dense, hybrid or reranking retrieval **only if**
+dev recall@5 < 0.90 *and* the misses are attributable to paraphrase (retrieval recall@k,
+[05 §5](05_evaluation.md)).
 
 **REQ-ARC-011:** use one generation model and no unnecessary orchestration.
 

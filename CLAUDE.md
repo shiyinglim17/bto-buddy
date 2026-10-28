@@ -23,7 +23,8 @@ and RAG baselines.
 | `docs/project_context/01_problem_and_scope.md` | MVP tiers, exclusions, missing-information categories, demo |
 | `docs/project_context/02_policy_sources.md` | Source-discovery matrix, media handling, unverified policy nuances |
 | `docs/project_context/03_data_and_licensing.md` | Corpora, schemas, manifest, completeness checks, rights |
-| `docs/project_context/04_architecture.md` | Pipeline, contracts, verifier behaviour, stack |
+| `docs/architecture.md` | **Approved implementation design**: stages, Pydantic contracts, module boundaries, dependencies, test plan |
+| `docs/project_context/04_architecture.md` | Source-derived architecture requirements, verifier behaviour, provider notes |
 | `docs/project_context/05_evaluation.md` | Configurations A–D, benchmark, metrics, safeguards |
 | `docs/project_context/06_submission_requirements.md` | Deliverables, scoring, README and AI-log rules |
 | `docs/development_log.md` | Progress, experiments, failures, next steps |
@@ -71,15 +72,24 @@ and RAG baselines.
 - **Required capabilities across all tiers:** source-grounded guidance with official links,
   missing-information identification, claim verification (REQ-ARC-001).
 
-## Architecture invariants (04)
-- **Pipeline:**
-  1. profile extraction and validation;
-  2. coverage gate;
-  3. rule engine ∥ BM25 retrieval;
-  4. grounded generation;
-  5. claim verification;
-  6. preparation report.
-- Typed Pydantic contracts between every stage. No free text passes between modules.
+## Architecture invariants (`docs/architecture.md`, D-030 to D-040)
+- **Pipeline** (at most 3 LLM calls; configs A–D are this pipeline with stages switched off):
+  1. LLM extraction (fields + verbatim quotes + closed-enum topics);
+  2. profile assessment (pure);
+  3. coverage gate (pure);
+  4. rules ∥ BM25 (pure);
+  5. evidence assembly (pure);
+  6. LLM generation;
+  7. verification;
+  8. report (pure).
+- Typed Pydantic contracts between every stage. No free text passes between modules. Pure
+  modules never import the LLM client.
+- **All configurations return the same `FinalGuidance` contract** (D-035).
+- Extracted fields without a verbatim input quote are dropped (D-032). Missing fields are
+  computed only for the topics asked about.
+- Household types other than a first-timer couple are out of scope (D-033).
+- Rules are declarative YAML with whitelisted operators. **Never `eval`** (D-038).
+- Verification runs deterministic checks first, then one batched LLM judge (D-034).
 - Every response carries `missing_profile_fields`, `evidence_gaps`, `profile_conflicts` and
   `out_of_scope_reasons`.
 - Never assume missing applicant values. Missing evidence never proves a requirement absent.
@@ -92,7 +102,9 @@ and RAG baselines.
 
   Never silently rewrite. No regeneration loop unless approved.
 - No autonomous agents, orchestration frameworks or vector DBs. Use one generation model.
-  Add embeddings only if recall@k proves the gain.
+- Retrieval is BM25 + aliases + topic filter + rule-linked facts. Propose anything else only
+  if dev recall@5 < 0.90 because of paraphrase (D-031).
+- **Dependencies are limited to D-036.** Anything else needs an approved decision.
 - Infographics and videos are links in `data/visual_resources.json`, never runtime evidence.
 
 ## Engineering rules

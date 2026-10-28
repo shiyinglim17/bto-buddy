@@ -173,9 +173,10 @@ consequences. The draft below is derived from the approved tiers.
 | Context only | "How does the HFE letter relate to grants and loans?" (explanation only, no amounts) |
 | Excluded → gate | "How much grant will we get?"; "Can we afford a 4-room?"; "What are our chances in the ballot?"; "Can we rent out after MOP?"; "Confirm that we are eligible." |
 
-**OPEN (Q-05):** whether non-couple household types count as out-of-scope, or as "Limited"
-recognition with redirection. Examples are multi-generation, orphaned siblings,
-non-resident family members, seniors and unwed parents (see [02](02_policy_sources.md)).
+**Q-05, resolved by D-033 (2026-10-28):** household types other than a first-timer couple
+(married or engaged) are **out of scope**. The coverage gate redirects them to official
+sources. Examples are multi-generation, orphaned siblings, non-resident family members,
+seniors and unwed parents (see [02](02_policy_sources.md)).
 
 ## 7. Missing information: two distinct categories — REQ-SCP-013 (APPROVED) [APP p.18–19]
 

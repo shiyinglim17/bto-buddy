@@ -132,11 +132,17 @@ decisions. Page numbers are physical PDF pages.
 | REQ-ARC-007 | Typed objects between all modules | APPROVED | [APP p.28] | 04 §4 | all runtime | Type-checked interfaces |
 | REQ-ARC-008 | Hard rules deterministic; complex interpretations evidence-linked + official confirmation; justify which is which | APPROVED | [APP p.28] | 04 §4 | rule_engine | Rule table with justification column |
 | REQ-ARC-009 | Answers link to actual HDB webpages | APPROVED | [APP p.13] | 04 §4 | report_ui | Every supported claim shows a URL |
-| REQ-ARC-010 | BM25 first; embeddings only if recall@k improves | APPROVED (BM25) / PROPOSED (embeddings) | [APP p.17, 21]; D-001 | 04 §6.1 | retriever | Recall@k comparison if embeddings added |
+| REQ-ARC-010 | BM25 only (+ aliases, topic filter, rule-linked facts); dense/hybrid/rerank only if dev recall@5 < 0.90 because of paraphrase | APPROVED | [APP p.17, 21]; D-031 | architecture §4.2 | retriever | Recall@k table; escalation decision only on the trigger |
 | REQ-ARC-011 | One generation model; no unnecessary orchestration | APPROVED | [APP p.21] | 04 §6.1 | generator | Config |
-| REQ-ARC-012 | Stack: Streamlit UI, Pydantic, Pandas/scikit-learn eval | PROPOSED | [APP p.21] | 04 §6.1 | report_ui, eval_harness | Approval before Phase 1 |
+| REQ-ARC-012 | Dependencies limited to pydantic, pyyaml, rank-bm25, openai (compatible client), streamlit; dev pytest/ruff/mypy/types-PyYAML; stdlib statistics | APPROVED | [APP p.21]; D-036 | architecture §11.1 | all | `pyproject.toml` / `uv.lock` match the list |
 | REQ-ARC-013 | Never assume missing applicant values | APPROVED | [APP p.19] | 04 §3 | profile_extractor | Missing-info benchmark category |
 | REQ-ARC-014 | Missing evidence ≠ requirement absent | APPROVED | [APP p.20] | 04 §3 | generator, verifier | Prohibited-conclusion labels |
+| REQ-ARC-015 | Linear 8-stage pipeline, ≤3 LLM calls; A–D from one pipeline; pure modules don't import the LLM client | APPROVED | D-030 | architecture §3, §11.2 | pipeline | Integration tests per config; import-boundary test |
+| REQ-ARC-016 | Extracted fields need verbatim input quotes (quote guard); missing fields scoped to the topics asked; template follow-ups | APPROVED | D-032 | architecture §3.1, §6 | profile_extractor | Unit tests: quote guard, topic-scoped missing fields |
+| REQ-ARC-017 | Closed-enum topic tags → deterministic tier map; partial scope; non-couple households out of scope | APPROVED | D-033 | architecture §3.1, §5 | coverage_gate | Every topic mapped; gate unit tests; out-of-scope category |
+| REQ-ARC-018 | Rules as declarative YAML with whitelisted operators; no `eval` | APPROVED | D-038 | architecture §7 | rule_registry, rule_engine | Interpreter unit tests; unknown operator rejected |
+| REQ-ARC-019 | Single-turn interaction; follow-ups are outputs; no stored user text | APPROVED | D-037 | architecture §3.2 | pipeline, report_ui | No session state in code |
+| REQ-VER-008 | Verifier: deterministic checks first, then one batched LLM judge (model decided at selection) | APPROVED | D-034 | architecture §3.1 | verifier | Unit tests (deterministic layer); verifier claim-set results |
 
 ### Verifier (VER)
 | ID | Requirement | Status | Source | Context | Component | Acceptance evidence |
@@ -180,6 +186,8 @@ decisions. Page numbers are physical PDF pages.
 | REQ-EVL-033 | Category-B failure taxonomy for root-cause analysis | APPROVED | [APP p.19–20] | 05 §8 | eval_harness | Error analysis by type |
 | REQ-EVL-034 | Benchmark tests verified policy exceptions (HFE validity, income within D-013, household, non-selection) | APPROVED (facts unverified) | [APP p.21–22]; D-013 | 05 §9 | benchmark_dataset | Exception cases cite verified fact IDs |
 | REQ-EVL-035 | Report performance by category; balance categories | APPROVED | [APP p.16] | 05 §3.2 | eval_harness | Per-category table |
+| REQ-EVL-036 | All configurations emit the same structured `FinalGuidance`; A/B fill the four signals themselves; README states A is a structured-output baseline | APPROVED | D-035 | architecture §3.2 | pipeline, eval_harness, README | Same schema validated for A–D; README statement |
+| REQ-EVL-037 | Optional extraction diagnostic against gold profiles, time permitting | APPROVED (optional) | D-040 | architecture §10 | eval_harness | Field-level P/R table, if done |
 
 ### Model selection (MOD)
 | ID | Requirement | Status | Source | Context | Component | Acceptance evidence |
@@ -273,25 +281,25 @@ decisions. Page numbers are physical PDF pages.
 
 | ID | Question | Raised from | Needed by |
 |---|---|---|---|
-| Q-05 | Non-couple household types (multi-generation, orphaned siblings, non-resident family, seniors, unwed parents): out-of-scope gate, or "recognise and redirect"? | 01 §6.4, 02 Row 1 | Phase 2 |
+| ~~Q-05~~ | ~~Non-couple household types~~ → **resolved D-033**: out of scope, redirected | 01 §6.4, 02 Row 1 | Done |
 | Q-06 | SC + SPR household premium / Citizen Top-Up: Excluded (financing) or Limited (first-timer consideration)? | 02 Row 1 | Phase 2 |
 | Q-07 | Resale levy: Excluded (post-purchase) or Limited? | 02 Row 1 | Phase 2 |
 | Q-08 | Which of the HFE FAQ page's 5 sub-links, and which "Exceptions and waivers" source, are needed? | 02 Rows 2, 5 | Phase 2 |
 | Q-09 | Strip `si=` tracking parameters from video URLs? (minor) | 02 Row 2 | Phase 2 |
-| Q-10 | Paths for benchmark, claim set, retrieval qrels, saved predictions/run metadata (not in D-022) | 03 §1 | Phase 1 |
+| ~~Q-10~~ | ~~Evaluation and run paths~~ → **resolved D-039** | 03 §1 | Done |
 | Q-11 | Is any experiment planned on the private corpus (affects REQ-DAT-013)? | 03 §2.2 | Phase 1 |
-| Q-12 | Coverage gate placement: after profile extraction, before retrieval (proposed)? | 04 §2 | Phase 1 |
+| ~~Q-12~~ | ~~Coverage gate placement~~ → **resolved D-033** (after extraction, before rules/retrieval) | 04 §2 | Done |
 | Q-13 | Add a data-privacy criterion to the model scorecard? (C-17) | 04 §6.3 | Model selection |
 | Q-14 | Claim segmentation / "checkable claim" annotation guide | 05 §4.1 | Before eval |
 | Q-15 | Definition of "answer coverage" (C-16) | 05 §4.2 | Before eval |
 | Q-16 | Keep "human-review burden" as a supporting metric? (C-15) | 05 §4.2 | Before eval |
 | Q-17 | Who/what scores claim-level judgements: manual, validated LLM-as-judge, or hybrid? | 05 §4.4 | Before eval |
-| Q-18 | Brief receipt date (deadline computation) — record privately | 06 §3 | Now |
+| ~~Q-18~~ | ~~Brief receipt date~~ → developer-set completion target 2026-10-29 07:00 (private notes, development log) | 06 §3 | Done |
 | Q-19 | Log redaction of organisation name: does redacting it in this Phase 0 session satisfy D-010, or escalate? | 06 §7 | Pre-submission |
 | Q-20 | Approve proposed benchmark split 18/30 (stratified, group-aware; K-fold not recommended) | 05 §3.3 | Before dataset creation |
 | Q-21 | Approve proposed verifier claim set 60 (15 dev / 45 eval, balanced) or fallback 36 | 05 §6.1 | Before claim creation |
-| Q-22 | Approve proposed `policy_facts` schema (D-023) | 03 §2.5 | Phase 2 |
-| Q-23 | Approve proposed stack (Streamlit, Pydantic, Pandas/scikit-learn) — REQ-ARC-012 | 04 §6.1 | Phase 1 |
+| Q-22 | Finalise `policy_facts` schema field details (shape + `aliases` approved: D-031, architecture §5) | 03 §2.5 | Phase 2 |
+| ~~Q-23~~ | ~~Stack~~ → **resolved D-036** | 04 §6.1 | Done |
 | Q-24 | Fix C-14: which URL is intended for the BTO-process row? | 02 Row 4 | Phase 2 |
 
 ## 4. Source-to-Markdown completeness audit (Phase 0, 2026-10-28)

@@ -55,20 +55,39 @@ themselves live in [decisions.md](decisions.md). Requirement IDs are in
 | `uv run ruff format --check .` | Already formatted |
 | `uv run mypy` (strict) | No issues |
 
-**Failures / blocked:**
-- **Docker Desktop install failed:** `brew install --cask docker-desktop` needs `sudo` for
-  its CLI symlinks, and the agent session can't enter a password. Homebrew rolled back
-  cleanly. **The developer needs to run the install in their own terminal.** Docker commands
-  stay unverified until then (REQ-SUB-002, REQ-NFR-001).
+**Failures / resolved:**
+- Docker Desktop: the agent couldn't install it (needs `sudo`). The developer installed it.
+  Verified on 2026-10-28: Docker 29.9.2, engine started, `docker run --rm hello-world` OK.
+  Project Docker commands are added at the deployment milestone.
+- Commit `e163bdd chore: initialise project and tooling`, made by the developer.
 
-**On hold (D-029), pending the architecture review:**
-- Q-23 (stack);
-- Q-12 (gate design);
-- Q-10 (paths);
-- Q-22 (facts schema / contracts).
+**Architecture review (2026-10-28) — approved:**
+- The developer approved review items A1–A11, recorded as **D-030 to D-040**. Each has a
+  justification and a scope-alignment check.
+- The review became the approved spec [architecture.md](architecture.md).
+- Propagated to:
+  - 01 (Q-05 resolved);
+  - 03 (`aliases` field);
+  - 04 (stack statuses);
+  - the register (REQ-ARC-010/012 revised; REQ-ARC-015..019, REQ-VER-008, REQ-EVL-036/037
+    added; Q-05/10/12/23 resolved);
+  - CLAUDE.md (invariants, routing);
+  - INDEX;
+  - `.gitignore` (`.cache/`).
+
+**Schedule (developer, 2026-10-28):**
+- Target: complete and fully compliant by **2026-10-29 07:00**.
+- The brief's 12–16-hour estimate is a reference only.
+- All configurations A–D are planned; dropping B needs developer agreement.
+
+**Still open before or during Phase 2:**
+- Q-22 (facts schema field details);
+- Q-06/Q-07 (premium, resale levy tiers);
+- Q-08, Q-09, Q-11, Q-13–Q-21, Q-24;
+- model selection;
+- judge model.
 
 **Next:**
-1. The developer commits the scaffold.
-2. Architecture review.
-3. Then `contracts.py` and the facts/rules loaders, with unit tests and no LLM calls.
-4. Then Phase 2: source verification and the policy-facts corpus.
+1. Implement the pure core: `contracts.py`, `knowledge.py`, `rules.py`, `gate.py`,
+   `profile.py`, with unit tests against a synthetic fixture KB. No LLM calls.
+2. Then Phase 2: source verification and authoring `policy_facts.jsonl`.

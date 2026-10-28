@@ -94,6 +94,7 @@ One JSON object per line. Typed with Pydantic in code.
 | `validation` | `{status: draft/verified/rejected, method, validated_at, notes}` | Manual validation |
 | `rights_review` | `{status: pending/cleared, notes}` | Rights review before it is tracked |
 | `kb_version` | str | Corpus versioning |
+| `aliases` | list[str] | Synonyms and acronyms indexed with the statement for BM25 (e.g. "HFE letter", "fiancé"). **APPROVED addition (D-031)** |
 
 ### 2.6 Extraction (APPROVED) [APP p.11]
 - **REQ-SRC-006:**

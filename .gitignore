@@ -5,6 +5,9 @@ references/private/
 # Redistribution permission has not been established (see docs/project_context/03_data_and_licensing.md).
 data/private_corpus/
 
+# Local LLM response cache. The reproducible record is results/runs/ (D-039).
+.cache/
+
 # --- Secrets and credentials ---
 .env
 .env.*
