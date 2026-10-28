@@ -1,0 +1,6 @@
+{
+ "candidate": "gemini",
+ "model_id": "gemini-3.8-flash",
+ "status": "not_completed",
+ "detail": "Run started 2026-10-28T20:20Z (UTC). No case completed in about 5 minutes: probes took 25-104 s for a one-word reply and an earlier call returned HTTP 503. The developer stopped the Gemini run at about 20:25Z because of time constraints and chose Groq. No Gemini output exists, so nothing was scored."
+}

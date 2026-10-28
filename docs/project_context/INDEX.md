@@ -45,7 +45,12 @@ APPROVED** (D-054 and D-058 as revised).
   claim template (held-out labels in Git-ignored `evaluation/heldout/`);
 - tests: smoke, corpus tooling, KB, rules, benchmark.
 
-No LLM stages, retrieval, model choice or evaluation datasets exist yet.
+**Phase 3b (2026-10-29):** model chosen (D-067: `openai/gpt-oss-120b` on Groq; Gemini gave no
+output, and the pre-registered acceptance thresholds were not met in direct generation).
+Configuration A (direct LLM) is built: `llm.py`, `generation.py`, `pipeline.py`,
+`prompts/generate_v1.md`, `evaluation/run.py`; dev run `20261028T203350Z-A-dev`. Contract
+additions are D-068 (PROPOSED). Retrieval, rules in the pipeline, and configurations B–D are
+not built yet.
 
 ## Files
 

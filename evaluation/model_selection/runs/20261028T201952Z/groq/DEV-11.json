@@ -1,0 +1,79 @@
+{
+ "case_id": "DEV-11",
+ "model_id": "openai/gpt-oss-120b",
+ "first": {
+  "http_status": 200,
+  "latency_ms": 1049,
+  "http_attempts": [
+   {
+    "status": 429,
+    "latency_ms": 92
+   },
+   {
+    "status": 200,
+    "latency_ms": 1049
+   }
+  ],
+  "usage": {
+   "input_tokens": 1189,
+   "output_tokens": 238,
+   "reasoning_tokens": 62
+  },
+  "raw_response": {
+   "id": "chatcmpl-b54fd187-95e6-460a-bc43-7e28c336c5ca",
+   "object": "chat.completion",
+   "created": 1793218843,
+   "model": "openai/gpt-oss-120b",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\n  \"summary\": \"Engaged couples can apply for a BTO without being married; marriage registration is not a prerequisite.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"HDB allows engaged couples who are both Singapore Citizens and first\u2011time applicants to apply for a BTO without being married.\"\n    },\n    {\n      \"claim_id\": \"c2\",\n      \"kind\": \"caveat\",\n      \"text\": \"Policy details may be updated, so verify the latest eligibility rules on the HDB website (hdb.gov.sg) before applying.\"\n    }\n  ],\n  \"missing_profile_fields\": [],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": []\n}",
+      "reasoning": "We need to produce JSON bto_guidance. No missing fields. Provide claim about policy: marriage registration not required for BTO application; engaged couples can apply as long as both are Singapore citizens and first-timers. Provide caveat to check HDB website. No out of scope. No conflicts."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "queue_time": 0.213689175,
+    "prompt_tokens": 1189,
+    "prompt_time": 0.067392741,
+    "completion_tokens": 238,
+    "completion_time": 0.498316047,
+    "total_tokens": 1427,
+    "total_time": 0.565708788,
+    "completion_tokens_details": {
+     "reasoning_tokens": 62
+    }
+   },
+   "usage_breakdown": null,
+   "system_fingerprint": "fp_a655021f7d",
+   "x_groq": {
+    "id": "req_01m622r3rwefpbmtqmeqdn4hnn",
+    "seed": 267124599
+   },
+   "service_tier": "on_demand"
+  },
+  "parsed": {
+   "summary": "Engaged couples can apply for a BTO without being married; marriage registration is not a prerequisite.",
+   "claims": [
+    {
+     "claim_id": "c1",
+     "text": "HDB allows engaged couples who are both Singapore Citizens and first\u2011time applicants to apply for a BTO without being married.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c2",
+     "text": "Policy details may be updated, so verify the latest eligibility rules on the HDB website (hdb.gov.sg) before applying.",
+     "kind": "caveat"
+    }
+   ],
+   "missing_profile_fields": [],
+   "profile_conflicts": [],
+   "out_of_scope_reasons": []
+  },
+  "validation_error": null
+ }
+}

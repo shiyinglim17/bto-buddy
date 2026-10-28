@@ -1,0 +1,112 @@
+{
+ "case_id": "DEV-17",
+ "model_id": "openai/gpt-oss-120b",
+ "first": {
+  "http_status": 400,
+  "latency_ms": 600,
+  "http_attempts": [
+   {
+    "status": 429,
+    "latency_ms": 117
+   },
+   {
+    "status": 400,
+    "latency_ms": 600
+   }
+  ],
+  "usage": {
+   "input_tokens": 0,
+   "output_tokens": 0,
+   "reasoning_tokens": 0
+  },
+  "raw_response": {
+   "error": {
+    "error": {
+     "message": "Generated JSON does not match the expected schema. Please adjust your prompt. See 'failed_generation' for more details. Error: jsonschema: '/claims/0/kind' does not validate with /properties/claims/items/properties/kind/enum: value must be one of 'policy_fact', 'preparation_step', 'caveat'",
+     "type": "invalid_request_error",
+     "code": "json_validate_failed",
+     "failed_generation": "{\n  \"summary\": \"We cannot assess your chances of getting a queue number; that is outside the scope of preparation guidance.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"out_of_scope\",\n      \"text\": \"Estimating ballot odds or queue-number chances is not provided here; refer to HDB resources for general information.\"\n    }\n  ],\n  \"missing_profile_fields\": [],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": [\n    {\n      \"code\": \"excluded_topic\",\n      \"topic\": \"ballot_odds\",\n      \"detail\": \"Calculating or estimating the likelihood of receiving a queue number for a specific BTO project is beyond the scope of preparation guidance.\"\n    }\n  ]\n}"
+    }
+   },
+   "_retry_after": null
+  },
+  "parsed": null,
+  "validation_error": "HTTP 400: {\"error\": {\"error\": {\"message\": \"Generated JSON does not match the expected schema. Please adjust your prompt. See 'failed_generation' for more details. Error: jsonschema: '/claims/0/kind' does not validate with /properties/claims/items/properties/kind/enum: value must be one of 'policy_fact', 'preparation_step', 'caveat'\", \"type\": \"invalid_request_error\", \"code\": \"json_validate_failed\", \"failed_generation\": \"{\\n  \\\"summary\\\": \\\"We cannot assess your chances of getting a queue number; that is ou"
+ },
+ "retry": {
+  "http_status": 200,
+  "latency_ms": 1322,
+  "http_attempts": [
+   {
+    "status": 429,
+    "latency_ms": 190
+   },
+   {
+    "status": 200,
+    "latency_ms": 1322
+   }
+  ],
+  "usage": {
+   "input_tokens": 1335,
+   "output_tokens": 292,
+   "reasoning_tokens": 90
+  },
+  "raw_response": {
+   "id": "chatcmpl-9c55865e-a077-4bd7-be6d-9f4802f24a9a",
+   "object": "chat.completion",
+   "created": 1793218904,
+   "model": "openai/gpt-oss-120b",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\n  \"summary\": \"We cannot provide an estimate of your chances of receiving a queue number for a 4\u2011room flat in Punggol, as that is outside the scope of preparation guidance.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"caveat\",\n      \"text\": \"Estimating ballot or queue\u2011number odds is out of scope; please refer to the official HDB website or contact HDB directly for information on selection chances.\"\n    }\n  ],\n  \"missing_profile_fields\": [],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": [\n    {\n      \"code\": \"excluded_topic\",\n      \"topic\": \"ballot_odds\",\n      \"detail\": \"The question asks for the likelihood of getting a queue number, which is a ballot\u2011odds calculation and not covered by preparation guidance.\"\n    }\n  ]\n}",
+      "reasoning": "We need to output JSON with required fields. Out of scope: chances question is out of scope (ballot odds). So include out_of_scope_reasons with code excluded_topic? Actually code \"excluded_topic\" for out of scope. topic \"ballot_odds\". Provide claim maybe a caveat stating cannot assess. Provide missing_profile_fields none. No conflicts. Provide summary. Ensure claims kind is valid. Use one claim: caveat."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "queue_time": 0.396550598,
+    "prompt_tokens": 1335,
+    "prompt_time": 0.059429002,
+    "completion_tokens": 292,
+    "completion_time": 0.607440505,
+    "total_tokens": 1627,
+    "total_time": 0.666869507,
+    "completion_tokens_details": {
+     "reasoning_tokens": 90
+    }
+   },
+   "usage_breakdown": null,
+   "system_fingerprint": "fp_8655ddce88",
+   "x_groq": {
+    "id": "req_01m622szh2e5nvqaqnq6f32y2v",
+    "seed": 1377722626
+   },
+   "service_tier": "on_demand"
+  },
+  "parsed": {
+   "summary": "We cannot provide an estimate of your chances of receiving a queue number for a 4\u2011room flat in Punggol, as that is outside the scope of preparation guidance.",
+   "claims": [
+    {
+     "claim_id": "c1",
+     "text": "Estimating ballot or queue\u2011number odds is out of scope; please refer to the official HDB website or contact HDB directly for information on selection chances.",
+     "kind": "caveat"
+    }
+   ],
+   "missing_profile_fields": [],
+   "profile_conflicts": [],
+   "out_of_scope_reasons": [
+    {
+     "code": "excluded_topic",
+     "topic": "ballot_odds",
+     "detail": "The question asks for the likelihood of getting a queue number, which is a ballot\u2011odds calculation and not covered by preparation guidance."
+    }
+   ]
+  },
+  "validation_error": null
+ }
+}

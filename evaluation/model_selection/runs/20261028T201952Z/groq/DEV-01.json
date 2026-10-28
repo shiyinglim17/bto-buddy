@@ -1,0 +1,113 @@
+{
+ "case_id": "DEV-01",
+ "model_id": "openai/gpt-oss-120b",
+ "first": {
+  "http_status": 200,
+  "latency_ms": 2200,
+  "http_attempts": [
+   {
+    "status": 200,
+    "latency_ms": 2200
+   }
+  ],
+  "usage": {
+   "input_tokens": 1215,
+   "output_tokens": 716,
+   "reasoning_tokens": 120
+  },
+  "raw_response": {
+   "id": "chatcmpl-6e4e4a13-042f-4ab7-9487-3fd663589df8",
+   "object": "chat.completion",
+   "created": 1793218799,
+   "model": "openai/gpt-oss-120b",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\n  \"summary\": \"To get ready for a BTO launch next year, you should start the HFE application, gather required documents, and ensure you meet the basic eligibility criteria.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"First-timer couples must obtain an HFE (Housing Flat Eligibility) letter before they can apply for a BTO flat.\"\n    },\n    {\n      \"claim_id\": \"c2\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Log in to the HDB Flat Portal and start the HFE application as soon as possible, as processing can take several weeks.\"\n    },\n    {\n      \"claim_id\": \"c3\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Prepare the required documents for the HFE application, including NRICs, latest CPF contribution statements, recent payslips, and income tax notices for both applicants.\"\n    },\n    {\n      \"claim_id\": \"c4\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Check that both applicants are Singapore Citizens and have not previously owned any HDB flat or received any housing subsidy, as this is a key eligibility condition for first-timer couples.\"\n    },\n    {\n      \"claim_id\": \"c5\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Confirm that neither of you holds any private residential property in Singapore or overseas, as ownership of private property can affect HFE eligibility.\"\n    },\n    {\n      \"claim_id\": \"c6\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"If you are planning to have children or are expecting, note that this does not affect HFE eligibility but may be relevant for future grant considerations.\"\n    },\n    {\n      \"claim_id\": \"c7\",\n      \"kind\": \"caveat\",\n      \"text\": \"Policy details such as processing times and document requirements can change; always verify the latest information on the official HDB website (hdb.gov.sg) or the HDB Flat Portal.\"\n    }\n  ],\n  \"missing_profile_fields\": [\n    {\n      \"field\": \"hfe_status\",\n      \"follow_up_question\": \"Have you already submitted the HFE application, or is it still pending?\"\n    },\n    {\n      \"field\": \"private_property_interest\",\n      \"follow_up_question\": \"Do either of you currently own or have an interest in any private residential property in Singapore or abroad?\"\n    },\n    {\n      \"field\": \"children_or_expecting\",\n      \"follow_up_question\": \"Do you have any children or are you expecting a child in the near future?\"\n    }\n  ],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": []\n}",
+      "reasoning": "We need to output JSON bto_guidance. No missing fields? We have relationship engaged, ages, citizenship, prior flat, employment full-time. Missing: hfe_status, hfe_issue_date, private_property_interest, children_or_expecting. They haven't started HFE, so status unknown. Ask. Also maybe ask if they have any private property interest. Also children? Probably none but ask.\n\nProvide claims: policy_fact about need HFE before BTO application, preparation_step to gather documents, etc. Also caveat about checking latest dates.\n\nNo conflicts. No out_of_scope."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "queue_time": 0.356003407,
+    "prompt_tokens": 1215,
+    "prompt_time": 0.063101968,
+    "completion_tokens": 716,
+    "completion_time": 1.504248738,
+    "total_tokens": 1931,
+    "total_time": 1.567350706,
+    "completion_tokens_details": {
+     "reasoning_tokens": 120
+    }
+   },
+   "usage_breakdown": null,
+   "system_fingerprint": "fp_4200b3f836",
+   "x_groq": {
+    "id": "req_01m622preneej971njb69g57fb",
+    "seed": 646916655
+   },
+   "service_tier": "on_demand"
+  },
+  "parsed": {
+   "summary": "To get ready for a BTO launch next year, you should start the HFE application, gather required documents, and ensure you meet the basic eligibility criteria.",
+   "claims": [
+    {
+     "claim_id": "c1",
+     "text": "First-timer couples must obtain an HFE (Housing Flat Eligibility) letter before they can apply for a BTO flat.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c2",
+     "text": "Log in to the HDB Flat Portal and start the HFE application as soon as possible, as processing can take several weeks.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c3",
+     "text": "Prepare the required documents for the HFE application, including NRICs, latest CPF contribution statements, recent payslips, and income tax notices for both applicants.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c4",
+     "text": "Check that both applicants are Singapore Citizens and have not previously owned any HDB flat or received any housing subsidy, as this is a key eligibility condition for first-timer couples.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c5",
+     "text": "Confirm that neither of you holds any private residential property in Singapore or overseas, as ownership of private property can affect HFE eligibility.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c6",
+     "text": "If you are planning to have children or are expecting, note that this does not affect HFE eligibility but may be relevant for future grant considerations.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c7",
+     "text": "Policy details such as processing times and document requirements can change; always verify the latest information on the official HDB website (hdb.gov.sg) or the HDB Flat Portal.",
+     "kind": "caveat"
+    }
+   ],
+   "missing_profile_fields": [
+    {
+     "field": "hfe_status",
+     "follow_up_question": "Have you already submitted the HFE application, or is it still pending?"
+    },
+    {
+     "field": "private_property_interest",
+     "follow_up_question": "Do either of you currently own or have an interest in any private residential property in Singapore or abroad?"
+    },
+    {
+     "field": "children_or_expecting",
+     "follow_up_question": "Do you have any children or are you expecting a child in the near future?"
+    }
+   ],
+   "profile_conflicts": [],
+   "out_of_scope_reasons": []
+  },
+  "validation_error": null
+ }
+}

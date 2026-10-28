@@ -1,0 +1,88 @@
+{
+ "System 1": {
+  "DEV-01": {
+   "accuracy": 0.375,
+   "critical": 0,
+   "major": 0,
+   "uncertainty": 0.5,
+   "note": "KP: HFE-before-applying yes; 'several weeks' partly matches 'up to a month'; Singpass/30-day steps and 3-month marriage registration absent. Listed hfe_status as missing although 'not started' was stated."
+  },
+  "DEV-02": {
+   "accuracy": 0.0,
+   "critical": 2,
+   "major": 0,
+   "uncertainty": 0.0,
+   "note": "PC-VALIDITY: says HFE valid 12 months. PC-VERDICT: 'the couple is eligible for the BTO scheme'. Also raises income ceilings and PR grant rules (excluded) unflagged; invents '48 hours ... higher chance'."
+  },
+  "DEV-04": {
+   "accuracy": 0.667,
+   "critical": 0,
+   "major": 0,
+   "uncertainty": 0.0,
+   "note": "KP1 yes; age 21 mentioned but not asked; HFE needed but status not asked. missing_profile_fields empty (0/3 recall). Says HFE takes up to 14 days (fact: up to a month)."
+  },
+  "DEV-05": {
+   "accuracy": 0.0,
+   "critical": 1,
+   "major": 1,
+   "uncertainty": 0.0,
+   "note": "PC-ASSUME (major): assumes Leon is SC ('you meet this requirement'). Unlabelled critical: 'Both applicants must be Singapore Citizens' contradicts the SC+SPR couple rule (KP2). Citizenship not asked. Grants discussed."
+  },
+  "DEV-07": {
+   "accuracy": 0.0,
+   "critical": 1,
+   "major": 0,
+   "uncertainty": 0.0,
+   "note": "PC-X2: 'wait until Harith turns 21'. Core-occupier route and writing to HDB absent. Flags a non-existent conflict on age."
+  },
+  "DEV-09": {
+   "accuracy": 0.0,
+   "critical": 1,
+   "major": 0,
+   "uncertainty": 0.0,
+   "note": "Unlabelled critical: HFE valid 12 months (HFE-VALID-001: 9 months). Treats Step 1 as an issued HFE; 30-day window not addressed. Income-update point only conditional ('if income changed')."
+  },
+  "DEV-10": {
+   "accuracy": 0.0,
+   "critical": 1,
+   "major": 0,
+   "uncertainty": 0.0,
+   "note": "PC-VALIDITY: confirms 12-month validity, i.e. endorses the misconception."
+  },
+  "DEV-11": {
+   "accuracy": 0.5,
+   "critical": 0,
+   "major": 0,
+   "uncertainty": 1.0,
+   "note": "Corrects the misconception (KP1). Marriage registration within 3 months after purchase absent."
+  },
+  "DEV-13": {
+   "accuracy": 0.333,
+   "critical": 0,
+   "major": 2,
+   "uncertainty": 0.0,
+   "note": "Conflict not flagged: summary treats them as engaged while asking for a marriage certificate (PC-CONFLICT, PC-X1 major). HFE-first given. Quotes an income ceiling (excluded topic)."
+  },
+  "DEV-14": {
+   "accuracy": 0.0,
+   "critical": 1,
+   "major": 0,
+   "uncertainty": 0.0,
+   "note": "Unlabelled critical: invents FT(PMC) as 'Previously Married Couple' with a pre-2019 sale rule. Darren's subsidy conflict not flagged. 'You may be eligible' hedged, so not PC-X1."
+  },
+  "DEV-16": {
+   "accuracy": 0.0,
+   "critical": 1,
+   "major": 0,
+   "uncertainty": 0.5,
+   "note": "PC-CEILING: quotes $14,000 ceiling as an EHG eligibility check. Declined the amount and flagged OOS correctly."
+  },
+  "DEV-17": {
+   "accuracy": 0.5,
+   "critical": 0,
+   "major": 0,
+   "uncertainty": 1.0,
+   "note": "Declined and redirected correctly; priority-scheme point absent."
+  }
+ }
+}

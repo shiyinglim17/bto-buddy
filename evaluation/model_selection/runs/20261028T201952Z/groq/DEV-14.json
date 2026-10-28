@@ -1,0 +1,97 @@
+{
+ "case_id": "DEV-14",
+ "model_id": "openai/gpt-oss-120b",
+ "first": {
+  "http_status": 200,
+  "latency_ms": 2081,
+  "http_attempts": [
+   {
+    "status": 429,
+    "latency_ms": 101
+   },
+   {
+    "status": 200,
+    "latency_ms": 2081
+   }
+  ],
+  "usage": {
+   "input_tokens": 1213,
+   "output_tokens": 545,
+   "reasoning_tokens": 125
+  },
+  "raw_response": {
+   "id": "chatcmpl-22c3d557-fdad-483b-bff2-cdeb8a2b592d",
+   "object": "chat.completion",
+   "created": 1793218869,
+   "model": "openai/gpt-oss-120b",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\n  \"summary\": \"You may be eligible for the FT(PMC) scheme, but it depends on the date you sold the previous flat and other criteria; see the official HDB guidelines.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"FT(PMC) (First\u2011Timer \u2013 Previously Married Couple) is a BTO category for couples where at least one spouse previously owned an HDB flat but sold it before 1\u202fJanuary\u202f2019 and the couple now meets all other first\u2011timer criteria.\"\n    },\n    {\n      \"claim_id\": \"c2\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"If the previous flat was sold after 1\u202fJanuary\u202f2019, the couple is generally not eligible for FT(PMC) and must apply under the regular First\u2011Timer (FT) category.\"\n    },\n    {\n      \"claim_id\": \"c3\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Check the HFE (Housing Flat Eligibility) letter or HDB portal to confirm the exact sale date of Darren's previous flat and whether it meets the pre\u20112019 requirement for FT(PMC).\"\n    },\n    {\n      \"claim_id\": \"c4\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Gather supporting documents such as the sale deed of the previous flat, HFE letter, NRICs, and marriage certificate to be ready for the BTO application.\"\n    },\n    {\n      \"claim_id\": \"c5\",\n      \"kind\": \"caveat\",\n      \"text\": \"Eligibility rules can change; verify the latest FT(PMC) criteria on the HDB website (hdb.gov.sg) or the HDB Flat Portal before applying.\"\n    }\n  ],\n  \"missing_profile_fields\": [],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": []\n}",
+      "reasoning": "Need to list missing fields? We have relationship married, ages given, citizenship both citizens, prior flat? Darren had prior flat but sold 2020, so prior_flat_or_subsidy? He owned before, sold. That may affect eligibility for FT(PMC) which is for first-timer couples where one spouse previously owned a flat but sold before a certain date? Actually FT(PMC) is for first-timer couples where one spouse previously bought a flat but sold it before 1 Jan 2019? Need caveat. Provide policy fact. No missing fields. No conflicts. Out of scope none."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "queue_time": 0.218534576,
+    "prompt_tokens": 1213,
+    "prompt_time": 0.043641298,
+    "completion_tokens": 545,
+    "completion_time": 1.7088408419999999,
+    "total_tokens": 1758,
+    "total_time": 1.7524821400000001,
+    "prompt_tokens_details": {
+     "cached_tokens": 1024
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 125
+    }
+   },
+   "usage_breakdown": null,
+   "system_fingerprint": "fp_86dc843b12",
+   "x_groq": {
+    "id": "req_01m622rwdteh4vr0ws5j41znjv",
+    "seed": 702431253
+   },
+   "service_tier": "on_demand"
+  },
+  "parsed": {
+   "summary": "You may be eligible for the FT(PMC) scheme, but it depends on the date you sold the previous flat and other criteria; see the official HDB guidelines.",
+   "claims": [
+    {
+     "claim_id": "c1",
+     "text": "FT(PMC) (First\u2011Timer \u2013 Previously Married Couple) is a BTO category for couples where at least one spouse previously owned an HDB flat but sold it before 1\u202fJanuary\u202f2019 and the couple now meets all other first\u2011timer criteria.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c2",
+     "text": "If the previous flat was sold after 1\u202fJanuary\u202f2019, the couple is generally not eligible for FT(PMC) and must apply under the regular First\u2011Timer (FT) category.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c3",
+     "text": "Check the HFE (Housing Flat Eligibility) letter or HDB portal to confirm the exact sale date of Darren's previous flat and whether it meets the pre\u20112019 requirement for FT(PMC).",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c4",
+     "text": "Gather supporting documents such as the sale deed of the previous flat, HFE letter, NRICs, and marriage certificate to be ready for the BTO application.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c5",
+     "text": "Eligibility rules can change; verify the latest FT(PMC) criteria on the HDB website (hdb.gov.sg) or the HDB Flat Portal before applying.",
+     "kind": "caveat"
+    }
+   ],
+   "missing_profile_fields": [],
+   "profile_conflicts": [],
+   "out_of_scope_reasons": []
+  },
+  "validation_error": null
+ }
+}

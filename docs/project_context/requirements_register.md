@@ -275,7 +275,7 @@ decisions. Page numbers are physical PDF pages.
 | **C-14** | **Matrix row "High-level overview of BTO application process" names the "Application for a New Flat" page but gives the HFE page URL (`…/application-for-an-hdb-flat-eligibility-hfe-letter#how-to-apply`), not SEED-4** | APP p.10–11 vs p.4 | **OPEN — new** |
 | **C-15** | **"Human-review burden created by verification flags" is a secondary metric in APP p.24 but absent from D-004** | APP p.24 vs D-004 | **OPEN — new** (Q-16) |
 | **C-16** | **D-004 introduces "answer coverage" without a definition in either source** | D-004 | **OPEN — new** (Q-15) |
-| **C-17** | **Model scorecard omits data privacy, though the brief lists privacy as a primary valid justification ground** | APP p.22–23 vs ASM p.4 | **OPEN — new** (Q-13) |
+| **C-17** | **Model scorecard omits data privacy, though the brief lists privacy as a primary valid justification ground** | APP p.22–23 vs ASM p.4 | **Addressed in practice (2026-10-29):** privacy was assessed qualitatively in the model-selection protocol §1 and in D-067, not as a weighted criterion |
 
 ## 3. Open questions
 
@@ -289,7 +289,7 @@ decisions. Page numbers are physical PDF pages.
 | ~~Q-10~~ | ~~Evaluation and run paths~~ → **resolved D-039** | 03 §1 | Done |
 | Q-11 | Is any experiment planned on the private corpus (affects REQ-DAT-013)? *Proposed: D-050* | 03 §2.2 | Phase 2 |
 | ~~Q-12~~ | ~~Coverage gate placement~~ → **resolved D-033** (after extraction, before rules/retrieval) | 04 §2 | Done |
-| Q-13 | Add a data-privacy criterion to the model scorecard? (C-17) | 04 §6.3 | Model selection |
+| Q-13 | Add a data-privacy criterion to the model scorecard? (C-17) **Handled qualitatively (protocol §1, D-067): provider data terms compared; prototype data fictional only** | 04 §6.3 | Model selection |
 | Q-14 | Claim segmentation / "checkable claim" annotation guide | 05 §4.1 | Before eval. PROPOSED answer: metric_spec §4.3 (D-066) |
 | Q-15 | Definition of "answer coverage" (C-16) | 05 §4.2 | Before eval. PROPOSED answer: metric_spec §4.6 (D-066) |
 | Q-16 | Keep "human-review burden" as a supporting metric? (C-15) | 05 §4.2 | Before eval. PROPOSED answer: metric_spec §6 (D-066) |

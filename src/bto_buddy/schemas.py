@@ -1,13 +1,14 @@
 """Typed contracts (architecture §5). This module imports nothing from the package.
 
-Only the knowledge-base contracts exist so far: the remaining pipeline contracts are added
-when their stages are built, so nothing here is an unused stub.
+Contracts are added when their stages are built, so nothing here is an unused stub. So far:
+knowledge base, rules, and the request/generation/report contracts used by configuration A
+(direct LLM). Extraction, evidence and verification-input contracts come with B-D.
 """
 
 from __future__ import annotations
 
 import re
-from datetime import date
+from datetime import date, datetime
 from enum import StrEnum
 from typing import Literal
 
@@ -191,3 +192,143 @@ class RuleResult(_Frozen):
     missing_fields: list[str] = []  # required (non-empty) when cannot_determine
     requires_human_review: bool
     notes: list[str] = []  # triggered exception notes and interpretation caveats
+
+
+# ---- request, generation and report (architecture §5; configuration A first) -------------
+class ProfileField(StrEnum):
+    """Addressable profile fields for missing/conflict reporting. Values match the benchmark's
+    reference-profile keys, so missing-information recall needs no mapping."""
+
+    RELATIONSHIP = "relationship"
+    A1_AGE = "applicant_1.age"
+    A2_AGE = "applicant_2.age"
+    A1_CITIZENSHIP = "applicant_1.citizenship"
+    A2_CITIZENSHIP = "applicant_2.citizenship"
+    A1_PRIOR_HOUSING = "applicant_1.prior_flat_or_subsidy"
+    A2_PRIOR_HOUSING = "applicant_2.prior_flat_or_subsidy"
+    A1_EMPLOYMENT = "applicant_1.employment"
+    A2_EMPLOYMENT = "applicant_2.employment"
+    A1_JOB_COUNT = "applicant_1.job_count"  # D-062 (I-11)
+    A2_JOB_COUNT = "applicant_2.job_count"
+    HFE_STATUS = "hfe_status"
+    HFE_ISSUE_DATE = "hfe_issue_date"
+    PRIVATE_PROPERTY = "private_property_interest"
+    HOUSING_LOAN_INTENT = "housing_loan_intent"
+    CHILDREN = "children_or_expecting"
+
+
+class UserRequest(_Frozen):
+    request_id: str
+    situation_text: str = Field(min_length=1)  # free text; fictional profiles only
+    question: str = Field(min_length=1)
+    # Reference date for date-dependent guidance (benchmark cases fix it; the app uses today).
+    as_of: date
+
+
+class MissingProfileField(_Frozen):
+    field: ProfileField
+    needed_for: list[str]  # topic values and/or rule IDs
+    follow_up_question: str
+
+
+class ProfileConflict(_Frozen):
+    fields: list[ProfileField] = Field(min_length=1)
+    kind: Literal["stated_contradiction", "logical_inconsistency"]
+    detail: str
+    quotes: list[str]
+    clarification_question: str
+
+
+class EvidenceGap(_Frozen):
+    topic: Topic | None
+    claim_id: str | None = None
+    kind: Literal[
+        "no_evidence_for_topic", "claim_uncited", "claim_unsupported", "fact_temporally_uncertain"
+    ]
+    detail: str
+    official_source_url: HttpUrl | None = None
+
+
+class OutOfScopeReason(_Frozen):
+    code: Literal["excluded_topic", "unsupported_household_type", "unrecognised_question"]
+    topic: Topic | None = None
+    detail: str
+    redirect_url: HttpUrl | None = None  # official service or page
+
+
+class CoverageDecision(_Frozen):
+    status: Literal["in_scope", "partially_in_scope", "out_of_scope"]
+    supported_topics: list[Topic]
+    out_of_scope_reasons: list[OutOfScopeReason]
+
+
+class GeneratedClaim(_Frozen):
+    claim_id: str
+    text: str = Field(min_length=1)
+    kind: Literal["policy_fact", "preparation_step", "caveat"]  # caveat = not checkable
+    cited_fact_ids: list[str]
+
+
+class GenerationOutput(_Frozen):
+    """LLM #2 output. In A and B the model also fills the three signal lists, with the same
+    enums that C and D fill deterministically (architecture §3.2, A6)."""
+
+    summary: str
+    claims: list[GeneratedClaim]
+    missing_profile_fields: list[MissingProfileField] = []
+    profile_conflicts: list[ProfileConflict] = []
+    out_of_scope_reasons: list[OutOfScopeReason] = []
+
+
+class VerificationResult(_Frozen):
+    claim_id: str
+    outcome: Literal["supported", "contradicted", "insufficient_evidence"]
+    method: Literal["deterministic", "llm_judge"]
+    checked_fact_ids: list[str]
+    rationale: str
+    display_action: Literal["show_with_source", "withhold_and_flag", "state_as_unconfirmed"]
+
+
+class DisplayedClaim(_Frozen):
+    claim: GeneratedClaim
+    verification: VerificationResult | None  # None in A-C (no verifier)
+    sources: list[HttpUrl]
+
+
+class RunMetadata(_Frozen):
+    config_id: Literal["A", "B", "C", "D"]
+    model_id: str
+    prompt_versions: dict[str, str]
+    temperature: float
+    reasoning_effort: str | None
+    kb_version: str | None  # None when no KB is used (A)
+    rules_version: str | None  # None when no rules are used (A, B)
+    started_at: datetime
+    llm_calls: int  # logical calls, including the one bounded validation retry
+    input_tokens: int
+    output_tokens: int  # includes reasoning tokens
+    reasoning_tokens: int
+    latency_ms: int
+    cache_hits: int
+    estimated_cost_usd: float | None  # list price at run time; None if the price is unknown
+    # Failed runs are kept, never dropped or substituted (metric_spec §7).
+    status: Literal["ok", "failed"]
+    error: str | None = None
+
+
+class FinalGuidance(_Frozen):
+    """The one output contract for every configuration (D-035)."""
+
+    request_id: str
+    coverage: CoverageDecision
+    summary: str
+    claims: list[DisplayedClaim]
+    preparation_steps: list[RuleResult]  # applies-only, C/D
+    missing_profile_fields: list[MissingProfileField]
+    profile_conflicts: list[ProfileConflict]
+    evidence_gaps: list[EvidenceGap]
+    out_of_scope_reasons: list[OutOfScopeReason]
+    visual_resources: list[VisualResource]  # display-only links
+    policy_period: str  # D-021
+    disclaimer: str  # not an official eligibility assessment
+    run: RunMetadata

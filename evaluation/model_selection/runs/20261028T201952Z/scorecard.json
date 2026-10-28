@@ -1,0 +1,29 @@
+{
+ "groq": {
+  "model_id": "openai/gpt-oss-120b",
+  "n": 12,
+  "valid_first": 11,
+  "valid_after_retry": 12,
+  "accuracy": 0.19791666666666669,
+  "critical_cases": 7,
+  "major_total": 3,
+  "uncertainty": 0.25,
+  "latency_median_ms": 1859.0,
+  "latency_p90_ms": 2329,
+  "mean_input_tokens": 1119.6153846153845,
+  "mean_output_tokens": 534.5384615384615,
+  "mean_reasoning_tokens": 89.38461538461539,
+  "usd_per_call": 0.0004886653846153846,
+  "usd_total": 0.00635265,
+  "usd_per_1k_pipeline_queries_est": 1.4659961538461537,
+  "score": {
+   "policy_accuracy_35": 6.927083333333334,
+   "structured_25": 22.916666666666668,
+   "uncertainty_20": 5.0,
+   "latency_10": 10.0,
+   "cost_10": 10.0
+  },
+  "total": 54.84375,
+  "acceptable": false
+ }
+}

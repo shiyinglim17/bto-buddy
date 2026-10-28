@@ -1,0 +1,107 @@
+{
+ "case_id": "DEV-09",
+ "model_id": "openai/gpt-oss-120b",
+ "first": {
+  "http_status": 200,
+  "latency_ms": 2234,
+  "http_attempts": [
+   {
+    "status": 429,
+    "latency_ms": 113
+   },
+   {
+    "status": 200,
+    "latency_ms": 2234
+   }
+  ],
+  "usage": {
+   "input_tokens": 1208,
+   "output_tokens": 542,
+   "reasoning_tokens": 42
+  },
+  "raw_response": {
+   "id": "chatcmpl-5688ef2c-9bc3-44ad-9772-9559c8295f30",
+   "object": "chat.completion",
+   "created": 1793218826,
+   "model": "openai/gpt-oss-120b",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\n  \"summary\": \"Before proceeding to Step 2, ensure your HFE is still valid, confirm no changes to your personal or financial details, and gather all required documents.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"The HFE (Housing Flat Eligibility) letter is valid for 12 months from the issue date, provided there are no material changes to your household profile.\"\n    },\n    {\n      \"claim_id\": \"c2\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Verify that your HFE issued on 25 October 2026 is still within its 12\u2011month validity period before you submit Step 2 on 15 November 2026.\"\n    },\n    {\n      \"claim_id\": \"c3\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Check that neither of you has acquired any private property, received any other HDB flat or subsidy, or experienced a change in citizenship status since the HFE was issued.\"\n    },\n    {\n      \"claim_id\": \"c4\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"If any of the above circumstances have changed, you must inform HDB and may need to re\u2011apply for a new HFE before proceeding to Step 2.\"\n    },\n    {\n      \"claim_id\": \"c5\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Gather the required supporting documents for Step 2, such as NRIC copies, marriage certificate, latest payslips, and CPF statements.\"\n    },\n    {\n      \"claim_id\": \"c6\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Ensure your latest income information is up to date; if your monthly income has changed since Step 1, be prepared to declare the new figure in Step 2.\"\n    },\n    {\n      \"claim_id\": \"c7\",\n      \"kind\": \"caveat\",\n      \"text\": \"Policy details may be updated; always confirm the latest Step\u20112 requirements on the official HDB website (hdb.gov.sg) or the HDB Flat Portal.\"\n    }\n  ],\n  \"missing_profile_fields\": [],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": []\n}",
+      "reasoning": "We need to list guidance. No missing fields. No conflicts. Provide preparation steps: ensure HFE still valid, update income if changed, ensure documents ready. Also caveat to check HDB portal."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "queue_time": 0.217663433,
+    "prompt_tokens": 1208,
+    "prompt_time": 0.013322244,
+    "completion_tokens": 542,
+    "completion_time": 1.877387139,
+    "total_tokens": 1750,
+    "total_time": 1.890709383,
+    "prompt_tokens_details": {
+     "cached_tokens": 1024
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 42
+    }
+   },
+   "usage_breakdown": null,
+   "system_fingerprint": "fp_c3da0d4bb9",
+   "x_groq": {
+    "id": "req_01m622qj64e11rahbd5w51aqp7",
+    "seed": 1703436232
+   },
+   "service_tier": "on_demand"
+  },
+  "parsed": {
+   "summary": "Before proceeding to Step 2, ensure your HFE is still valid, confirm no changes to your personal or financial details, and gather all required documents.",
+   "claims": [
+    {
+     "claim_id": "c1",
+     "text": "The HFE (Housing Flat Eligibility) letter is valid for 12 months from the issue date, provided there are no material changes to your household profile.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c2",
+     "text": "Verify that your HFE issued on 25 October 2026 is still within its 12\u2011month validity period before you submit Step 2 on 15 November 2026.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c3",
+     "text": "Check that neither of you has acquired any private property, received any other HDB flat or subsidy, or experienced a change in citizenship status since the HFE was issued.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c4",
+     "text": "If any of the above circumstances have changed, you must inform HDB and may need to re\u2011apply for a new HFE before proceeding to Step 2.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c5",
+     "text": "Gather the required supporting documents for Step 2, such as NRIC copies, marriage certificate, latest payslips, and CPF statements.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c6",
+     "text": "Ensure your latest income information is up to date; if your monthly income has changed since Step 1, be prepared to declare the new figure in Step 2.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c7",
+     "text": "Policy details may be updated; always confirm the latest Step\u20112 requirements on the official HDB website (hdb.gov.sg) or the HDB Flat Portal.",
+     "kind": "caveat"
+    }
+   ],
+   "missing_profile_fields": [],
+   "profile_conflicts": [],
+   "out_of_scope_reasons": []
+  },
+  "validation_error": null
+ }
+}

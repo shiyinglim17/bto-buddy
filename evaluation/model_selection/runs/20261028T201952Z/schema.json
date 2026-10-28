@@ -1,0 +1,174 @@
+{
+ "additionalProperties": false,
+ "properties": {
+  "summary": {
+   "type": "string"
+  },
+  "claims": {
+   "items": {
+    "additionalProperties": false,
+    "properties": {
+     "claim_id": {
+      "type": "string"
+     },
+     "text": {
+      "type": "string"
+     },
+     "kind": {
+      "enum": [
+       "policy_fact",
+       "preparation_step",
+       "caveat"
+      ],
+      "type": "string"
+     }
+    },
+    "required": [
+     "claim_id",
+     "text",
+     "kind"
+    ],
+    "type": "object"
+   },
+   "type": "array"
+  },
+  "missing_profile_fields": {
+   "items": {
+    "additionalProperties": false,
+    "properties": {
+     "field": {
+      "enum": [
+       "relationship",
+       "applicant_1.age",
+       "applicant_2.age",
+       "applicant_1.citizenship",
+       "applicant_2.citizenship",
+       "applicant_1.prior_flat_or_subsidy",
+       "applicant_2.prior_flat_or_subsidy",
+       "applicant_1.employment",
+       "applicant_2.employment",
+       "applicant_1.job_count",
+       "applicant_2.job_count",
+       "hfe_status",
+       "hfe_issue_date",
+       "private_property_interest",
+       "children_or_expecting"
+      ],
+      "type": "string"
+     },
+     "follow_up_question": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "field",
+     "follow_up_question"
+    ],
+    "type": "object"
+   },
+   "type": "array"
+  },
+  "profile_conflicts": {
+   "items": {
+    "additionalProperties": false,
+    "properties": {
+     "fields": {
+      "items": {
+       "enum": [
+        "relationship",
+        "applicant_1.age",
+        "applicant_2.age",
+        "applicant_1.citizenship",
+        "applicant_2.citizenship",
+        "applicant_1.prior_flat_or_subsidy",
+        "applicant_2.prior_flat_or_subsidy",
+        "applicant_1.employment",
+        "applicant_2.employment",
+        "applicant_1.job_count",
+        "applicant_2.job_count",
+        "hfe_status",
+        "hfe_issue_date",
+        "private_property_interest",
+        "children_or_expecting"
+       ],
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "detail": {
+      "type": "string"
+     },
+     "clarification_question": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "fields",
+     "detail",
+     "clarification_question"
+    ],
+    "type": "object"
+   },
+   "type": "array"
+  },
+  "out_of_scope_reasons": {
+   "items": {
+    "additionalProperties": false,
+    "properties": {
+     "code": {
+      "enum": [
+       "excluded_topic",
+       "unsupported_household_type",
+       "unrecognised_question"
+      ],
+      "type": "string"
+     },
+     "topic": {
+      "anyOf": [
+       {
+        "enum": [
+         "household_composition",
+         "application_requirements",
+         "hfe_process",
+         "hfe_documents",
+         "priority_considerations",
+         "non_selection",
+         "hfe_grant_loan_context",
+         "grant_loan_calculation",
+         "financing_affordability",
+         "ballot_odds",
+         "post_purchase",
+         "eligibility_determination",
+         "other_housing",
+         "unrelated"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "detail": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "code",
+     "topic",
+     "detail"
+    ],
+    "type": "object"
+   },
+   "type": "array"
+  }
+ },
+ "required": [
+  "summary",
+  "claims",
+  "missing_profile_fields",
+  "profile_conflicts",
+  "out_of_scope_reasons"
+ ],
+ "type": "object"
+}

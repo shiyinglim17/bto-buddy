@@ -1,0 +1,94 @@
+{
+ "case_id": "DEV-10",
+ "model_id": "openai/gpt-oss-120b",
+ "first": {
+  "http_status": 200,
+  "latency_ms": 1445,
+  "http_attempts": [
+   {
+    "status": 429,
+    "latency_ms": 113
+   },
+   {
+    "status": 200,
+    "latency_ms": 1445
+   }
+  ],
+  "usage": {
+   "input_tokens": 1205,
+   "output_tokens": 492,
+   "reasoning_tokens": 113
+  },
+  "raw_response": {
+   "id": "chatcmpl-9748ee86-25d2-4d5c-9d77-262c1595a6d7",
+   "object": "chat.completion",
+   "created": 1793218831,
+   "model": "openai/gpt-oss-120b",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\n  \"summary\": \"You can apply for your HFE letter now and use it for a BTO launch occurring within the next 12 months, but ensure the letter remains valid at the time you submit your BTO application.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"An HFE (Housing Flat Eligibility) letter is valid for 12 months from the date it is issued.\"\n    },\n    {\n      \"claim_id\": \"c2\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"You must have a valid HFE letter at the time you submit your BTO application; the letter does not need to be issued on the exact day of the ballot.\"\n    },\n    {\n      \"claim_id\": \"c3\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Apply for your HFE letter now via the HDB Flat Portal; note the issue date on the letter.\"\n    },\n    {\n      \"claim_id\": \"c4\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Mark your calendar for the expected BTO launch in October 2027 and ensure the HFE issue date is before October 2027 and not earlier than 12 months prior to your intended application date.\"\n    },\n    {\n      \"claim_id\": \"c5\",\n      \"kind\": \"caveat\",\n      \"text\": \"If the BTO launch you plan to apply for occurs after the 12\u2011month validity window, you will need to re\u2011apply for a new HFE letter.\"\n    }\n  ],\n  \"missing_profile_fields\": [],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": []\n}",
+      "reasoning": "We need to produce JSON bto_guidance. Identify missing fields? They gave ages, citizenship, relationship engaged, first-timers, no HFE yet. Need to know if they can apply HFE now and wait. Provide policy facts: HFE letter is valid for 12 months from issue date. They can apply now and wait for launch within that period. Also need to note they must apply for HFE before BTO application and that they need to keep it valid. No missing fields. No conflicts. Out of scope none. Provide claims."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "queue_time": 0.218692852,
+    "prompt_tokens": 1205,
+    "prompt_time": 0.063254614,
+    "completion_tokens": 492,
+    "completion_time": 1.033516706,
+    "total_tokens": 1697,
+    "total_time": 1.09677132,
+    "completion_tokens_details": {
+     "reasoning_tokens": 113
+    }
+   },
+   "usage_breakdown": null,
+   "system_fingerprint": "fp_86dc843b12",
+   "x_groq": {
+    "id": "req_01m622qqdre11vzpn40vjrkgyk",
+    "seed": 1204193692
+   },
+   "service_tier": "on_demand"
+  },
+  "parsed": {
+   "summary": "You can apply for your HFE letter now and use it for a BTO launch occurring within the next 12 months, but ensure the letter remains valid at the time you submit your BTO application.",
+   "claims": [
+    {
+     "claim_id": "c1",
+     "text": "An HFE (Housing Flat Eligibility) letter is valid for 12 months from the date it is issued.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c2",
+     "text": "You must have a valid HFE letter at the time you submit your BTO application; the letter does not need to be issued on the exact day of the ballot.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c3",
+     "text": "Apply for your HFE letter now via the HDB Flat Portal; note the issue date on the letter.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c4",
+     "text": "Mark your calendar for the expected BTO launch in October 2027 and ensure the HFE issue date is before October 2027 and not earlier than 12 months prior to your intended application date.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c5",
+     "text": "If the BTO launch you plan to apply for occurs after the 12\u2011month validity window, you will need to re\u2011apply for a new HFE letter.",
+     "kind": "caveat"
+    }
+   ],
+   "missing_profile_fields": [],
+   "profile_conflicts": [],
+   "out_of_scope_reasons": []
+  },
+  "validation_error": null
+ }
+}

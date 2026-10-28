@@ -1,0 +1,130 @@
+{
+ "case_id": "DEV-02",
+ "model_id": "openai/gpt-oss-120b",
+ "first": {
+  "http_status": 200,
+  "latency_ms": 2329,
+  "http_attempts": [
+   {
+    "status": 200,
+    "latency_ms": 2329
+   }
+  ],
+  "usage": {
+   "input_tokens": 1229,
+   "output_tokens": 893,
+   "reasoning_tokens": 31
+  },
+  "raw_response": {
+   "id": "chatcmpl-76c23c54-05ef-4cd8-a695-24b0f8abd114",
+   "object": "chat.completion",
+   "created": 1793218802,
+   "model": "openai/gpt-oss-120b",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\n  \"summary\": \"With an HFE letter issued on 15 June 2026, Mei Xin and Haziq should focus on timing, document preparation, eligibility checks specific to PR status, and post\u2011application steps to ensure a smooth BTO application.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"An HFE (Housing Flat Eligibility) letter is valid for 12 months from the issue date for first\u2011timer couples.\"\n    },\n    {\n      \"claim_id\": \"c2\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Mark the BTO sales launch date on your calendar and aim to submit the application within the first 48 hours of the online ballot opening, as early submissions have a higher chance of being processed.\"\n    },\n    {\n      \"claim_id\": \"c3\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Gather all required documents before the launch, including NRICs, PR card, latest income documents, HFE letter (original or electronic copy), and any marriage certificate if applicable.\"\n    },\n    {\n      \"claim_id\": \"c4\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"Since one applicant is a Singapore Permanent Resident, the couple is eligible for the BTO scheme but will only be eligible for the CPF Housing Grant (e.g., CPF Housing Grant for PRs) if the PR meets the minimum residency period (usually 5 years of PR status).\"\n    },\n    {\n      \"claim_id\": \"c5\",\n      \"kind\": \"caveat\",\n      \"text\": \"The exact grant eligibility for PRs can change; verify the current CPF Housing Grant criteria on the HDB website (hdb.gov.sg) before applying.\"\n    },\n    {\n      \"claim_id\": \"c6\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Check that your combined monthly household income still falls within the income ceiling for the BTO project you intend to apply for; income ceilings differ by flat type and location.\"\n    },\n    {\n      \"claim_id\": \"c7\",\n      \"kind\": \"caveat\",\n      \"text\": \"Income ceiling limits are subject to periodic updates; confirm the latest figures on the HDB portal.\"\n    },\n    {\n      \"claim_id\": \"c8\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Ensure that neither applicant has any outstanding HDB loans, resale flat purchases, or private property ownership that would affect eligibility.\"\n    },\n    {\n      \"claim_id\": \"c9\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"A change in household composition (e.g., birth of a child, addition of a new family member) after the HFE issuance requires a new HFE letter.\"\n    },\n    {\n      \"claim_id\": \"c10\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Set up a reliable internet connection and have a backup device ready for the online application, as the portal can experience high traffic during launch.\"\n    },\n    {\n      \"claim_id\": \"c11\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Review the flat selection criteria (e.g., proximity to MRT, school zones) ahead of time so you can quickly choose your preferred options during the ballot.\"\n    },\n    {\n      \"claim_id\": \"c12\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"If you are successful in the ballot, you will have 30 days to sign the Agreement for Lease and pay the downpayment.\"\n    },\n    {\n      \"claim_id\": \"c13\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Prepare the required downpayment funds (typically 10% of the flat price) in your CPF Ordinary Account or cash, and ensure the CPF contribution ceiling is not exceeded.\"\n    }\n  ],\n  \"missing_profile_fields\": [],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": []\n}",
+      "reasoning": "We need to produce guidance. No missing fields. Provide claims about preparation steps, policy facts, caveats. No out of scope. Provide summary."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "queue_time": 0.217112791,
+    "prompt_tokens": 1229,
+    "prompt_time": 0.048728409,
+    "completion_tokens": 893,
+    "completion_time": 1.871292984,
+    "total_tokens": 2122,
+    "total_time": 1.9200213929999999,
+    "completion_tokens_details": {
+     "reasoning_tokens": 31
+    }
+   },
+   "usage_breakdown": null,
+   "system_fingerprint": "fp_c15aa9c1b7",
+   "x_groq": {
+    "id": "req_01m622ptk9eb999xp0eq87ycke",
+    "seed": 343987105
+   },
+   "service_tier": "on_demand"
+  },
+  "parsed": {
+   "summary": "With an HFE letter issued on 15 June 2026, Mei Xin and Haziq should focus on timing, document preparation, eligibility checks specific to PR status, and post\u2011application steps to ensure a smooth BTO application.",
+   "claims": [
+    {
+     "claim_id": "c1",
+     "text": "An HFE (Housing Flat Eligibility) letter is valid for 12 months from the issue date for first\u2011timer couples.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c2",
+     "text": "Mark the BTO sales launch date on your calendar and aim to submit the application within the first 48 hours of the online ballot opening, as early submissions have a higher chance of being processed.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c3",
+     "text": "Gather all required documents before the launch, including NRICs, PR card, latest income documents, HFE letter (original or electronic copy), and any marriage certificate if applicable.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c4",
+     "text": "Since one applicant is a Singapore Permanent Resident, the couple is eligible for the BTO scheme but will only be eligible for the CPF Housing Grant (e.g., CPF Housing Grant for PRs) if the PR meets the minimum residency period (usually 5 years of PR status).",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c5",
+     "text": "The exact grant eligibility for PRs can change; verify the current CPF Housing Grant criteria on the HDB website (hdb.gov.sg) before applying.",
+     "kind": "caveat"
+    },
+    {
+     "claim_id": "c6",
+     "text": "Check that your combined monthly household income still falls within the income ceiling for the BTO project you intend to apply for; income ceilings differ by flat type and location.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c7",
+     "text": "Income ceiling limits are subject to periodic updates; confirm the latest figures on the HDB portal.",
+     "kind": "caveat"
+    },
+    {
+     "claim_id": "c8",
+     "text": "Ensure that neither applicant has any outstanding HDB loans, resale flat purchases, or private property ownership that would affect eligibility.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c9",
+     "text": "A change in household composition (e.g., birth of a child, addition of a new family member) after the HFE issuance requires a new HFE letter.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c10",
+     "text": "Set up a reliable internet connection and have a backup device ready for the online application, as the portal can experience high traffic during launch.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c11",
+     "text": "Review the flat selection criteria (e.g., proximity to MRT, school zones) ahead of time so you can quickly choose your preferred options during the ballot.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c12",
+     "text": "If you are successful in the ballot, you will have 30 days to sign the Agreement for Lease and pay the downpayment.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c13",
+     "text": "Prepare the required downpayment funds (typically 10% of the flat price) in your CPF Ordinary Account or cash, and ensure the CPF contribution ceiling is not exceeded.",
+     "kind": "preparation_step"
+    }
+   ],
+   "missing_profile_fields": [],
+   "profile_conflicts": [],
+   "out_of_scope_reasons": []
+  },
+  "validation_error": null
+ }
+}

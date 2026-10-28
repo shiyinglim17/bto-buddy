@@ -236,7 +236,12 @@ caches out of the build context.
 - Benchmark validation (dev + held-out inputs; prints IDs and counts only):
   `uv run python -m evaluation.benchmark validate`. The `--heldout` flag is for the
   developer's label review only.
-- Evaluation run commands: add them here only after they have been verified.
+- Evaluation runs (verified 2026-10-29; need `BTO_BUDDY_LLM_API_KEY` or `GROQ_API_KEY` in `.env`):
+  - `uv run python -m evaluation.run run --config A --split dev` (saves
+    `evaluation/results/<run_id>/`; the held-out split needs `--final`)
+  - `uv run python -m evaluation.run check <run_id>` (completeness, contract, label join)
+  - `uv run python -m evaluation.run sheet <run_id> [...]` (blinded scoring sheet, metric_spec §3)
+- Model-selection harness (D-067): `uv run python -m evaluation.model_selection run|blind|summarise`
 
 **Secret scan before a push** (until a dedicated tool is approved):
 ```bash

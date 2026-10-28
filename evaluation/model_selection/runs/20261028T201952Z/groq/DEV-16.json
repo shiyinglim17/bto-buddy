@@ -1,0 +1,105 @@
+{
+ "case_id": "DEV-16",
+ "model_id": "openai/gpt-oss-120b",
+ "first": {
+  "http_status": 200,
+  "latency_ms": 1661,
+  "http_attempts": [
+   {
+    "status": 429,
+    "latency_ms": 107
+   },
+   {
+    "status": 200,
+    "latency_ms": 1661
+   }
+  ],
+  "usage": {
+   "input_tokens": 1198,
+   "output_tokens": 578,
+   "reasoning_tokens": 26
+  },
+  "raw_response": {
+   "id": "chatcmpl-78b8dead-8ccb-4bd8-b18e-b59a74a85b7f",
+   "object": "chat.completion",
+   "created": 1793218875,
+   "model": "openai/gpt-oss-120b",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\n  \"summary\": \"We cannot calculate the exact Enhanced CPF Housing Grant amount, but here is what you need to know and do next.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"caveat\",\n      \"text\": \"The exact amount of the Enhanced CPF Housing Grant (EHG) depends on factors such as household income, flat type, and the latest HDB grant rates, which may change over time.\"\n    },\n    {\n      \"claim_id\": \"c2\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"For first\u2011timer married couples who are Singapore Citizens, the EHG is available for 2\u2011room, 3\u2011room, 4\u2011room, and 5\u2011room BTO flats, with the grant amount decreasing as household income rises.\"\n    },\n    {\n      \"claim_id\": \"c3\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"As of the most recent HDB guidelines, households with a monthly combined income of up to $14,000 may be eligible for the EHG, but the exact grant amount is tiered (e.g., higher for lower incomes).\"\n    },\n    {\n      \"claim_id\": \"c4\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Check the latest EHG rates on the HDB website (hdb.gov.sg) or the HDB Flat Portal to see the grant amount that corresponds to a $9,000 monthly household income for a 4\u2011room BTO.\"\n    },\n    {\n      \"claim_id\": \"c5\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Prepare your latest payslips, Income Tax Notices of Assessment, and CPF contribution statements, as HDB will require these documents to verify your household income for the grant application.\"\n    },\n    {\n      \"claim_id\": \"c6\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"If you have not yet received your HDB Flat Eligibility (HFE) letter, apply for it early, as the HFE is required before you can submit a BTO application and claim any grants.\"\n    }\n  ],\n  \"missing_profile_fields\": [],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": [\n    {\n      \"code\": \"excluded_topic\",\n      \"topic\": \"grant_loan_calculation\",\n      \"detail\": \"Calculating the exact Enhanced CPF Housing Grant amount is out of scope; refer to official HDB sources for the current grant tables.\"\n    }\n  ]\n}",
+      "reasoning": "We must mark out_of_scope for grant calculation. Provide guidance, missing fields none. Provide claim that we cannot calculate amount."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "queue_time": 0.217873808,
+    "prompt_tokens": 1198,
+    "prompt_time": 0.053005912,
+    "completion_tokens": 578,
+    "completion_time": 1.210794874,
+    "total_tokens": 1776,
+    "total_time": 1.263800786,
+    "completion_tokens_details": {
+     "reasoning_tokens": 26
+    }
+   },
+   "usage_breakdown": null,
+   "system_fingerprint": "fp_5a93aea882",
+   "x_groq": {
+    "id": "req_01m622s2fjendvw457667nyh86",
+    "seed": 2076807277
+   },
+   "service_tier": "on_demand"
+  },
+  "parsed": {
+   "summary": "We cannot calculate the exact Enhanced CPF Housing Grant amount, but here is what you need to know and do next.",
+   "claims": [
+    {
+     "claim_id": "c1",
+     "text": "The exact amount of the Enhanced CPF Housing Grant (EHG) depends on factors such as household income, flat type, and the latest HDB grant rates, which may change over time.",
+     "kind": "caveat"
+    },
+    {
+     "claim_id": "c2",
+     "text": "For first\u2011timer married couples who are Singapore Citizens, the EHG is available for 2\u2011room, 3\u2011room, 4\u2011room, and 5\u2011room BTO flats, with the grant amount decreasing as household income rises.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c3",
+     "text": "As of the most recent HDB guidelines, households with a monthly combined income of up to $14,000 may be eligible for the EHG, but the exact grant amount is tiered (e.g., higher for lower incomes).",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c4",
+     "text": "Check the latest EHG rates on the HDB website (hdb.gov.sg) or the HDB Flat Portal to see the grant amount that corresponds to a $9,000 monthly household income for a 4\u2011room BTO.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c5",
+     "text": "Prepare your latest payslips, Income Tax Notices of Assessment, and CPF contribution statements, as HDB will require these documents to verify your household income for the grant application.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c6",
+     "text": "If you have not yet received your HDB Flat Eligibility (HFE) letter, apply for it early, as the HFE is required before you can submit a BTO application and claim any grants.",
+     "kind": "preparation_step"
+    }
+   ],
+   "missing_profile_fields": [],
+   "profile_conflicts": [],
+   "out_of_scope_reasons": [
+    {
+     "code": "excluded_topic",
+     "topic": "grant_loan_calculation",
+     "detail": "Calculating the exact Enhanced CPF Housing Grant amount is out of scope; refer to official HDB sources for the current grant tables."
+    }
+   ]
+  },
+  "validation_error": null
+ }
+}

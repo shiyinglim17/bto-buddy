@@ -1,0 +1,124 @@
+{
+ "case_id": "DEV-13",
+ "model_id": "openai/gpt-oss-120b",
+ "first": {
+  "http_status": 200,
+  "latency_ms": 2057,
+  "http_attempts": [
+   {
+    "status": 429,
+    "latency_ms": 110
+   },
+   {
+    "status": 200,
+    "latency_ms": 2057
+   }
+  ],
+  "usage": {
+   "input_tokens": 1200,
+   "output_tokens": 830,
+   "reasoning_tokens": 73
+  },
+  "raw_response": {
+   "id": "chatcmpl-8fb50b80-9b6a-4730-8da0-6b3248e8039e",
+   "object": "chat.completion",
+   "created": 1793218855,
+   "model": "openai/gpt-oss-120b",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\n  \"summary\": \"Here\u2019s a practical checklist of what you and Mei should gather and do before submitting your first BTO application as an engaged Singapore\u2011Citizen couple.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"Both applicants must be Singapore Citizens to apply for a BTO flat.\"\n    },\n    {\n      \"claim_id\": \"c2\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"First\u2011timer couples must not have previously owned or sold any HDB flat or received any HDB subsidy.\"\n    },\n    {\n      \"claim_id\": \"c3\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"You need a valid HDB Flat Eligibility (HFE) letter before the ballot opens; the letter is issued after you submit the eligibility check on the HDB portal.\"\n    },\n    {\n      \"claim_id\": \"c4\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Create an account on the HDB Resale & BTO portal (https://services2.hdb.gov.sg) and complete the online eligibility check to obtain your HFE letter.\"\n    },\n    {\n      \"claim_id\": \"c5\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Gather the following documents for each applicant: NRIC (original and clear photocopy), latest income tax notice of assessment (if applicable), and recent payslips or employment letters (to confirm employment as a nurse and teacher).\"\n    },\n    {\n      \"claim_id\": \"c6\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"If either of you has any private property interest (e.g., a landed property or private condo), obtain the relevant ownership documents; first\u2011timer couples must not own any private residential property at the time of application.\"\n    },\n    {\n      \"claim_id\": \"c7\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Prepare a digital copy of your marriage or civil partnership certificate (or a statutory declaration of engagement) \u2013 HDB may request proof of your relationship status during the application.\"\n    },\n    {\n      \"claim_id\": \"c8\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Check your combined monthly household income against the current income ceiling for the BTO project you intend to apply for (usually S$14,000 for 4\u2011room flats); you can find the latest ceiling on the HDB website.\"\n    },\n    {\n      \"claim_id\": \"c9\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Decide which flat type and location you prefer, and note the ballot dates for those projects; mark the dates on your calendar so you can submit the ballot as soon as it opens.\"\n    },\n    {\n      \"claim_id\": \"c10\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Set up a bank account that can be used for HDB loan or CPF housing grant applications, as you will need to link it during the post\u2011ballot processing stage.\"\n    },\n    {\n      \"claim_id\": \"c11\",\n      \"kind\": \"caveat\",\n      \"text\": \"Specific document requirements and income ceilings may vary by project and are updated periodically; please verify the latest details on hdb.gov.sg or the HDB Flat Portal before you submit.\"\n    }\n  ],\n  \"missing_profile_fields\": [],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": []\n}",
+      "reasoning": "We need to output JSON bto_guidance. No missing fields? We have relationship engaged, ages, citizenship, prior flat none, employment given. Might need hfe_status? Not yet applied, so not needed. No conflicts. Provide claims: policy facts about required documents, steps, etc. Also preparation steps. No out_of_scope. Provide summary."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "queue_time": 0.054534571,
+    "prompt_tokens": 1200,
+    "prompt_time": 0.053065659,
+    "completion_tokens": 830,
+    "completion_time": 1.76174952,
+    "total_tokens": 2030,
+    "total_time": 1.814815179,
+    "completion_tokens_details": {
+     "reasoning_tokens": 73
+    }
+   },
+   "usage_breakdown": null,
+   "system_fingerprint": "fp_5e2577217c",
+   "x_groq": {
+    "id": "req_01m622rejqetcv7vdk8h32qp72",
+    "seed": 413112053
+   },
+   "service_tier": "on_demand"
+  },
+  "parsed": {
+   "summary": "Here\u2019s a practical checklist of what you and Mei should gather and do before submitting your first BTO application as an engaged Singapore\u2011Citizen couple.",
+   "claims": [
+    {
+     "claim_id": "c1",
+     "text": "Both applicants must be Singapore Citizens to apply for a BTO flat.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c2",
+     "text": "First\u2011timer couples must not have previously owned or sold any HDB flat or received any HDB subsidy.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c3",
+     "text": "You need a valid HDB Flat Eligibility (HFE) letter before the ballot opens; the letter is issued after you submit the eligibility check on the HDB portal.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c4",
+     "text": "Create an account on the HDB Resale & BTO portal (https://services2.hdb.gov.sg) and complete the online eligibility check to obtain your HFE letter.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c5",
+     "text": "Gather the following documents for each applicant: NRIC (original and clear photocopy), latest income tax notice of assessment (if applicable), and recent payslips or employment letters (to confirm employment as a nurse and teacher).",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c6",
+     "text": "If either of you has any private property interest (e.g., a landed property or private condo), obtain the relevant ownership documents; first\u2011timer couples must not own any private residential property at the time of application.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c7",
+     "text": "Prepare a digital copy of your marriage or civil partnership certificate (or a statutory declaration of engagement) \u2013 HDB may request proof of your relationship status during the application.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c8",
+     "text": "Check your combined monthly household income against the current income ceiling for the BTO project you intend to apply for (usually S$14,000 for 4\u2011room flats); you can find the latest ceiling on the HDB website.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c9",
+     "text": "Decide which flat type and location you prefer, and note the ballot dates for those projects; mark the dates on your calendar so you can submit the ballot as soon as it opens.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c10",
+     "text": "Set up a bank account that can be used for HDB loan or CPF housing grant applications, as you will need to link it during the post\u2011ballot processing stage.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c11",
+     "text": "Specific document requirements and income ceilings may vary by project and are updated periodically; please verify the latest details on hdb.gov.sg or the HDB Flat Portal before you submit.",
+     "kind": "caveat"
+    }
+   ],
+   "missing_profile_fields": [],
+   "profile_conflicts": [],
+   "out_of_scope_reasons": []
+  },
+  "validation_error": null
+ }
+}

@@ -482,3 +482,91 @@ sections (S01, S02, S05; authored summaries only) and applied the agreed edits t
   roles). Key points are therefore the coverage unit; rule IDs move to diagnostic D1.
 - Cross-references updated: INDEX, 05 §4, the register (Q-14 to Q-17), evaluation_benchmark §8.
 - **Not done:** no freeze; no change to held-out files, labels or hashes.
+
+## 2026-10-29: Model selection (D-067) and configuration A baseline
+
+**Model selection**
+- Protocol pre-registered before any output (`evaluation/model_selection/protocol.md`). It
+  covers 12 dev cases (two per category, fixed rule), prompt `ms-1`, one strict schema, the
+  35/25/20/10/10 scorecard and minimum acceptance criteria. Provider facts were checked on
+  the official pages on 2026-10-29.
+- Harness: `evaluation/model_selection.py` (stdlib HTTP).
+- **Failures and fixes before any output was seen** (protocol §9):
+  - Gemini returned an HTTP 503 whose error body is a list, which crashed the harness;
+  - Groq's CDN rejected urllib's default agent (Cloudflare 1010), so the harness now sends an
+    honest User-Agent;
+  - the timeout was raised to 240 s.
+- **Gemini 3.8 Flash** took 25–104 s for one-word probes and finished no case in about
+  5 minutes. The developer stopped it and chose Groq.
+- **Groq `gpt-oss-120b`, direct generation:**
+  - schema-valid 11/12 on the first attempt (one provider-side `json_validate_failed`, so
+    strict mode did not constrain decoding) and 12/12 after the retry;
+  - accuracy 0.20; critical errors in 7/12 cases; uncertainty handling 0.25;
+  - median latency 1.9 s; about US$0.0005 per call;
+  - fails acceptance criteria 2 and 3. Recorded in D-067 as the developer's choice, with the
+    failure disclosed. Scoring was by the agent and not blind (one system).
+
+**Configuration A (direct LLM)**
+- Added the `openai` client (D-036). New modules:
+  - `llm.py`: client protocol, OpenAI-compatible client, typed failures, cost;
+  - `generation.py`: strict schema from Pydantic, one bounded retry, fail closed;
+  - `pipeline.py`: A → `FinalGuidance`, plus a shared answer renderer for blind scoring;
+  - `prompts/generate_v1.md`: one prompt, with an evidence slot for B–D.
+- Contracts: architecture §5 generation and report contracts added to `schemas.py`.
+  Additions are proposed as D-068.
+- `evaluation/run.py`: `run`, `check`, `sheet`. Every attempt's raw response is kept; failures
+  stay in the output; the held-out split needs `--final`.
+- `tests/test_baseline.py` (25 tests): parsing, schema validation (wrong type, missing field,
+  bad enum, extra field), retry, fail-closed, invented citations, every transport-failure
+  kind, the provider's schema rejection, and the real client against an httpx mock
+  transport.
+- Checks: `ruff check`, `ruff format --check`, strict `mypy` and `uv lock --check` are clean;
+  118 tests pass.
+
+**Dev run `20261028T203350Z-A-dev`:**
+- 18/18 ok, no retries, no failures. US$0.0095 in total. Median latency 4.3 s, which includes
+  waits on 429 throttling under the 8K tokens-per-minute limit.
+- `check` passes. Blinded sheet: `evaluation/results/scoring/sheet-a2ab6598fd/`.
+- **Structural diagnostics only, not primary metrics:**
+  - required missing fields reported in the structured list: 2/6;
+  - conflicts flagged: 0/3;
+  - out-of-scope flagged: 3/3;
+  - no whole-answer refusals on answerable cases.
+- **Representative errors:**
+  - DEV-07 says to wait until 21;
+  - DEV-10 endorses one-year HFE validity;
+  - DEV-13 gives 6-month validity and ignores the engaged / "wife" conflict.
+- The run started before a typing-only refactor of `llm.py` (kwargs dict, test seam); its
+  behaviour is identical.
+
+**Next:**
+- developer review of D-067 and D-068;
+- developer blind scoring per metric_spec (D-066 is still PROPOSED);
+- configurations B–D (retrieval, extraction, gate, rules wiring, verifier);
+- benchmark freeze before any held-out run.
+
+## 2026-10-29: Recommended path to submission (D-069, PROPOSED)
+
+- **Situation:** about 1.5 h remain.
+  - The selected model fails the direct-generation thresholds (D-067).
+  - The README is a stub and the app does not call the pipeline.
+  - C and D are not built.
+- **Recommendation (D-069):** keep the model; build config B (BM25 RAG); wire the app to A/B;
+  run A and B on dev only, reporting structural diagnostics with no comparative claim; write
+  the README; check Docker; record the demo.
+  - C and D are disclosed as designed but not built. The rule engine and its tests are the
+    built evidence for the deterministic layer.
+  - The held-out set stays sealed for a later full run.
+- **Findings so far, for the README:**
+  - **Direct generation without evidence** makes critical policy errors, e.g. HFE validity
+    given as 6 or 12 months instead of 9, "wait until 21" instead of the core-occupier route,
+    and an invented FT(PMC) meaning.
+  - **It under-reports applicant-information signals:** 2/6 required missing fields and 0/3
+    conflicts in the dev run.
+  - **It handles explicit out-of-scope requests well:** 3/3 declined.
+  - **The provider's strict schema mode** still produced one invalid enum value, which the
+    bounded retry recovered.
+  - **Gemini 3.8 Flash was unusable during the session:** 25–104 s for one-word probes, and
+    HTTP 503.
+  - **Groq's 8K tokens-per-minute limit** throttles runs but caused no failures.
+- **Q-13 / C-17:** privacy was handled qualitatively in model selection (register updated).

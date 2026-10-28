@@ -1,0 +1,95 @@
+{
+ "case_id": "DEV-04",
+ "model_id": "openai/gpt-oss-120b",
+ "first": {
+  "http_status": 200,
+  "latency_ms": 1445,
+  "http_attempts": [
+   {
+    "status": 200,
+    "latency_ms": 1445
+   }
+  ],
+  "usage": {
+   "input_tokens": 1183,
+   "output_tokens": 456,
+   "reasoning_tokens": 53
+  },
+  "raw_response": {
+   "id": "chatcmpl-69e8d4a3-152c-419e-afa2-775d1671cc81",
+   "object": "chat.completion",
+   "created": 1793218803,
+   "model": "openai/gpt-oss-120b",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\n  \"summary\": \"Engaged Singaporean couples who are first\u2011time applicants can apply for a BTO, provided they meet the standard eligibility criteria and have a valid HFE.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"First\u2011time couples (married or engaged) who are both Singapore Citizens and have never owned a flat or received a housing subsidy are eligible to apply for a BTO.\"\n    },\n    {\n      \"claim_id\": \"c2\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"All first\u2011time applicants must hold a valid HDB Flat Eligibility (HFE) letter before submitting a BTO application.\"\n    },\n    {\n      \"claim_id\": \"c3\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Apply for an HFE letter via the HDB Flat Portal; the process typically takes up to 14 days.\"\n    },\n    {\n      \"claim_id\": \"c4\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Gather the required documents, such as NRICs, latest income documents (e.g., payslips or CPF statements), and the HFE letter.\"\n    },\n    {\n      \"claim_id\": \"c5\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Check that both applicants meet the minimum age requirement (21 years old) and are not barred from HDB purchases.\"\n    },\n    {\n      \"claim_id\": \"c6\",\n      \"kind\": \"caveat\",\n      \"text\": \"Exact income ceiling limits and grant eligibility can change; verify the latest figures on hdb.gov.sg before applying.\"\n    }\n  ],\n  \"missing_profile_fields\": [],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": []\n}",
+      "reasoning": "Need to respond with JSON bto_guidance. No missing fields needed. Provide policy_fact that engaged couples who are both citizens and first-timers can apply. Also preparation steps: ensure HFE, gather docs, check income etc. No out of scope."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "queue_time": 0.217553397,
+    "prompt_tokens": 1183,
+    "prompt_time": 0.068980099,
+    "completion_tokens": 456,
+    "completion_time": 0.969271428,
+    "total_tokens": 1639,
+    "total_time": 1.038251527,
+    "completion_tokens_details": {
+     "reasoning_tokens": 53
+    }
+   },
+   "usage_breakdown": null,
+   "system_fingerprint": "fp_c3da0d4bb9",
+   "x_groq": {
+    "id": "req_01m622pwsnexzbk6abx9c853h7",
+    "seed": 1551632349
+   },
+   "service_tier": "on_demand"
+  },
+  "parsed": {
+   "summary": "Engaged Singaporean couples who are first\u2011time applicants can apply for a BTO, provided they meet the standard eligibility criteria and have a valid HFE.",
+   "claims": [
+    {
+     "claim_id": "c1",
+     "text": "First\u2011time couples (married or engaged) who are both Singapore Citizens and have never owned a flat or received a housing subsidy are eligible to apply for a BTO.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c2",
+     "text": "All first\u2011time applicants must hold a valid HDB Flat Eligibility (HFE) letter before submitting a BTO application.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c3",
+     "text": "Apply for an HFE letter via the HDB Flat Portal; the process typically takes up to 14 days.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c4",
+     "text": "Gather the required documents, such as NRICs, latest income documents (e.g., payslips or CPF statements), and the HFE letter.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c5",
+     "text": "Check that both applicants meet the minimum age requirement (21 years old) and are not barred from HDB purchases.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c6",
+     "text": "Exact income ceiling limits and grant eligibility can change; verify the latest figures on hdb.gov.sg before applying.",
+     "kind": "caveat"
+    }
+   ],
+   "missing_profile_fields": [],
+   "profile_conflicts": [],
+   "out_of_scope_reasons": []
+  },
+  "validation_error": null
+ }
+}

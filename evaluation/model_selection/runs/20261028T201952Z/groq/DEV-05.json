@@ -1,0 +1,100 @@
+{
+ "case_id": "DEV-05",
+ "model_id": "openai/gpt-oss-120b",
+ "first": {
+  "http_status": 200,
+  "latency_ms": 1643,
+  "http_attempts": [
+   {
+    "status": 200,
+    "latency_ms": 1643
+   }
+  ],
+  "usage": {
+   "input_tokens": 1189,
+   "output_tokens": 528,
+   "reasoning_tokens": 39
+  },
+  "raw_response": {
+   "id": "chatcmpl-1ea50583-9405-45aa-851f-99a678a7f82d",
+   "object": "chat.completion",
+   "created": 1793218805,
+   "model": "openai/gpt-oss-120b",
+   "choices": [
+    {
+     "index": 0,
+     "message": {
+      "role": "assistant",
+      "content": "{\n  \"summary\": \"As a married Singaporean couple with no prior flat ownership or housing subsidies, you fall under the first\u2011timer household rules for purchasing a new HDB flat.\",\n  \"claims\": [\n    {\n      \"claim_id\": \"c1\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"First\u2011timer households are defined as Singapore Citizen couples (married, engaged or civil partnership) who have not previously owned any HDB flat or received any HDB housing subsidy.\"\n    },\n    {\n      \"claim_id\": \"c2\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"Both applicants must be Singapore Citizens; at least one must be at least 21 years old (you meet this requirement).\"\n    },\n    {\n      \"claim_id\": \"c3\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"First\u2011timer couples are eligible to apply for new BTO projects, resale flats, and some executive condominiums (subject to the 5\u2011year resale levy rule).\"\n    },\n    {\n      \"claim_id\": \"c4\",\n      \"kind\": \"policy_fact\",\n      \"text\": \"You may apply for the CPF Housing Grant for first\u2011timer families, such as the Enhanced CPF Housing Grant (EHG) or the Family Grant, provided you meet the income ceiling and other criteria.\"\n    },\n    {\n      \"claim_id\": \"c5\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Gather your identification documents (NRICs), recent payslips, CPF statements, and any other documents required for the HFE (Flat Eligibility) application.\"\n    },\n    {\n      \"claim_id\": \"c6\",\n      \"kind\": \"preparation_step\",\n      \"text\": \"Check the upcoming BTO launch schedule on the HDB website and shortlist projects that meet your location and size preferences.\"\n    },\n    {\n      \"claim_id\": \"c7\",\n      \"kind\": \"caveat\",\n      \"text\": \"Specific income ceilings, grant eligibility thresholds, and resale levy rules may change; verify the latest figures on hdb.gov.sg before you apply.\"\n    }\n  ],\n  \"missing_profile_fields\": [],\n  \"profile_conflicts\": [],\n  \"out_of_scope_reasons\": []\n}",
+      "reasoning": "We need to output JSON bto_guidance. Provide policy facts about household rules for first-timer married couples. No missing fields. No conflicts. No out of scope. Provide claims."
+     },
+     "logprobs": null,
+     "finish_reason": "stop"
+    }
+   ],
+   "usage": {
+    "queue_time": 0.321562426,
+    "prompt_tokens": 1189,
+    "prompt_time": 0.082769558,
+    "completion_tokens": 528,
+    "completion_time": 1.140053463,
+    "total_tokens": 1717,
+    "total_time": 1.222823021,
+    "completion_tokens_details": {
+     "reasoning_tokens": 39
+    }
+   },
+   "usage_breakdown": null,
+   "system_fingerprint": "fp_c800245357",
+   "x_groq": {
+    "id": "req_01m622py6ve46s02hjevgs3dbp",
+    "seed": 492072648
+   },
+   "service_tier": "on_demand"
+  },
+  "parsed": {
+   "summary": "As a married Singaporean couple with no prior flat ownership or housing subsidies, you fall under the first\u2011timer household rules for purchasing a new HDB flat.",
+   "claims": [
+    {
+     "claim_id": "c1",
+     "text": "First\u2011timer households are defined as Singapore Citizen couples (married, engaged or civil partnership) who have not previously owned any HDB flat or received any HDB housing subsidy.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c2",
+     "text": "Both applicants must be Singapore Citizens; at least one must be at least 21 years old (you meet this requirement).",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c3",
+     "text": "First\u2011timer couples are eligible to apply for new BTO projects, resale flats, and some executive condominiums (subject to the 5\u2011year resale levy rule).",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c4",
+     "text": "You may apply for the CPF Housing Grant for first\u2011timer families, such as the Enhanced CPF Housing Grant (EHG) or the Family Grant, provided you meet the income ceiling and other criteria.",
+     "kind": "policy_fact"
+    },
+    {
+     "claim_id": "c5",
+     "text": "Gather your identification documents (NRICs), recent payslips, CPF statements, and any other documents required for the HFE (Flat Eligibility) application.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c6",
+     "text": "Check the upcoming BTO launch schedule on the HDB website and shortlist projects that meet your location and size preferences.",
+     "kind": "preparation_step"
+    },
+    {
+     "claim_id": "c7",
+     "text": "Specific income ceilings, grant eligibility thresholds, and resale levy rules may change; verify the latest figures on hdb.gov.sg before you apply.",
+     "kind": "caveat"
+    }
+   ],
+   "missing_profile_fields": [],
+   "profile_conflicts": [],
+   "out_of_scope_reasons": []
+  },
+  "validation_error": null
+ }
+}
