@@ -15,115 +15,89 @@ themselves live in [decisions.md](decisions.md). Requirement IDs are in
 - The developer resolved contradictions C-01 to C-13 (D-001 to D-025).
 - Created `.gitignore` (private PDFs, private corpus, secrets) and private submission notes.
 - Commit `c49555f docs: establish project context and requirements`.
+- Context-extraction method (for re-audits): text via pdfplumber; every embedded image cropped
+  at 300 dpi and read visually; non-default text colours checked to locate verbatim HDB quotes.
 
 **Found:**
 - New contradictions C-14 to C-17.
 - Open questions Q-05 to Q-24.
 - All policy facts quoted in the approach document are **unverified** until Phase 2.
 
-## Phase 1 — Project setup and architecture (2026-10-28) — in progress
+## Phase 1 — Project setup and architecture (2026-10-28) — complete
 
-**Done:**
-- `CLAUDE.md`: project instructions, scope, architecture invariants, Git workflow (D-027: the
-  developer runs commits and pushes; the agent suggests them), verified commands.
-- Scaffold:
-  - `pyproject.toml` (src layout; Pydantic runtime; pytest/ruff/mypy in the `dev`
-    dependency group);
-  - `uv.lock` (18 packages pinned);
-  - `src/bto_buddy/__init__.py`;
-  - `tests/test_package.py`;
-  - placeholder `README.md`.
-- Decisions:
-  - D-026: production infrastructure out of scope;
-  - D-027: Git workflow, revised;
-  - D-028: tooling, with uv and `uv.lock` approved;
-  - D-029: architecture decisions on hold.
-- Private anonymity term list (`references/private/anonymity_terms.txt`) for pre-push scans.
-- The architecture layout proposal (modules, contracts, paths, gate design) was moved out of
-  `04_architecture.md` into the **uncommitted** held draft
-  `docs/proposals/architecture_layout_draft.md`, pending the developer's architecture
-  review (D-029).
+### Chronology
+| Step | Outcome | Decisions | Commit (by developer) |
+|---|---|---|---|
+| Scaffold and agent instructions | `CLAUDE.md`, `pyproject.toml` (src layout), package, smoke test, placeholder README | D-026 (production infra out of scope), D-027 (developer runs all commits/pushes; agent suggests) | `e163bdd chore: initialise project and tooling` |
+| Lockfile and tooling | uv with committed `uv.lock`; dev tools in a PEP 735 `dev` group | D-028 | (in `e163bdd`) |
+| Docker | Agent install failed (needs `sudo`); developer installed Docker Desktop. Docker 29.9.2 verified | — | — |
+| Architecture review | Held draft (D-029) replaced by a full review; A1–A11 approved → [architecture.md](architecture.md) | D-030 to D-040; Q-05, Q-10, Q-12, Q-23 resolved | `0cca98b docs: approve architecture and record design decisions` |
+| Schedule | Target 2026-10-29 07:00; effort estimate is reference only; all of A–D planned | D-043 | (in `0cca98b`, as notes) |
+| Repository and tooling setup | Developer's structure adopted, simplified; Streamlit entry point, `Dockerfile`, `.dockerignore`, `.env.example`, `.streamlit/config.toml` (telemetry off), merged `.gitignore`; Ruff excludes `docs/` (it formats Python blocks inside Markdown) | D-041 | `36531ae chore: add Streamlit entry point, Docker and environment tooling` |
+| Capture tooling | Playwright in opt-in `capture` group; Chromium headless shell in user cache; offline launch test only | D-042 | `910eb78 chore: add opt-in Playwright capture dependency group` |
 
-**Verified (macOS, uv 0.13.6, Python 3.13.2):**
-
-| Command | Result |
-|---|---|
-| `uv lock` / `uv lock --check` | 18 packages resolved; lock up to date |
-| `uv sync` | OK. pydantic 2.14.1, pytest 9.2.0, ruff 0.17.3, mypy 2.4.0 |
-| `uv run pytest` | 1 passed |
-| `uv run ruff check .` | All checks passed |
-| `uv run ruff format --check .` | Already formatted |
-| `uv run mypy` (strict) | No issues |
-
-**Failures / resolved:**
-- Docker Desktop: the agent couldn't install it (needs `sudo`). The developer installed it.
-  Verified on 2026-10-28: Docker 29.9.2, engine started, `docker run --rm hello-world` OK.
-  Project Docker commands are added at the deployment milestone.
-- Commit `e163bdd chore: initialise project and tooling`, made by the developer.
-
-**Architecture review (2026-10-28) — approved:**
-- The developer approved review items A1–A11, recorded as **D-030 to D-040**. Each has a
-  justification and a scope-alignment check.
-- The review became the approved spec [architecture.md](architecture.md).
-- Propagated to:
-  - 01 (Q-05 resolved);
-  - 03 (`aliases` field);
-  - 04 (stack statuses);
-  - the register (REQ-ARC-010/012 revised; REQ-ARC-015..019, REQ-VER-008, REQ-EVL-036/037
-    added; Q-05/10/12/23 resolved);
-  - CLAUDE.md (invariants, routing);
-  - INDEX;
-  - `.gitignore` (`.cache/`).
-
-**Schedule (developer, 2026-10-28):**
-- Target: complete and fully compliant by **2026-10-29 07:00**.
-- The brief's 12–16-hour estimate is a reference only.
-- All configurations A–D are planned; dropping B needs developer agreement.
-
-**Still open before or during Phase 2:**
-- Q-22 (facts schema field details);
-- Q-06/Q-07 (premium, resale levy tiers);
-- Q-08, Q-09, Q-11, Q-13–Q-21, Q-24;
-- model selection;
-- judge model.
-
-**Repository and tooling setup (2026-10-28):**
-- **Layout:** D-041 adopts the developer's recommended structure, simplified:
-  - `llm.py` added;
-  - `evaluation/baselines.py` and a separate retrieval-query file dropped;
-  - benchmark and verifier claims split into physical dev/test files.
-- **Files:**
-  - `src/bto_buddy/app.py`: single Streamlit entry point; an honest shell with disclaimer and
-    privacy notice, no pipeline yet;
-  - `tests/test_smoke.py`: replaces `test_package.py`; uses Streamlit `AppTest`;
-  - `Dockerfile`, `.dockerignore`, `.env.example`, `.streamlit/config.toml` (telemetry off);
-  - `.gitignore`: merged with the developer's list, plus caches and temporary outputs.
-- **Dependency:** Streamlit 1.66.1 via `uv add`; `uv.lock` now pins 51 packages.
-- **Ruff:** ruff 0.17 formats Python blocks inside Markdown, so `docs/` is excluded (design
-  sketches, not code).
-
-**Verified (macOS, uv 0.13.6, Docker 29.9.2):**
-
+### Final verified state (re-run 2026-10-28, macOS, Python 3.13.2, uv 0.13.6, Docker 29.9.2)
 | Check | Result |
 |---|---|
-| `uv sync` / `uv lock --check` | OK; 51 packages, lock up to date |
-| `uv run ruff check .` / `ruff format --check .` | All passed / 5 files formatted |
+| `uv sync` / `uv lock --check` | OK. 54 packages locked (49 in the default env; Playwright only with `--group capture`) |
+| `uv run ruff check .` / `uv run ruff format --check .` | All checks passed / 5 files formatted |
 | `uv run mypy` (strict) | No issues in 2 source files |
-| `uv run pytest` | 1 passed (smoke: app renders, disclaimer visible) |
-| `docker build -t bto-buddy .` | OK; image 820 MB (Streamlit brings numpy, pandas, pyarrow) |
-| `docker run -p 8501:8501 --env-file .env.example bto-buddy` | `/_stcore/health` OK in ~4 s; Docker HEALTHCHECK `healthy` in ~8 s |
-| Image contents | Runs as `app` (non-root); `/app` = `.venv`, `.streamlit`, `app.py`; no PDFs, `.env`, `references/` or `private_corpus` |
-| `git check-ignore` | `.env`, private corpus raw/processed, `references/private/*`, `.cache/`, `tmp/`, `*.log`, Streamlit secrets, `.venv`, tool caches, `.DS_Store` all ignored; `.env.example` trackable |
+| `uv run pytest` | **1 passed** (`tests/test_smoke.py`: app renders, title, version, disclaimer) |
+| `docker build -t bto-buddy .` | OK (image ≈ 820 MB; Streamlit brings numpy, pandas, pyarrow) |
+| `docker run -p 8501:8501 --env-file .env.example bto-buddy` | Docker HEALTHCHECK `healthy` in ~8 s; `/_stcore/health` returns `ok` |
+| Image contents (checked at setup) | Non-root `app`; `/app` = `.venv`, `.streamlit`, `app.py`; no PDFs, `.env`, `references/`, `private_corpus` |
+| Git hygiene | Working tree clean; no private or secret files tracked; `git check-ignore` covers `.env`, private corpus, `references/private/`, caches, `tmp/`, logs, Streamlit secrets; anonymity scan clean |
 
-**Noted:**
-- **Playwright approved (D-042, option 2).** Added as the opt-in `capture` group (1.64.1);
-  `uv.lock` now has 54 packages. Verified:
-  - absent from the default `uv sync` env and the Docker (`--no-dev`) install set;
-  - Chromium headless shell 156 installed to the user cache, outside the repo;
-  - offline launch expanded a local `<details>` accordion. No external site was accessed.
+**What exists in code:** only `src/bto_buddy/__init__.py` and `app.py` (a shell with a disclaimer
+and privacy notice; it says the pipeline isn't available yet), plus one smoke test. No pipeline
+modules, data files, prompts, model choice or datasets exist yet.
 
-**Next:**
-1. Implement the pure core: `schemas.py` and `policy.py` (facts/rules loading, rule
-   interpreter, gate, profile assessment), with unit tests against a synthetic fixture KB.
-   No LLM calls.
-2. Then Phase 2: source verification and authoring `policy_facts.jsonl`.
+### Unresolved issues carried forward
+| Item | Needed by | Where |
+|---|---|---|
+| D-041: confirm the `llm.py` addition | Before pipeline code | [decisions.md](decisions.md) |
+| C-14 / Q-24: the matrix's BTO-process row cites the HFE page URL | Phase 2 | register §2–3; 02 Row 4 |
+| Q-06, Q-07: SC+SPR premium and resale-levy tiers | Phase 2 | 02 Row 1 |
+| Q-08: HFE FAQ sub-links and the "exceptions and waivers" source | Phase 2 | 02 Rows 2, 5 |
+| Q-09: strip `si=` from video URLs (minor) | Phase 2 | 02 Row 2 |
+| Q-11: any experiment on the private corpus? (register still says "Phase 1"; carried to Phase 2) | Phase 2 | 03 §2.2 |
+| Q-22: `policy_facts` field-level schema | Phase 2 | 03 §2.5; architecture §5 |
+| robots.txt and Terms of Use checks; Copyright Act ss 243–244 verification (D-024) | Before any capture | 03 §5.1 |
+| Supported policy period (D-021) | After capture | 03 §2.8 |
+| Q-13 / C-17: privacy criterion in model scorecard; model and judge-model selection | Model selection | 04 §6.3 |
+| Q-14, Q-15/C-16, Q-16/C-15, Q-17: claim annotation guide, "answer coverage", human-review burden, scorer | Before evaluation | 05 §4 |
+| Q-20, Q-21: benchmark split (proposed 18/30) and verifier claim set (proposed 60) | Before dataset creation | 05 §3.3, §6.1 |
+| Q-19 / C-09: log anonymity vs completeness | Pre-submission | 06 §7 |
+| All policy facts in the context docs remain **AUTHORED-FACT (unverified)** | Phase 2 | 02 §5 |
+
+## Phase 2 — Policy sources (handoff)
+
+**Goal (D-007):** determine the **minimum source set** for the MVP and turn verified content
+into the reviewer-facing knowledge base. Nothing is included just because it appears in the
+matrix.
+
+**Read first:**
+1. [CLAUDE.md](../CLAUDE.md);
+2. [INDEX.md](project_context/INDEX.md);
+3. [02_policy_sources.md](project_context/02_policy_sources.md) (matrix, media handling,
+   facts to verify);
+4. [03_data_and_licensing.md](project_context/03_data_and_licensing.md) (corpora, manifest,
+   completeness checks, rights);
+5. [architecture.md §5](architecture.md) (contracts, `PolicyFact`).
+
+**Gates the developer must approve, in order:**
+1. **Page list for capture.** Seeds plus any linked sources justified by the MVP tiers, with
+   C-14 and Q-06 to Q-08 resolved.
+2. **Rights check before fetching:** robots.txt and Terms of Use for each host. Never claim a
+   redistribution licence.
+3. **Capture run:** Playwright (`--group capture`), approved pages only. No crawling,
+   link-following or transactional pages. Output goes to `data/private_corpus/raw/`
+   (Git-ignored), with SHA-256 and timestamps in `data/sources_manifest.json`.
+4. **Extraction and completeness audit:** 8 checks (03 §2.7), output to
+   `data/private_corpus/processed/`, plus `data/source_coverage.csv`.
+5. **Authoring:** `data/policy_facts.jsonl` (independently authored, verified, rights-reviewed,
+   with `aliases`) and `data/policy_rules.yaml` (declarative, D-038). Finalise Q-22.
+
+**Can proceed in parallel, with no dependence on real facts:**
+- `schemas.py` and `policy.py` (loaders, rule interpreter, gate, profile assessment), with
+  unit tests against a clearly fictional fixture KB in `tests/fixtures/`.

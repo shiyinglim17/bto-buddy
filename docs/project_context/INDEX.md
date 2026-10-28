@@ -8,9 +8,17 @@ sources:
 Both PDFs are kept locally and are Git-ignored. This documentation is independently
 authored: it paraphrases requirements and policy content rather than reproducing them.
 
-**Phase:** 0 (context building).
-**Created:** 2026-10-28.
-**Code, models or datasets:** none have been implemented, selected or created.
+**Status (2026-10-28):** Phase 0 (context) and Phase 1 (setup and architecture) are complete.
+**Next:** Phase 2 (policy sources); see the
+[development log handoff](../development_log.md#phase-2--policy-sources-handoff).
+
+**What exists:**
+- the uv project and lockfile;
+- a Streamlit entry-point shell;
+- one smoke test;
+- the Docker image.
+
+No pipeline modules, data files, model choice or datasets exist yet.
 
 ## Files
 
@@ -57,10 +65,36 @@ authored: it paraphrases requirements and policy content rather than reproducing
 5. Proposed alternatives and open questions.
 6. Historical or superseded brainstorming.
 
-## Current open items
-- **Contradictions still open:** C-14 (URL mismatch in the matrix), C-15 to C-17 (metric
-  and scorecard gaps).
-- **Questions:** Q-05 to Q-24.
-- **Execution risk:** C-09 / Q-19 (log anonymity).
+## Where to look for a task
+| Task | Read |
+|---|---|
+| Any task | `CLAUDE.md`, then this index |
+| Scope questions | 01, plus D-008 / D-013 / D-033 in [decisions](../decisions.md) |
+| Source capture, extraction, facts | 02, 03, [architecture §5](../architecture.md) |
+| Pipeline code | [architecture.md](../architecture.md) (§3 stages, §5 contracts, §11 modules, §12 tests), 04 |
+| Benchmark and evaluation | 05, register (REQ-EVL-*) |
+| README and submission | 06, register (REQ-SUB-*, REQ-DOC-*) |
+| History and current state | [development_log.md](../development_log.md) |
 
-All are listed in [requirements_register.md §2–3](requirements_register.md#2-contradictions).
+## Current open items
+- **Contradictions open:**
+  - C-14 (URL mismatch in the matrix, Q-24);
+  - C-15 and C-16 (metric gaps, Q-16 and Q-15);
+  - C-17 (privacy missing from the scorecard, Q-13).
+- **Questions open:**
+
+  | Needed by | Questions |
+  |---|---|
+  | Phase 2 | Q-06, Q-07, Q-08, Q-09, Q-11, Q-22, Q-24 |
+  | Model selection | Q-13 |
+  | Before evaluation | Q-14, Q-15, Q-16, Q-17 |
+  | Before dataset creation | Q-20, Q-21 |
+  | Pre-submission | Q-19 |
+
+- **Resolved:** Q-05, Q-10, Q-12, Q-18, Q-23.
+- **Awaiting confirmation:** the `llm.py` addition in D-041.
+- **Execution risk:** C-09 / Q-19 (log anonymity vs completeness).
+
+Details are in [requirements_register.md §2–3](requirements_register.md#2-contradictions). The
+consolidated list with owners and deadlines is in the
+[development log](../development_log.md#unresolved-issues-carried-forward).

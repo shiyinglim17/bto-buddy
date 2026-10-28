@@ -72,6 +72,10 @@ This replaces the hierarchy in [APP p.1], which is recorded as superseded in BD-
 
 ## Architecture decisions approved 2026-10-28 (from the architecture review)
 
+**Status of this block:** D-030 to D-040 are all **APPROVED** (2026-10-28). D-039's paths are
+SUPERSEDED by D-041. D-041 and D-042 were approved later the same day; D-041's `llm.py`
+addition still awaits explicit developer confirmation.
+
 Specification: [architecture.md](architecture.md). Each decision was checked against the
 approved scope (D-008, D-013, D-026) and against the hard constraints:
 - no agents, frameworks or vector DB (REQ-ARC-002);
@@ -93,6 +97,7 @@ approved scope (D-008, D-013, D-026) and against the hard constraints:
 | D-040 | **Optional extraction diagnostic.** Score field-level extraction against a gold profile per scenario, **only if time allows**. A diagnostic, not a primary metric | Review A11 | Cheap to label alongside scenarios, and helps attribute end-to-end errors | Evaluation only; adds no feature | — |
 | D-041 | **Repository layout** follows the developer's recommended structure, simplified: `src/bto_buddy/{app,schemas,policy,retrieval,llm,generation,verification,pipeline}.py` + `prompts/`; `evaluation/{run,metrics}.py`, `metric_spec.md`, `results/`; `scripts/` for Phase 2 tooling. Benchmark as `data/benchmark_{dev,test}.jsonl`; verifier claims as `data/verifier_claims_{dev,test}.jsonl`; run outputs in `evaluation/results/<run_id>/`. `llm.py` added; `evaluation/baselines.py` and a separate retrieval-query file dropped (reasons in architecture §11.2). Files are created only when they hold real content | APPROVED (developer instruction 2026-10-28; `llm.py` addition flagged for confirmation) | Repository and tooling setup | Developer's latest instruction. Separate dev/test files make held-out separation physical (REQ-EVL-022). Merging small modules reduces indirection without changing stage boundaries or contracts | No change to scope or pipeline stages (D-030 unchanged in behaviour) | Module list in D-030 layout and paths in D-039 |
 | D-042 | **Playwright** (`playwright>=1.48,<2`, locked 1.64.1) in an **opt-in `capture` dependency group**, used only by `scripts/capture_sources.py` for controlled browser capture of explicitly approved pages (expand accordions, save rendered HTML, record SHA-256 and timestamp). Not installed by `uv sync`, not in the Docker image, never imported by `src/`. Chromium headless shell is installed per machine with `uv run --group capture playwright install chromium` | APPROVED (developer, 2026-10-28) | Option 2 for Phase 2 capture; REQ-SRC-006 | Accordion-heavy pages need consistent, repeatable expansion. Scripted capture makes the accordion-coverage check measurable (REQ-SRC-012) and provenance exact (REQ-SRC-002, REQ-LIC-016). Opt-in group keeps reviewer and runtime installs unchanged | Developer tooling only. No crawling, no link-following, no transactional pages (REQ-SRC-006). Each capture run still needs approval of its page list | Adds to D-036 |
+| D-043 | **Schedule.** The project must be complete and compliant with every assessment requirement by **2026-10-29 07:00**. The brief's 12–16-hour effort estimate is a reference, not a constraint. All configurations A–D are planned. Dropping B (REQ-EVL-013 fallback) only if the deadline is at risk **and** the developer agrees | APPROVED (developer, 2026-10-28) | Developer instruction; Q-18 for planning | Gives an explicit planning target without cutting scope pre-emptively | Unchanged scope. Compliance outranks polish when trading off | The "time-budget warning" (B only if time remains) in the architecture review |
 
 ---
 
