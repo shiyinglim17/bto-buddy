@@ -23,7 +23,9 @@ authored: it paraphrases requirements and policy content rather than reproducing
 | [05_evaluation.md](05_evaluation.md) | Configurations A–D, **benchmark structure**, label protocol, proposed split, **metric definitions**, severity rubric, retrieval and verifier evaluation, statistics, failure taxonomy |
 | [06_submission_requirements.md](06_submission_requirements.md) | Mandatory deliverables, scoring dimensions, non-compliance indicators, resources, AI-log rules, README requirements |
 | [requirements_register.md](requirements_register.md) | **All requirement IDs** with source pages, components and acceptance evidence; contradictions; open questions; completeness audit |
-| [../decisions.md](../decisions.md) | Decision log (D-001…D-025, BD-00…BD-09) and the instruction priority |
+| [../decisions.md](../decisions.md) | Decision log (D-001 onward, BD-00…BD-09) and the instruction priority |
+| [../development_log.md](../development_log.md) | Progress per phase, verified commands, failures, next steps |
+| [../../CLAUDE.md](../../CLAUDE.md) | Working instructions for coding agents (scope, invariants, Git workflow, commands) |
 
 ## Legend
 
