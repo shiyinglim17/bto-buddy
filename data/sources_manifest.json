@@ -1,0 +1,903 @@
+{
+  "manifest_version": "2026-10-28.1",
+  "schema_status": "PROPOSED (D-053); document-level records only. Section records (S01.a etc.) are added at extraction.",
+  "rights_records": [
+    {
+      "rights_id": "R-HDB-WWW",
+      "host": "www.hdb.gov.sg",
+      "terms_url": "https://www.hdb.gov.sg/terms-of-use",
+      "terms_checked_at": null,
+      "terms_sha256": null,
+      "terms_summary": "Not read: page body is JavaScript-rendered and automated clients receive HTTP 403. Developer to read in a browser.",
+      "robots_url": "https://www.hdb.gov.sg/robots.txt",
+      "robots_checked_at": "2026-10-28T06:18:00Z",
+      "robots_sha256": null,
+      "robots_relevant_rules": [
+        "User-agent: *",
+        "Disallow: /hdb-flat-portal"
+      ],
+      "robots_permits_planned_paths": "partial",
+      "legal_basis": "cda_s243_244",
+      "redistribution": "not_permitted",
+      "llm_transmission": "not_permitted",
+      "notes": "robots.txt read via a web-fetch tool after curl returned 403; no raw copy held. No Disallow rule matches /buying-a-flat/* or /-/media/; /hdb-flat-portal (S10) is disallowed. Bot protection returns 403 to curl and headless Chromium, so acquisition is manual browser capture (D-055). CDA basis is provisional: Copyright Act ss 244 and 187 read from a secondary source; Terms of Use unread."
+    },
+    {
+      "rights_id": "R-GOV-FILE",
+      "host": "file.go.gov.sg",
+      "terms_url": null,
+      "terms_checked_at": null,
+      "terms_sha256": null,
+      "terms_summary": "Not identified.",
+      "robots_url": "https://file.go.gov.sg/robots.txt",
+      "robots_checked_at": null,
+      "robots_sha256": null,
+      "robots_relevant_rules": [],
+      "robots_permits_planned_paths": "unchecked",
+      "legal_basis": "cda_s243_244",
+      "redistribution": "not_permitted",
+      "llm_transmission": "not_permitted",
+      "notes": "PDFs downloaded manually by the developer in a browser from links on S03 (go.gov.sg short links redirecting here). robots.txt governs automated agents and was not checked (R2); terms unread (R5)."
+    },
+    {
+      "rights_id": "R-MYNICEHOME",
+      "host": "www.mynicehome.gov.sg",
+      "terms_url": "https://www.mynicehome.gov.sg/terms-of-use",
+      "terms_checked_at": null,
+      "terms_sha256": null,
+      "terms_summary": "Seen only in a search-result summary (personal, non-commercial use; IP owned or licensed). Not read in full.",
+      "robots_url": "https://www.mynicehome.gov.sg/robots.txt",
+      "robots_checked_at": null,
+      "robots_sha256": null,
+      "robots_relevant_rules": [],
+      "robots_permits_planned_paths": "unchecked",
+      "legal_basis": "link_only",
+      "redistribution": "not_permitted",
+      "llm_transmission": "not_permitted",
+      "notes": "S11 is link-only unless approved."
+    },
+    {
+      "rights_id": "R-YOUTUBE",
+      "host": "www.youtube.com",
+      "terms_url": null,
+      "terms_checked_at": null,
+      "terms_sha256": null,
+      "terms_summary": "Not read; videos are link-only.",
+      "robots_url": null,
+      "robots_checked_at": null,
+      "robots_sha256": null,
+      "robots_relevant_rules": [],
+      "robots_permits_planned_paths": "unchecked",
+      "legal_basis": "link_only",
+      "redistribution": "not_permitted",
+      "llm_transmission": "not_permitted",
+      "notes": "No download, transcript or embed (REQ-SRC-011)."
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S01",
+      "record_kind": "document",
+      "title": "Couples and Families",
+      "original_url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families",
+      "canonical_url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": null,
+      "link_relation": "seed",
+      "content_format": [
+        "html_text",
+        "accordion",
+        "html_table",
+        "nested_table"
+      ],
+      "matrix_refs": [
+        "Row 1, APP p.4-7"
+      ],
+      "policy_areas": [
+        "household_composition",
+        "application_requirements"
+      ],
+      "mvp_class": "essential",
+      "mvp_class_reason": "Couple household composition, citizenship combinations (incl. non-resident spouse, D-047), under-21 and application-validity notes. FT(PMC)/FPPS are no longer on this page.",
+      "page_last_updated": "2026-08-23",
+      "effective_date": null,
+      "effective_date_status": "page_last_updated_only",
+      "acquisition": {
+        "method": "manual_rendered_dom",
+        "requested_url": null,
+        "final_url": null,
+        "retrieved_at": "2026-10-28T09:18:06Z",
+        "retrieved_at_basis": "file creation time at save (UTC filename prefix)",
+        "raw_sha256": "f0d477655219055266701ce7a5d58d91db3aa4f5c6e3c3c4f7d7dc304c48f0f5",
+        "text_sha256": "3c984d538c905bb9f2215752169d2234ed7343e58eee27dae1e3e647d533b60a",
+        "byte_size": 488617,
+        "private_path": "data/private_corpus/raw/S01/2026-10-28T091806Z_couples_families_default.html"
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "local_analysis_only",
+      "review": {
+        "status": "pending",
+        "notes": "File modified ~8 min after creation; developer to confirm no edit after paste."
+      }
+    },
+    {
+      "source_id": "S02",
+      "record_kind": "document",
+      "title": "Application for an HDB Flat Eligibility (HFE) Letter",
+      "original_url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter",
+      "canonical_url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": null,
+      "link_relation": "seed",
+      "content_format": [
+        "html_text",
+        "accordion",
+        "image",
+        "video"
+      ],
+      "matrix_refs": [
+        "Row 2, APP p.8-10",
+        "Row 4, APP p.11 (C-14)"
+      ],
+      "policy_areas": [
+        "hfe_process",
+        "hfe_documents",
+        "hfe_grant_loan_context"
+      ],
+      "mvp_class": "essential",
+      "mvp_class_reason": "HFE prerequisites, timing, validity and review; HFE-grant/loan relationship (context). Step-2 window, validity and processing time are in the page text.",
+      "page_last_updated": "2026-10-28",
+      "effective_date": null,
+      "effective_date_status": "page_last_updated_only",
+      "acquisition": {
+        "method": "manual_rendered_dom",
+        "requested_url": null,
+        "final_url": null,
+        "retrieved_at": "2026-10-28T09:30:08Z",
+        "retrieved_at_basis": "file creation time at save (UTC filename prefix)",
+        "raw_sha256": "e2e44274bad84b9a7294eef81d7628ceafa008ceb3990cfe6962a8f145482c59",
+        "text_sha256": "8d37943ebbd6b1b7887986950c3ee2a92c89b29af99c9fd00a18652c3c982502",
+        "byte_size": 304249,
+        "private_path": "data/private_corpus/raw/S02/2026-10-28T093008Z_hfe_application_default.html"
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "local_analysis_only",
+      "review": {
+        "status": "pending",
+        "notes": "Page updated on capture day; HFE application infographic file dated 27 Oct 2026 (G-15)."
+      }
+    },
+    {
+      "source_id": "S03",
+      "record_kind": "document",
+      "title": "Income Guidelines and Documents for HFE Letter Application",
+      "original_url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter/income-guidelines-and-documents",
+      "canonical_url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter/income-guidelines-and-documents",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S02",
+      "link_relation": "child_page",
+      "content_format": [
+        "html_text"
+      ],
+      "matrix_refs": [
+        "Row 3, APP p.4, 10"
+      ],
+      "policy_areas": [
+        "hfe_documents"
+      ],
+      "mvp_class": "essential",
+      "mvp_class_reason": "HFE documentation and assessment period, for document identification and follow-ups only (D-013). No per-employment document lists, hence S07/S08.",
+      "page_last_updated": "2026-07-24",
+      "effective_date": null,
+      "effective_date_status": "page_last_updated_only",
+      "acquisition": {
+        "method": "manual_rendered_dom",
+        "requested_url": null,
+        "final_url": null,
+        "retrieved_at": "2026-10-28T09:30:57Z",
+        "retrieved_at_basis": "file creation time at save (UTC filename prefix)",
+        "raw_sha256": "0e8793a9221b3533e63f77ce6deab5e3370939011b44cea1d0bc09db98b0fa9e",
+        "text_sha256": "7fd6ae8e36057452b629d418df5fe47ceda99cb514bcf5edf2968c535ea8658b",
+        "byte_size": 279492,
+        "private_path": "data/private_corpus/raw/S03/2026-10-28T093057Z_income_guidelines_default.html"
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "local_analysis_only",
+      "review": {
+        "status": "pending",
+        "notes": ""
+      }
+    },
+    {
+      "source_id": "S04",
+      "record_kind": "document",
+      "title": "Application for a New Flat",
+      "original_url": "https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application?anchor=cancellation",
+      "canonical_url": "https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": null,
+      "link_relation": "seed",
+      "content_format": [
+        "html_text",
+        "accordion"
+      ],
+      "matrix_refs": [
+        "Row 5, APP p.4, 11",
+        "Row 4, APP p.11 (intended, D-045)"
+      ],
+      "policy_areas": [
+        "application_requirements",
+        "non_selection"
+      ],
+      "mvp_class": "essential",
+      "mvp_class_reason": "Broad application requirements; cancellation and non-selection consequences incl. waiver content (inside 'Cancellation of flat application').",
+      "page_last_updated": "2026-10-22",
+      "effective_date": null,
+      "effective_date_status": "page_last_updated_only",
+      "acquisition": {
+        "method": "manual_rendered_dom",
+        "requested_url": null,
+        "final_url": null,
+        "retrieved_at": "2026-10-28T09:38:29Z",
+        "retrieved_at_basis": "file creation time at save (UTC filename prefix)",
+        "raw_sha256": "4397707f5878f78c079f5ab45de781f180e3b081dcff9436f3966396dcc77373",
+        "text_sha256": "d5cdcbdc649c9106e3c59ccaafc8d5fb8c55ac569235b61010fbd7c62ae1eb0a",
+        "byte_size": 300600,
+        "private_path": "data/private_corpus/raw/S04/2026-10-28T093829Z_new_flat_application_default.html"
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "local_analysis_only",
+      "review": {
+        "status": "pending",
+        "notes": ""
+      }
+    },
+    {
+      "source_id": "S05",
+      "record_kind": "document",
+      "title": "Priority Schemes",
+      "original_url": "https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes",
+      "canonical_url": "https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S04",
+      "link_relation": "child_page",
+      "content_format": [
+        "html_text",
+        "accordion"
+      ],
+      "matrix_refs": [
+        "Row 1, APP p.6"
+      ],
+      "policy_areas": [
+        "priority_considerations"
+      ],
+      "mvp_class": "essential",
+      "mvp_class_reason": "Sole source for the Limited priority area: FT(PMC), FPPS, FCS (Proximity, Joint Balloting). TCPS, ASSIST, SPS, TPS sections are Outside MVP.",
+      "page_last_updated": "2026-10-23",
+      "effective_date": null,
+      "effective_date_status": "page_last_updated_only",
+      "acquisition": {
+        "method": "manual_rendered_dom",
+        "requested_url": null,
+        "final_url": null,
+        "retrieved_at": "2026-10-28T10:29:58Z",
+        "retrieved_at_basis": "file creation time at save (UTC filename prefix)",
+        "raw_sha256": "595eb09b08227b58ec7d17945d5c094e4e26697da9e90fc470ad7eb6e14891d8",
+        "text_sha256": "172c6f3c1b0b16725085a8e207bdefab4ddc0ba18b2f2342b3589eaff7c1829b",
+        "byte_size": 322765,
+        "private_path": "data/private_corpus/raw/S05/2026-10-28T102958Z_priority_schemes_default.html"
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "local_analysis_only",
+      "review": {
+        "status": "pending",
+        "notes": "File modified ~2 min after creation; developer to confirm no edit after paste."
+      }
+    },
+    {
+      "source_id": "S06",
+      "record_kind": "document",
+      "title": "Modes of Sale",
+      "original_url": "https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/modes-of-sales",
+      "canonical_url": "https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/modes-of-sales",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": null,
+      "link_relation": "linked_page",
+      "content_format": [
+        "html_text"
+      ],
+      "matrix_refs": [
+        "Row 4, APP p.11"
+      ],
+      "policy_areas": [
+        "application_requirements"
+      ],
+      "mvp_class": "supporting",
+      "mvp_class_reason": "BTO process and ballot mechanism description; redirect target for ballot-odds questions. Not captured (P2).",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "link_only",
+      "review": {
+        "status": "pending",
+        "notes": ""
+      }
+    },
+    {
+      "source_id": "S07",
+      "record_kind": "document",
+      "title": "HFE Employment Status Guide (PDF)",
+      "original_url": "https://file.go.gov.sg/hfe-employment-status-guide.pdf",
+      "canonical_url": "https://file.go.gov.sg/hfe-employment-status-guide.pdf",
+      "host": "file.go.gov.sg",
+      "parent_source_id": "S03",
+      "link_relation": "linked_pdf",
+      "content_format": [
+        "pdf_text"
+      ],
+      "matrix_refs": [
+        "Row 3, APP p.10"
+      ],
+      "policy_areas": [
+        "hfe_documents"
+      ],
+      "mvp_class": "essential",
+      "mvp_class_reason": "Employment categories that determine HFE documents; S03 HTML has no equivalent (audit 2026-10-28). Documentation use only (D-013).",
+      "page_last_updated": "2025-12-19",
+      "effective_date": null,
+      "effective_date_status": "pdf_metadata_date_only",
+      "acquisition": {
+        "method": "manual_pdf_download",
+        "requested_url": "https://go.gov.sg/hfe-employment-status-guide",
+        "final_url": "https://file.go.gov.sg/hfe-employment-status-guide.pdf",
+        "retrieved_at": "2026-10-28T10:30:40Z",
+        "retrieved_at_basis": "file creation time at save (UTC filename prefix)",
+        "raw_sha256": "891c00138e722a45b2f50fc211e4414a420bf39925b431fcf8b4c7104fe2d4a9",
+        "text_sha256": null,
+        "byte_size": 118449,
+        "private_path": "data/private_corpus/raw/S07/2026-10-28T103040Z_hfe-employment-status-guide.pdf"
+      },
+      "rights_id": "R-GOV-FILE",
+      "permission_status": "local_analysis_only",
+      "review": {
+        "status": "pending",
+        "notes": "page_last_updated = PDF CreationDate/ModDate metadata, not a stated effective date. final_url from the browser download record (macOS WhereFroms)."
+      }
+    },
+    {
+      "source_id": "S08",
+      "record_kind": "document",
+      "title": "HFE Income Declaration Guide (PDF)",
+      "original_url": "https://file.go.gov.sg/hfe-income-declaration-guide.pdf",
+      "canonical_url": "https://file.go.gov.sg/hfe-income-declaration-guide.pdf",
+      "host": "file.go.gov.sg",
+      "parent_source_id": "S03",
+      "link_relation": "linked_pdf",
+      "content_format": [
+        "pdf_text"
+      ],
+      "matrix_refs": [
+        "Row 3, APP p.10"
+      ],
+      "policy_areas": [
+        "hfe_documents"
+      ],
+      "mvp_class": "essential",
+      "mvp_class_reason": "How income is declared for HFE, used only to name documents and follow-up questions; never for income calculation (D-013).",
+      "page_last_updated": "2025-12-19",
+      "effective_date": null,
+      "effective_date_status": "pdf_metadata_date_only",
+      "acquisition": {
+        "method": "manual_pdf_download",
+        "requested_url": "https://go.gov.sg/hfe-income-declaration-guide",
+        "final_url": "https://file.go.gov.sg/hfe-income-declaration-guide.pdf",
+        "retrieved_at": "2026-10-28T10:30:35Z",
+        "retrieved_at_basis": "file creation time at save (UTC filename prefix)",
+        "raw_sha256": "918bfebc82eb2bbe65ef3c7110db0f7bfb8ad77da09711b7644733834024d98e",
+        "text_sha256": null,
+        "byte_size": 378679,
+        "private_path": "data/private_corpus/raw/S08/2026-10-28T103035Z_hfe-income-declaration-guide.pdf"
+      },
+      "rights_id": "R-GOV-FILE",
+      "permission_status": "local_analysis_only",
+      "review": {
+        "status": "pending",
+        "notes": "As S07."
+      }
+    },
+    {
+      "source_id": "S09",
+      "record_kind": "document",
+      "title": "Income ceiling guide for extended families (PDF)",
+      "original_url": "https://www.hdb.gov.sg/-/media/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families/Income-ceiling-for-extended-family-guide.pdf?sc_lang=en&hash=0E76F0C419381FFAE7EE01691C5D0E8C",
+      "canonical_url": "https://www.hdb.gov.sg/-/media/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families/Income-ceiling-for-extended-family-guide.pdf",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S01",
+      "link_relation": "linked_pdf",
+      "content_format": [
+        "pdf_text"
+      ],
+      "matrix_refs": [
+        "Row 1, APP p.8",
+        "Row 3, APP p.10"
+      ],
+      "policy_areas": [
+        "eligibility_determination"
+      ],
+      "mvp_class": "outside_mvp",
+      "mvp_class_reason": "Income-ceiling determination excluded (D-013); extended families out of scope (D-033).",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "not_acquired",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "not_permitted",
+      "review": {
+        "status": "reviewed",
+        "notes": ""
+      }
+    },
+    {
+      "source_id": "S10",
+      "record_kind": "document",
+      "title": "HFE FAQs (get help)",
+      "original_url": "https://www.hdb.gov.sg/hdb-flat-portal/hfe/get-help",
+      "canonical_url": "https://www.hdb.gov.sg/hdb-flat-portal/hfe/get-help",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S02",
+      "link_relation": "linked_page",
+      "content_format": [
+        "html_text"
+      ],
+      "matrix_refs": [
+        "Row 2, APP p.10"
+      ],
+      "policy_areas": [
+        "hfe_process"
+      ],
+      "mvp_class": "pending",
+      "mvp_class_reason": "5 sub-links unmapped (Q-08). robots.txt disallows /hdb-flat-portal: no automated access. Developer may read titles manually.",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "not_acquired",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "unresolved",
+      "review": {
+        "status": "pending",
+        "notes": ""
+      }
+    },
+    {
+      "source_id": "S11",
+      "record_kind": "document",
+      "title": "HDB HFE step-by-step guide (external)",
+      "original_url": "https://www.mynicehome.gov.sg/get-started/hdb-hfe-guide/",
+      "canonical_url": "https://www.mynicehome.gov.sg/get-started/hdb-hfe-guide/",
+      "host": "www.mynicehome.gov.sg",
+      "parent_source_id": "S02",
+      "link_relation": "external_site",
+      "content_format": [
+        "html_text"
+      ],
+      "matrix_refs": [
+        "Row 2, APP p.8"
+      ],
+      "policy_areas": [
+        "hfe_process"
+      ],
+      "mvp_class": "context_only",
+      "mvp_class_reason": "Text equivalents of the HFE infographic exist on S02 (audit), so this guide is no longer needed as evidence; link only.",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-MYNICEHOME",
+      "permission_status": "link_only",
+      "review": {
+        "status": "pending",
+        "notes": ""
+      }
+    },
+    {
+      "source_id": "S12",
+      "record_kind": "document",
+      "title": "Seniors",
+      "original_url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/seniors",
+      "canonical_url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/seniors",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S01",
+      "link_relation": "linked_page",
+      "content_format": [
+        "html_text"
+      ],
+      "matrix_refs": [
+        "Row 1, APP p.6-7"
+      ],
+      "policy_areas": [
+        "other_housing"
+      ],
+      "mvp_class": "outside_mvp",
+      "mvp_class_reason": "Household type out of scope (D-033); redirect URL only.",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "link_only",
+      "review": {
+        "status": "reviewed",
+        "notes": ""
+      }
+    },
+    {
+      "source_id": "S13",
+      "record_kind": "document",
+      "title": "Citizen Top-Up",
+      "original_url": "https://www.hdb.gov.sg/managing-my-home/finances/citizen-topup",
+      "canonical_url": "https://www.hdb.gov.sg/managing-my-home/finances/citizen-topup",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S01",
+      "link_relation": "linked_page",
+      "content_format": [
+        "html_text"
+      ],
+      "matrix_refs": [
+        "Row 1, APP p.7"
+      ],
+      "policy_areas": [
+        "financing_affordability"
+      ],
+      "mvp_class": "outside_mvp",
+      "mvp_class_reason": "Financing (Q-06, D-046); redirect URL only.",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "link_only",
+      "review": {
+        "status": "reviewed",
+        "notes": ""
+      }
+    },
+    {
+      "source_id": "S14",
+      "record_kind": "document",
+      "title": "Conditions after buying a new flat: minimum occupation period",
+      "original_url": "https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/conditions-after-buying-a-new-flat?anchor=mop",
+      "canonical_url": "https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/conditions-after-buying-a-new-flat",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S01",
+      "link_relation": "same_page_anchor",
+      "content_format": [
+        "html_text"
+      ],
+      "matrix_refs": [
+        "Row 1, APP p.7"
+      ],
+      "policy_areas": [
+        "post_purchase"
+      ],
+      "mvp_class": "outside_mvp",
+      "mvp_class_reason": "Post-purchase (Excluded); redirect URL only.",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "link_only",
+      "review": {
+        "status": "reviewed",
+        "notes": "anchor=mop (query_anchor)"
+      }
+    },
+    {
+      "source_id": "S15",
+      "record_kind": "document",
+      "title": "Conditions after buying a new flat: resale levy",
+      "original_url": "https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/conditions-after-buying-a-new-flat?anchor=resale-levy",
+      "canonical_url": "https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/conditions-after-buying-a-new-flat",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S01",
+      "link_relation": "same_page_anchor",
+      "content_format": [
+        "html_text"
+      ],
+      "matrix_refs": [
+        "Row 1, APP p.7"
+      ],
+      "policy_areas": [
+        "financing_affordability",
+        "post_purchase"
+      ],
+      "mvp_class": "outside_mvp",
+      "mvp_class_reason": "Financing / post-purchase (Q-07, D-046); redirect URL only.",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "link_only",
+      "review": {
+        "status": "reviewed",
+        "notes": "anchor=resale-levy (query_anchor)"
+      }
+    },
+    {
+      "source_id": "S16",
+      "record_kind": "document",
+      "title": "Housing loan from financial institutions: integrated loan application service",
+      "original_url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/housing-loan/housing-loan-from-financial-institutions?anchor=integrated-loan-service",
+      "canonical_url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/housing-loan/housing-loan-from-financial-institutions",
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S02",
+      "link_relation": "linked_page",
+      "content_format": [
+        "html_text"
+      ],
+      "matrix_refs": [
+        "Row 2, APP p.10"
+      ],
+      "policy_areas": [
+        "hfe_grant_loan_context"
+      ],
+      "mvp_class": "context_only",
+      "mvp_class_reason": "Link from the HFE-loan explanation; financing detail excluded.",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "link_only",
+      "review": {
+        "status": "reviewed",
+        "notes": "anchor=integrated-loan-service (query_anchor)"
+      }
+    },
+    {
+      "source_id": "S17",
+      "record_kind": "document",
+      "title": "HDB Flat Portal (Singpass login)",
+      "original_url": null,
+      "canonical_url": null,
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S02",
+      "link_relation": "restricted_portal",
+      "content_format": [],
+      "matrix_refs": [
+        "Row 2, APP p.10"
+      ],
+      "policy_areas": [],
+      "mvp_class": "outside_mvp",
+      "mvp_class_reason": "Transactional, authenticated service; never accessed (REQ-SRC-006).",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "never_access",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "not_permitted",
+      "review": {
+        "status": "reviewed",
+        "notes": ""
+      }
+    },
+    {
+      "source_id": "M00",
+      "record_kind": "media",
+      "title": "What is the HDB Flat Eligibility (HFE) letter? (infographic)",
+      "original_url": null,
+      "canonical_url": null,
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S02",
+      "link_relation": "infographic",
+      "content_format": [
+        "image"
+      ],
+      "matrix_refs": [
+        "Row 2, APP p.8"
+      ],
+      "policy_areas": [
+        "hfe_grant_loan_context"
+      ],
+      "mvp_class": "context_only",
+      "mvp_class_reason": "Registry link to the parent page; image not downloaded (D-051, D-053).",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "link_only",
+      "review": {
+        "status": "pending",
+        "notes": "Image file name recorded in the S02 snapshot."
+      }
+    },
+    {
+      "source_id": "M01",
+      "record_kind": "media",
+      "title": "Apply for an HDB Flat Eligibility (HFE) letter (infographic)",
+      "original_url": null,
+      "canonical_url": null,
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S02",
+      "link_relation": "infographic",
+      "content_format": [
+        "image"
+      ],
+      "matrix_refs": [
+        "Row 2, APP p.9"
+      ],
+      "policy_areas": [
+        "hfe_process"
+      ],
+      "mvp_class": "supporting",
+      "mvp_class_reason": "Registry link; its timing details also appear in S02 text (audit 2026-10-28).",
+      "page_last_updated": "2026-10-27",
+      "effective_date": null,
+      "effective_date_status": "page_last_updated_only",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "link_only",
+      "review": {
+        "status": "pending",
+        "notes": "Date taken from the image file name in the S02 snapshot."
+      }
+    },
+    {
+      "source_id": "M02",
+      "record_kind": "media",
+      "title": "Your flat buying journey via the HDB Flat Portal (infographic)",
+      "original_url": null,
+      "canonical_url": null,
+      "host": "www.hdb.gov.sg",
+      "parent_source_id": "S02",
+      "link_relation": "infographic",
+      "content_format": [
+        "image"
+      ],
+      "matrix_refs": [
+        "Row 2, APP p.9"
+      ],
+      "policy_areas": [
+        "application_requirements"
+      ],
+      "mvp_class": "supporting",
+      "mvp_class_reason": "Registry link only.",
+      "page_last_updated": "2024-10-08",
+      "effective_date": null,
+      "effective_date_status": "page_last_updated_only",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-HDB-WWW",
+      "permission_status": "link_only",
+      "review": {
+        "status": "pending",
+        "notes": "Date taken from the image file name in the S02 snapshot."
+      }
+    },
+    {
+      "source_id": "M03",
+      "record_kind": "media",
+      "title": "Step 1: Check Preliminary HDB Flat Eligibility (HFE) (video)",
+      "original_url": "https://youtu.be/Lfmf3KJZy8k?si=gp9yeZg7eB67yqNh",
+      "canonical_url": "https://www.youtube.com/watch?v=Lfmf3KJZy8k",
+      "host": "www.youtube.com",
+      "parent_source_id": "S02",
+      "link_relation": "embedded_video",
+      "content_format": [
+        "video"
+      ],
+      "matrix_refs": [
+        "Row 2, APP p.8"
+      ],
+      "policy_areas": [
+        "hfe_process"
+      ],
+      "mvp_class": "context_only",
+      "mvp_class_reason": "Registry link only; never policy evidence (REQ-SRC-011).",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-YOUTUBE",
+      "permission_status": "link_only",
+      "review": {
+        "status": "pending",
+        "notes": "si= stripped in canonical_url (D-049)."
+      }
+    },
+    {
+      "source_id": "M04",
+      "record_kind": "media",
+      "title": "Step 2: Apply for HDB Flat Eligibility (HFE) Letter (video)",
+      "original_url": "https://youtu.be/bsno0iJUocs?si=wDpu7tB0j7v7Ymd3",
+      "canonical_url": "https://www.youtube.com/watch?v=bsno0iJUocs",
+      "host": "www.youtube.com",
+      "parent_source_id": "S02",
+      "link_relation": "embedded_video",
+      "content_format": [
+        "video"
+      ],
+      "matrix_refs": [
+        "Row 2, APP p.8"
+      ],
+      "policy_areas": [
+        "hfe_process"
+      ],
+      "mvp_class": "context_only",
+      "mvp_class_reason": "Registry link only; never policy evidence (REQ-SRC-011).",
+      "page_last_updated": null,
+      "effective_date": null,
+      "effective_date_status": "unknown",
+      "acquisition": {
+        "method": "link_only",
+        "requested_url": null,
+        "final_url": null
+      },
+      "rights_id": "R-YOUTUBE",
+      "permission_status": "link_only",
+      "review": {
+        "status": "pending",
+        "notes": "si= stripped in canonical_url (D-049)."
+      }
+    }
+  ]
+}
