@@ -67,19 +67,19 @@ decisions. Page numbers are physical PDF pages.
 |---|---|---|---|---|---|---|
 | REQ-SRC-001 | Four HDB seed pages | APPROVED (as seeds) | [APP p.4]; D-007 | 02 §1 | source_manifest | Manifest contains seeds |
 | REQ-SRC-002 | Manifest: URL, title, access timestamp, section, extraction method, SHA-256, policy scope | APPROVED | [APP p.4, 14] | 03 §2.3 | source_manifest | `data/sources_manifest.json` schema-validated |
-| REQ-SRC-003 | Passages keep enough context (condition stays with its applicant-group heading) | APPROVED | [APP p.4] | 03 §2.4 | source_acquisition | Spot-check in coverage audit |
+| REQ-SRC-003 | Passages keep enough context (condition stays with its applicant-group heading) | APPROVED | [APP p.4] | 03 §2.4 | source_acquisition | Spot-check in coverage audit **Phase 2b:** one passage per section, sub-headings keep their accordion parent; fixture test (data_sources §12). |
 | REQ-SRC-004 | Frozen, versioned corpus for evaluation | APPROVED | [APP p.5] | 02 §2 | policy_facts_kb | `kb_version` recorded in every run |
 | REQ-SRC-005 | Discovery path seeds→anchors→linked→PDFs/visuals; manual mapping | APPROVED | [APP p.5] | 02 §2 | — | Matrix in 02 §3 (done) |
 | REQ-SRC-006 | Capture only approved pages (manual rendered-DOM or controlled automation, permissions documented); expand info sections; no auto link-following; no transactional services; no crawling | APPROVED | [APP p.11, 14] | 03 §2.6 | source_acquisition | Manual capture of approved pages only (D-055); `acquisition.method` and hashes in `data/sources_manifest.json`; procedure in data_sources §7 |
-| REQ-SRC-007 | Normalise headings, paragraphs, tables, lists, links, metadata | APPROVED | [APP p.11] | 03 §2.6 | source_acquisition | Processed passages retain structure |
+| REQ-SRC-007 | Normalise headings, paragraphs, tables, lists, links, metadata | APPROVED | [APP p.11] | 03 §2.6 | source_acquisition | Processed passages retain structure **Phase 2b:** `scripts/corpus.py extract` (stdlib, D-059 approved); tables keep spans and nesting. |
 | REQ-SRC-008 | Media only when unique & essential; simplest method | APPROVED | [APP p.11] | 02 §4 | source_acquisition | Media decision recorded per resource |
-| REQ-SRC-009 | PDFs: HTML-equivalent check first; PyMuPDF + manual validation; keep title/URL/page/pub date/section; OCR only if needed | APPROVED | [APP p.11–12] | 02 §4 | source_acquisition | Manifest entries for PDFs with page refs |
-| REQ-SRC-010 | Infographics: contextual registry (title, URL, topic, stage, display conditions); no runtime image interpretation; embed only with rights + reference | APPROVED | [APP p.12] | 02 §4 | visual_resource_registry | `data/visual_resources.json`; no vision calls in code |
+| REQ-SRC-009 | PDFs: HTML-equivalent check first; PyMuPDF + manual validation; keep title/URL/page/pub date/section; OCR only if needed | APPROVED | [APP p.11–12] | 02 §4 | source_acquisition | Manifest entries for PDFs with page refs **Phase 2b:** S07/S08 reviewed manually page by page, page refs in `source.locator`; D-052 approved (manual review, no parser). |
+| REQ-SRC-010 | Infographics: contextual registry (title, URL, topic, stage, display conditions); no runtime image interpretation; embed only with rights + reference | APPROVED | [APP p.12] | 02 §4 | visual_resource_registry | `data/visual_resources.json`; no vision calls in code **Phase 2b:** `data/visual_resources.json` (M00, M01, M03, M04), links only, `evidence: false`. |
 | REQ-SRC-011 | Videos: registry only; never policy evidence unless independently validated | APPROVED | [APP p.12] | 02 §4 | visual_resource_registry | As REQ-SCP-009 |
-| REQ-SRC-012 | Extraction-completeness checks (8: accordion, section, link, table, exception, traceability, temporal, duplicates) | APPROVED | [APP p.12–13] | 03 §2.7 | coverage_audit | Audit report per source |
-| REQ-SRC-013 | Policy coverage matrix: each supported rule ≥1 verified source; exceptions checked | APPROVED | [APP p.13] | 03 §2.7 | coverage_audit | `data/source_coverage.csv` |
+| REQ-SRC-012 | Extraction-completeness checks (8: accordion, section, link, table, exception, traceability, temporal, duplicates) | APPROVED | [APP p.12–13] | 03 §2.7 | coverage_audit | Audit report per source **Phase 2b:** `data/corpus/extraction_report.json`; single-snapshot limitation recorded per source. |
+| REQ-SRC-013 | Policy coverage matrix: each supported rule ≥1 verified source; exceptions checked | APPROVED | [APP p.13] | 03 §2.7 | coverage_audit | `data/source_coverage.csv` **Phase 2b:** `data/source_coverage.csv` (36 rows); G-17 per-status document gap; U-01 to U-03 unconfirmed (D-061). |
 | REQ-SRC-014 | Minimum MVP source set decided in Phase 2; no auto-inclusion; no "four pages" claim until validated | APPROVED | D-007 | 02 §1 | — | Phase 2 decision entry |
-| REQ-SRC-015 | Record URL, retrieval date, effective date, scope; app states supported policy period | APPROVED (period OPEN) | [APP p.28]; D-021 | 03 §2.8 | policy_facts_kb, report_ui | Fields populated; UI/README show period |
+| REQ-SRC-015 | Record URL, retrieval date, effective date, scope; app states supported policy period | APPROVED (period OPEN) | [APP p.28]; D-021 | 03 §2.8 | policy_facts_kb, report_ui | Fields populated; UI/README show period **Phase 2b:** Period: "HDB sources retrieved 28 Oct 2026"; no stated effective dates (data_sources §13). |
 
 ### Data (DAT)
 | ID | Requirement | Status | Source | Context | Component | Acceptance evidence |
@@ -87,17 +87,17 @@ decisions. Page numbers are physical PDF pages.
 | REQ-DAT-001 | Document provenance, processing, licensing, privacy for all data | MANDATORY | [ASM p.2][APP p.29] | 03 | README | README data section covers every dataset |
 | REQ-DAT-002 | Synthetic data meaningful/high-fidelity, with defence | MANDATORY | [ASM p.2] | 03 §4 | README | Defence paragraph |
 | REQ-DAT-003 | Representativeness; what data does/doesn't cover | MANDATORY | [ASM p.3] | 03 §9 | README | Coverage statement |
-| REQ-DAT-010 | `data/policy_facts.jsonl` canonical KB: independently authored, source-attributed, validated, rights-reviewed | APPROVED | [APP p.4]; D-005 | 03 §2.1 | policy_facts_kb | All facts `validation.status=verified`, `rights_review=cleared` |
-| REQ-DAT-011 | App, BM25 index, Docker and primary eval use the same reviewer corpus | APPROVED | [APP p.4] | 03 §2.1 | retriever, eval_harness, docker | Config points to one file; run metadata |
-| REQ-DAT-012 | Private corpus not required for execution or reviewer evaluation | APPROVED | [APP p.4, 13]; D-005 | 03 §2.1 | docker | Clean-machine run with `data/private_corpus/` absent |
+| REQ-DAT-010 | `data/policy_facts.jsonl` canonical KB: independently authored, source-attributed, validated, rights-reviewed | APPROVED | [APP p.4]; D-005 | 03 §2.1 | policy_facts_kb | All facts `validation.status=verified`, `rights_review=cleared` **Phase 2b:** 89 facts; all 47 critical + 4 rule-cited facts `verified` against the snapshot (D-058 revised, approved); rights `overlap_checked`, `cleared` pending. |
+| REQ-DAT-011 | App, BM25 index, Docker and primary eval use the same reviewer corpus | APPROVED | [APP p.4] | 03 §2.1 | retriever, eval_harness, docker | Config points to one file; run metadata **Phase 2b:** `bto_buddy.policy.load_kb()` is the single loader. |
+| REQ-DAT-012 | Private corpus not required for execution or reviewer evaluation | APPROVED | [APP p.4, 13]; D-005 | 03 §2.1 | docker | Clean-machine run with `data/private_corpus/` absent **Phase 2b:** `tests/test_policy_kb.py` loads and resolves the KB from tracked files only; Docker copies only L2/L3. |
 | REQ-DAT-013 | Same retrieval interface for both corpora; document coverage differences; no cross-corpus result claims | APPROVED | [APP p.13] | 03 §2.2 | retriever | Interface accepts either corpus; README statement |
-| REQ-DAT-014 | Rule registry encodes only explicit, reliable rules; no binary forcing of discretionary decisions | APPROVED | [APP p.15] | 03 §3 | rule_registry, rule_engine | Rule review checklist; unit tests |
+| REQ-DAT-014 | Rule registry encodes only explicit, reliable rules; no binary forcing of discretionary decisions | APPROVED | [APP p.15] | 03 §3 | rule_registry, rule_engine | Rule review checklist; unit tests **Phase 2b:** `data/policy_rules.yaml` (24 rules, D-062 approved); discretionary cases → human review or a redirect (data_sources §19). |
 | REQ-DAT-015 | Rules reference reviewer-accessible fact IDs (private passage IDs optional provenance) | APPROVED | D-006 | 03 §3 | rule_registry | Every `source_fact_id` resolves in policy_facts |
 | REQ-DAT-016 | Dataset C separate from KB and runtime verifier | APPROVED | [APP p.15] | 03 §4 | benchmark_dataset | Separate files; no label derived from verifier |
 | REQ-DAT-017 | Fictional profiles, synthetic names; never real records | APPROVED | [APP p.16] | 03 §4 | benchmark_dataset | Dataset review |
 | REQ-DAT-018 | Record model IDs, prompt versions, inference settings, corpus versions, saved predictions; offline scoring distinct from live inference | APPROVED | [APP p.15] | 03 §7 | eval_harness | Run metadata files; rescoring from saved predictions works offline |
 | REQ-DAT-019 | Data paths per D-022 | APPROVED | D-022 | 03 §1 | repo_hygiene | Files at those paths |
-| REQ-DAT-020 | Minimal typed policy-facts schema | PROPOSED | D-023 | 03 §2.5 | policy_facts_kb | Pydantic model + validation test |
+| REQ-DAT-020 | Minimal typed policy-facts schema | APPROVED | D-023, D-059 | 03 §2.5 | policy_facts_kb | Pydantic model + validation test **Phase 2b:** `bto_buddy.schemas.PolicyFact` + tests (D-059 approved). |
 | REQ-DAT-021 | Reviewers build index and run Docker without downloading HDB pages | APPROVED | [APP p.14] | 03 §7 | docker, retriever | Offline clean-machine test |
 | REQ-DAT-022 | Capture/extraction scripts optional, not startup/eval dependencies | APPROVED | [APP p.14] | 03 §7 | source_acquisition | Docker image doesn't invoke them |
 
@@ -110,7 +110,7 @@ decisions. Page numbers are physical PDF pages.
 | REQ-LIC-012 | Never claim HDB granted redistribution licence | APPROVED | [APP p.14]; D-024 | 03 §5.1 | README | Wording review |
 | REQ-LIC-013 | Terms of Use and Copyright Act 2021 ss 243–244 recorded as preliminary; verify in Phase 2 | APPROVED (ToU read 2026-10-28; statute via a secondary source; see data_sources §6, D-057) | [APP p.14]; D-024 | 03 §5.1 | — | Phase 2 rights note |
 | REQ-LIC-014 | robots.txt check for each host | APPROVED (www.hdb.gov.sg done 2026-10-28; file.go.gov.sg and mynicehome not checked, no automated access used) | [ASM p.2]; D-024 | 03 §5.1 | source_acquisition | Recorded robots.txt snapshot/date |
-| REQ-LIC-015 | Review all tracked data for copyright/privacy/credentials before submission | APPROVED | [APP p.14] | 03 §5.2 | repo_hygiene | Pre-submission checklist |
+| REQ-LIC-015 | Review all tracked data for copyright/privacy/credentials before submission | APPROVED | [APP p.14] | 03 §5.2 | repo_hygiene | Pre-submission checklist **Phase 2b:** Fact overlap check done (max 7 shared words); developer clearance outstanding. |
 | REQ-LIC-016 | Re-download ≠ reconstruct frozen snapshot; hashes and capture dates recorded | APPROVED | [APP p.13] | 03 §5.1 | source_manifest | SHA-256 + timestamp per source |
 | REQ-LIC-017 | Project-context docs contain authored summaries, not substantial copied text | APPROVED | D-016 | 02 note | repo_hygiene | Phase 0 audit (§4 below) |
 
@@ -130,7 +130,7 @@ decisions. Page numbers are physical PDF pages.
 | REQ-ARC-005 | Missing-information contract: `missing_profile_fields`, `evidence_gaps`, `profile_conflicts`, `out_of_scope_reasons` | APPROVED | [APP p.20]; BD-06 | 04 §3 | profile_extractor, generator | Pydantic response model |
 | REQ-ARC-006 | Policies as structured conditions/exceptions/dates/sources | APPROVED | [APP p.22] | 04 §4 | policy_facts_kb, rule_registry | Schema fields populated |
 | REQ-ARC-007 | Typed objects between all modules | APPROVED | [APP p.28] | 04 §4 | all runtime | Type-checked interfaces |
-| REQ-ARC-008 | Hard rules deterministic; complex interpretations evidence-linked + official confirmation; justify which is which | APPROVED | [APP p.28] | 04 §4 | rule_engine | Rule table with justification column |
+| REQ-ARC-008 | Hard rules deterministic; complex interpretations evidence-linked + official confirmation; justify which is which | APPROVED | [APP p.28] | 04 §4 | rule_engine | Rule table with justification column **Phase 2b:** each rule has `basis` (source_established / interpretation); interpretations always require human review; `tests/test_rules.py`. |
 | REQ-ARC-009 | Answers link to actual HDB webpages | APPROVED | [APP p.13] | 04 §4 | report_ui | Every supported claim shows a URL |
 | REQ-ARC-010 | BM25 only (+ aliases, topic filter, rule-linked facts); dense/hybrid/rerank only if dev recall@5 < 0.90 because of paraphrase | APPROVED | [APP p.17, 21]; D-031 | architecture §4.2 | retriever | Recall@k table; escalation decision only on the trigger |
 | REQ-ARC-011 | One generation model; no unnecessary orchestration | APPROVED | [APP p.21] | 04 §6.1 | generator | Config |
@@ -284,7 +284,7 @@ decisions. Page numbers are physical PDF pages.
 | ~~Q-05~~ | ~~Non-couple household types~~ → **resolved D-033**: out of scope, redirected | 01 §6.4, 02 Row 1 | Done |
 | Q-06 | SC + SPR household premium / Citizen Top-Up: Excluded (financing) or Limited (first-timer consideration)? *Proposed: D-046* | 02 Row 1 | Phase 2 |
 | Q-07 | Resale levy: Excluded (post-purchase) or Limited? *Proposed: D-046* | 02 Row 1 | Phase 2 |
-| Q-08 | Which of the HFE FAQ page's 5 sub-links, and which "Exceptions and waivers" source, are needed? *Proposed: D-048* | 02 Rows 2, 5 | Phase 2 |
+| ~~Q-08~~ | Which of the HFE FAQ page's 5 sub-links, and which "Exceptions and waivers" source, are needed? → **resolved:** waivers are in S04 (D-048); the FAQs are excluded because robots.txt disallows them (D-060) | 02 Rows 2, 5 | Phase 2 |
 | Q-09 | Strip `si=` tracking parameters from video URLs? (minor) *Proposed: D-049* | 02 Row 2 | Phase 2 |
 | ~~Q-10~~ | ~~Evaluation and run paths~~ → **resolved D-039** | 03 §1 | Done |
 | Q-11 | Is any experiment planned on the private corpus (affects REQ-DAT-013)? *Proposed: D-050* | 03 §2.2 | Phase 2 |
@@ -298,11 +298,11 @@ decisions. Page numbers are physical PDF pages.
 | Q-19 | Log redaction of organisation name: does redacting it in this Phase 0 session satisfy D-010, or escalate? | 06 §7 | Pre-submission |
 | Q-20 | Approve proposed benchmark split 18/30 (stratified, group-aware; K-fold not recommended) | 05 §3.3 | Before dataset creation |
 | Q-21 | Approve proposed verifier claim set 60 (15 dev / 45 eval, balanced) or fallback 36 | 05 §6.1 | Before claim creation |
-| Q-22 | Finalise `policy_facts` schema field details (shape + `aliases` approved: D-031, architecture §5) | 03 §2.5 | Phase 2 |
+| Q-22 | Finalise `policy_facts` schema field details (shape + `aliases` approved: D-031, architecture §5). *Proposed: D-059 / `bto_buddy.schemas.PolicyFact`* | 03 §2.5 | Phase 2 |
 | ~~Q-23~~ | ~~Stack~~ → **resolved D-036** | 04 §6.1 | Done |
 | Q-24 | Fix C-14: which URL is intended for the BTO-process row? *Proposed: D-045* | 02 Row 4 | Phase 2 |
-| Q-25 | REQ-SRC-009 names PyMuPDF, but D-036/D-042 exclude it: which PDF method? *Proposed: D-052* (conflict between approved items) | data_sources §7 | Before any PDF extraction |
-| Q-26 | May the coding agent read processed source text (sends it to an external model provider)? *Proposed: D-054 option (a), no* | Phase 2a plan §9.4 | Before fact authoring |
+| ~~Q-25~~ | REQ-SRC-009 names PyMuPDF, but D-036/D-042 exclude it: which PDF method? → **resolved: D-052 approved, option (a)** (manual page review, no parser dependency) | data_sources §7 | Before any PDF extraction |
+| ~~Q-26~~ | May the coding agent read processed source text? → **resolved: D-054 approved as revised** (yes, in-scope sections, training off, no source text in tracked files) | Phase 2a plan §9.4 | Before fact authoring |
 
 ## 4. Source-to-Markdown completeness audit (Phase 0, 2026-10-28)
 

@@ -127,8 +127,10 @@ and RAG baselines.
 ## Data, privacy and sources
 - **Don't scrape, download or fetch external content** (including HDB pages) without
   approval for that specific action.
-- Don't read files in `data/private_corpus/` unless authorised. Don't send source text,
-  private material or credentials to external services without approval.
+- Don't read files in `data/private_corpus/` unless authorised (D-054 as revised: the agent
+  may read in-scope sections for processing and fact authoring; source text never goes into
+  tracked files, reports or commit messages). Don't send source text, private material or
+  credentials to other external services without approval.
 - Git-ignored, never committed: `references/private/`, `data/private_corpus/`, `.env*`,
   credentials.
 - Tracked docs and data contain authored summaries only, never substantial HDB or
@@ -223,6 +225,10 @@ caches out of the build context.
 - Snapshot audit (offline, prints structure only, never source text):
   `python3 -I scripts/snapshots.py audit`
 - Record hashes and timestamps in the manifest: `python3 -I scripts/snapshots.py register`
+- Corpus processing (offline, D-059; tracked outputs hold counts and IDs, never source text):
+  `python3 -I scripts/corpus.py extract`, then `validate`, `facts` (integrity and 8-word
+  overlap check), `verify` (checklist re-verification, D-058) and `freeze`
+- Load the KB without the private corpus: `uv run python -c "from bto_buddy.policy import load_kb; print(load_kb().kb_version)"`
 - Evaluation commands: add them here only after they have been verified.
 
 **Secret scan before a push** (until a dedicated tool is approved):

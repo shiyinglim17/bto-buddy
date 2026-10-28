@@ -205,3 +205,153 @@ Use and Copyright Act ss 243–244 are **unchecked**. Every permission is UNRESO
 3. Gate C: capture P1 (S01–S04).
 4. Completeness audit and P3/P4 decisions.
 5. Fact authoring.
+
+---
+
+## 2026-10-28: Phase 2b, offline processing, completeness validation and KB (to approval checkpoint)
+
+**Decisions:**
+- The developer approved D-044 to D-047, D-049 to D-051, D-053, D-055 and D-057.
+- D-054 was approved **as revised**: the agent may read in-scope L0/L1 text, because model
+  training is turned off; no source text goes into tracked files.
+- D-048 and D-052 are held for explanation.
+- New proposals: D-058 (fact statuses and runtime use) and D-059 (processing tooling and KB
+  schema).
+
+**Done:**
+- **`scripts/corpus.py`** (stdlib): `extract` produced 80 private passages from S01–S05,
+  keeping sections, nested tables with spans, lists, footnotes, anchors, links and media.
+  `validate`, `facts` and `freeze` were added. Two full runs gave byte-identical outputs.
+- **Completeness:** the counts for accordions, tables, expected sections and headings all
+  match. Rendered page-data sentences missing from L1: **0 on every page**. Merged cells
+  are flagged for a manual check. The single-snapshot limitation is recorded for each
+  source.
+- **PDFs:** S07 and S08 were reviewed manually. **Finding G-17:** no approved source lists
+  documents per employment status.
+- **KB:**
+  - `data/policy_facts.jsonl` holds 89 facts (21 household, 11 application, 14 HFE
+    process, 15 HFE documents, 15 priority, 8 non-selection, 5 context). 47 are critical.
+  - All are `snapshot_checked` and `overlap_checked`. The first draft had 12 facts flagged
+    at 8+ shared words; they were reworded, and the maximum shared run is now 7.
+  - `src/bto_buddy/schemas.py` and `policy.py` load and resolve the KB from tracked files
+    only.
+  - Docker now copies the L2/L3 files (`BTO_BUDDY_DATA_DIR`).
+- **Coverage and media:** `data/source_coverage.csv` (33 rows at the time; 36 after the 2026-10-29 update) and
+  `data/visual_resources.json` (M00, M01, M03, M04, as links).
+- **Tests:** `tests/test_corpus.py` and `tests/test_policy_kb.py`, using invented fixtures.
+
+**Failures and fixes along the way:**
+- The first page-data check reported many false gaps: headings fused with paragraphs, link
+  spacing, and card text. Fixed with block-aware segmentation and chrome classification.
+- A list-embedded table on S05 was flattened. It is now emitted as its own block.
+- Infographics inside `<p>` were missed. They are now recorded as media.
+- One authored exception ("marriage after approval is a marital-status change") was an
+  inference. It was removed and logged as U-01.
+
+**Open for the developer:**
+1. Approve or adjust the corpus and the supported scope (data_sources §16).
+2. Decide D-048, D-052, D-058 and D-059.
+3. Verify the 47 critical facts with checklist C-01 to C-16.
+4. Clear rights (REQ-LIC-015).
+5. Decide U-01 to U-03.
+6. Approve filling the manifest URLs for M00–M02 (M-01).
+7. Confirm R-dates.
+
+**Next (after approval):** the policy-rule registry (Dataset B), then the benchmark.
+
+## 2026-10-29: Phase 2b follow-up, scope approved and HFE FAQs excluded
+
+**Decisions:**
+- Developer approved:
+  - the recommended scope, with unconfirmed items kept outside the KB (D-061);
+  - D-048: the waiver condition is met, and the S10 part is replaced by D-060;
+  - D-052, option (a): manual PDF page review, no parser dependency, as the quickest
+    compliant approach.
+- Developer confirmed that S01 and S05 were not edited after pasting (R-dates closed).
+- New, approved: **D-060** removes the HFE FAQs (S10) from the source list, because
+  robots.txt disallows `/hdb-flat-portal`.
+
+**Done:**
+- **Manifest:** S10 moved to `excluded_sources`, with the reason and its effect. S01 and S05
+  review status set to `confirmed`.
+- **Link classification:** links to the FAQs are now `excluded_by_policy`.
+- **Coverage matrix:** now 36 rows. New explicit `unconfirmed` rows for U-01 to U-03; the S10
+  row is `excluded_by_policy`.
+- **Facts:**
+  - PRI-FTPMC-001 now says U-02 is unconfirmed.
+  - The 9 PDF facts got a second-pass page check.
+- **data_sources §17** documents everything outside the KB:
+  - content excluded for data-policy reasons, and what is lost;
+  - evidence gaps inside the scope;
+  - content excluded by scope.
+
+**Effect:** G-17 and U-01 cannot be closed from the approved sources. They are reported to
+users as evidence gaps with redirects.
+
+**Next:**
+1. Developer verifies the 47 critical facts (C-01 to C-16).
+2. Decide D-058 and D-059.
+3. Rights clearance (REQ-LIC-015).
+4. Then the policy-rule registry (Dataset B), which must emit the §17 gaps.
+
+## 2026-10-29: Critical-fact verification and the policy rule registry
+
+**Request:** verify the 47 critical facts using checklist C-01 to C-16 through a rule
+registry, and build that registry using verified facts only.
+
+**Done:**
+- **`scripts/corpus.py verify`:** a deterministic number and term-anchor check on each
+  fact's cited section, plus recorded review notes (`data/corpus/critical_fact_review.json`).
+  Results: 51/51 pass (all 47 critical facts plus 4 cited by rules).
+- **3 facts corrected first**, because their wording went beyond the source:
+  - HH-SUBSIDY-002 (how subsidies are counted);
+  - HH-COUPLE-002 (the childless-couple reading);
+  - HFE-APPLY-001 (the wrong section was cited).
+- **D-058 revised:** `verified` now means this structured snapshot re-verification, not a
+  live-page check. Still PROPOSED.
+- **`data/policy_rules.yaml`:** 24 rules. The interpreter and validator are in
+  `bto_buddy.policy`, and the `RuleResult` contract is in `schemas.py`. `pyyaml` and
+  `types-PyYAML` were added (already listed in D-036). The Docker image now copies the rule
+  file.
+- **Proposed in D-062:**
+  - three-valued logic: missing data gives `cannot_determine`;
+  - verdict wording rejected;
+  - interpretations and evidence gaps always require human review.
+- **Issues recorded:**
+  - incomplete source information I-01 to I-05, I-08 and I-09, plus U-04 (FPPS for engaged
+    couples);
+  - design inconsistencies I-10 (employment values) and I-11 (`job_count`);
+  - no direct contradictions found between sources.
+- **Tests:** 83 pass, 62 of them new rule tests. ruff, mypy and the lockfile check pass.
+
+**Open for the developer:**
+1. Approve D-058 (revised), D-059 and D-062, including the I-10 and I-11 profile changes.
+2. Spot-check the live pages for drift.
+3. Rights clearance.
+
+**Next (after approval):** the benchmark (Dataset C).
+
+## 2026-10-29: D-058, D-059 and D-062 approved; Phase 2b closed
+
+- The developer approved:
+  - **D-058 (revised):** "verified" means the recorded snapshot re-check, not a live-page
+    check;
+  - **D-059:** stdlib processing and the `PolicyFact` schema;
+  - **D-062:** the rule registry, with the S07 employment statuses and `job_count` added to
+    the profile.
+- Approval note and alignment rationale: decisions.md.
+- Contracts updated to match:
+  - architecture §5 (`employment`, `job_count`, `RuleResult.kind`/`notes`, `usable()`);
+  - REQ-DAT-020 is now APPROVED.
+- **Phase 2b summary (4a to now):**
+  - sources acquired manually (D-055);
+  - HFE FAQs excluded per robots.txt (D-060);
+  - L1 extraction with 0 rendered-content gaps;
+  - 89 facts, rights overlap-checked (max 7 shared words);
+  - 47 critical facts plus 4 rule-cited facts verified, with 3 corrected;
+  - 24 rules;
+  - the out-of-scope and evidence-gap register (data_sources §17).
+- **Standing to-dos before submission:**
+  - live-page spot-check for drift (G-15);
+  - developer rights clearance (REQ-LIC-015);
+  - README data section (03 §8), including the D-054 and D-057 disclosures.

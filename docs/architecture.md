@@ -212,7 +212,9 @@ class Person(BaseModel):
     age: int | None = Field(None, ge=0, le=120)
     citizenship: Literal["SC", "SPR", "non_resident"] | None = None
     prior_flat_or_subsidy: bool | None = None      # drives first-timer status
-    employment: Literal["employed", "self_employed", "not_working", "other"] | None = None  # Phase 2 aligns with HFE guide
+    employment: Literal["unemployed", "full_time_nsf", "full_time_student", "employed_with_cpf",
+                        "employed_without_cpf", "self_employed"] | None = None  # S07 statuses (D-062)
+    job_count: int | None = Field(None, ge=0)      # jobs in the assessment period (D-062)
 
 class ApplicantProfile(BaseModel):
     """None = not provided. Never defaulted (REQ-ARC-013)."""
@@ -284,7 +286,7 @@ class PolicyFact(BaseModel):     # per 03 §2.5 (+ aliases, A2); loaded, never L
     applies_to: dict[str, str] = {}; exceptions: list[str] = []
     source_id: str; source_url: HttpUrl; section: str
     retrieved_at: date; effective_from: date | None; effective_to: date | None
-    validation_status: Literal["verified"]      # loader rejects anything else at runtime
+    validation: Validation; critical: bool      # runtime filter is PolicyFact.usable() (D-058)
     kb_version: str
 
 class RuleResult(BaseModel):
@@ -294,6 +296,8 @@ class RuleResult(BaseModel):
     source_fact_ids: list[str] = Field(min_length=1)
     missing_fields: list[ProfileField] = []     # required when cannot_determine
     requires_human_review: bool
+    kind: Literal["preparation", "caution", "evidence_gap"]   # D-062
+    notes: list[str] = []                       # exception / interpretation notes (D-062)
 
 class Evidence(BaseModel):
     fact_id: str; statement: str; source_url: HttpUrl; section: str
@@ -379,8 +383,8 @@ Category A (applicant) vs category B (corpus) from 01 §7 maps to `missing_profi
 
 | Dependency | Produced in | Needed by | Status |
 |---|---|---|---|
-| `data/policy_facts.jsonl` | Phase 2 (manual authoring from verified sources) | ④b ⑤ ⑦ ⑧ | **Blocking.** Nothing meaningful runs without it. Contracts and tests use a tiny **synthetic test KB in `tests/fixtures/`**, clearly fictional |
-| `data/policy_rules.yaml` | Phase 2 | ④a | Blocking for C/D |
+| `data/policy_facts.jsonl` | Phase 2b: 89 facts authored (`kb-2026-10-28.1`, candidate; data_sources §12–§16) | ④b ⑤ ⑦ ⑧ | **Blocking.** Nothing meaningful runs without it. Contracts and tests use a tiny **synthetic test KB in `tests/fixtures/`**, clearly fictional |
+| `data/policy_rules.yaml` | Phase 2b: 24 rules (`rules-2026-10-29.1`, D-062 approved; data_sources §19) | ④a | Blocking for C/D |
 | `data/sources_manifest.json` | Phase 2 | facts loader (URL resolution) | Blocking |
 | `data/visual_resources.json` | Phase 2 | ⑧ | Optional |
 | Topic→required-fields map; follow-up templates | Phase 2 (code constants or YAML) | ② | Small, reviewable |
@@ -501,7 +505,7 @@ evaluation/
   results/<run_id>/ # run_metadata.json, predictions.jsonl, scores.json (tracked)
 scripts/            # Phase 2 developer tooling, stdlib only; not used at runtime or in Docker
   snapshots.py      # audit + register manually captured sources (D-055, D-056)
-                    # (passage extraction / KB validation are added only when written)
+  corpus.py         # extract L1 passages, validate completeness, check/verify facts, freeze (D-059)
 tests/              # test_policy.py, test_retrieval.py, test_verification.py,
                     # test_pipeline.py, test_smoke.py
 ```

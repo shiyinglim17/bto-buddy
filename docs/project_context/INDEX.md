@@ -8,22 +8,30 @@ sources:
 Both PDFs are kept locally and are Git-ignored. This documentation is independently
 authored: it paraphrases requirements and policy content rather than reproducing them.
 
-**Status (2026-10-28):** Phase 0 (context) and Phase 1 (setup and architecture) are complete.
-Phase 2a (source discovery, scoping, rights and acquisition) is **done**. Its decisions
-D-044 to D-055 are still PROPOSED. D-056, which removed the Playwright capture group, is
-approved. It is documented in
-[../data_sources.md](../data_sources.md). S01–S05 (HTML) and S07–S08 (PDF) were captured
-manually by the developer, and are private and Git-ignored. Fact authoring hasn't started.
+**Status (2026-10-29):** Phases 0, 1, 2a and 2b are complete. **D-044 to D-062 are all
+APPROVED** (D-054 and D-058 as revised).
+- **Phase 2b output:** 89 authored facts (`kb-2026-10-28.1`), of which 51 are `verified`,
+  including all 47 critical ones.
+- **Rules:** a 24-rule registry (`rules-2026-10-29.1`).
+- **Supporting data:** a coverage matrix and visual resources.
+- **Scope:** approved (D-061). The HFE FAQs are excluded because robots.txt disallows them
+  (D-060).
+- **Details:** [../data_sources.md](../data_sources.md) §12–§19, with scope boundaries and
+  evidence gaps in §17.
+
+**Next:** the benchmark (Dataset C).
 
 **What exists:**
-- the uv project and lockfile;
-- a Streamlit entry-point shell;
-- one smoke test;
-- the Docker image;
-- `data/sources_manifest.json`;
-- `scripts/snapshots.py`.
+- the uv project and lockfile, Docker image and Streamlit shell;
+- `src/bto_buddy/schemas.py` (KB and rule contracts) and `policy.py` (KB loader, rule
+  interpreter, validators);
+- `data/`: `sources_manifest.json`, `policy_facts.jsonl`, `policy_rules.yaml`,
+  `source_coverage.csv`, `visual_resources.json`, and `corpus/` (checklist, reports,
+  verification, version);
+- `scripts/snapshots.py` and `scripts/corpus.py`;
+- tests: smoke, corpus tooling, KB, rules.
 
-No pipeline modules, policy facts, rules, model choice or datasets exist yet.
+No LLM stages, retrieval, model choice or evaluation datasets exist yet.
 
 ## Files
 

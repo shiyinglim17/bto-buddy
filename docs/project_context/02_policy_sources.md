@@ -125,7 +125,7 @@ anchor `#how-to-apply`.
 | "How to apply" | **Expandable section** containing an **infographic** (flowchart of stages and what you need), a link to an **external step-by-step guide**, and **2 YouTube videos** | See VR-1, external guide and VID-1/VID-2 below |
 | "Validity and possible review of HFE letter" | **Expandable section** | When and why an HFE letter may be reviewed (content pending extraction) |
 | "Next steps with your HFE letter" | **Expandable section** containing an **infographic** | Steps from HFE application to key collection. See VR-2 |
-| HFE FAQs | Separate page: https://www.hdb.gov.sg/hdb-flat-portal/hfe/get-help | Contains **5 sub-links** to separate HDB pages (not yet mapped → Q-08) |
+| HFE FAQs | Separate page: https://www.hdb.gov.sg/hdb-flat-portal/hfe/get-help | Contains **5 sub-links** to separate HDB pages. *Phase 2b: excluded from the source list because robots.txt disallows `/hdb-flat-portal` (D-060); see data_sources §17* |
 | Integrated loan application service | https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/housing-loan/housing-loan-from-financial-institutions?anchor=integrated-loan-service | Financing → Context only / Excluded |
 | HDB Flat Portal (apply/cancel) | Redirect, requires **Singpass login** | **Transactional service: must not be accessed or automated** (REQ-SRC-006) |
 | External step-by-step guide | https://www.mynicehome.gov.sg/get-started/hdb-hfe-guide/ | A different government-run site. Rights and robots status to check in Phase 2 |

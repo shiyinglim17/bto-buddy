@@ -75,7 +75,7 @@ Required fields per source:
 - `text` holds copied source content, so these records live only under
   `data/private_corpus/processed/`.
 
-### 2.5 `policy_facts.jsonl` schema — PROPOSED (D-023; finalise in architecture/corpus design)
+### 2.5 `policy_facts.jsonl` schema — APPROVED (D-023, D-059); implemented as `bto_buddy.schemas.PolicyFact` (adds `critical` and a nested `source`; validation statuses per D-058)
 
 One JSON object per line. Typed with Pydantic in code.
 
@@ -117,6 +117,8 @@ One JSON object per line. Typed with Pydantic in code.
     `data/sources_manifest.json`).
   - Acquired so far: S01–S05 (HTML) and S07–S08 (PDF). See
     [data_sources.md §7](../data_sources.md).
+  - **Processing (Phase 2b):** `scripts/corpus.py extract|validate|facts|freeze`; results and
+    the completeness and coverage evidence are in [data_sources.md §12–§16](../data_sources.md).
 - Media rules are in [02 §4](02_policy_sources.md#4-media-handling-decisions-approved-app-p1112-18).
 
 ### 2.7 Validate completeness and freeze — REQ-SRC-012, REQ-SRC-013 (APPROVED) [APP p.12–13]
