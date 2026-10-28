@@ -24,13 +24,17 @@ ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     STREAMLIT_BROWSER_GATHER_USAGE_STATS=false \
-    STREAMLIT_SERVER_HEADLESS=true
+    STREAMLIT_SERVER_HEADLESS=true \
+    BTO_BUDDY_DATA_DIR=/app/data
 RUN useradd --create-home --uid 1000 app
 WORKDIR /app
 
 COPY --from=builder --chown=app:app /app/.venv /app/.venv
 COPY --chown=app:app src/bto_buddy/app.py ./app.py
 COPY --chown=app:app .streamlit/config.toml ./.streamlit/config.toml
+# Reviewer-facing KB only (L2/L3). The private corpus is never in the build context.
+COPY --chown=app:app data/policy_facts.jsonl data/policy_rules.yaml \
+    data/sources_manifest.json data/visual_resources.json ./data/
 USER app
 
 EXPOSE 8501

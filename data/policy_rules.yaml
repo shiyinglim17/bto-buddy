@@ -1,0 +1,969 @@
+# Generated from authored rule definitions; reviewed as data. See docs/data_sources.md §18.
+rules_version: rules-2026-10-29.1
+kb_version: kb-2026-10-28.1
+about: 'Declarative preparation rules (D-006, D-038). Conditions use whitelisted operators only and are
+  evaluated with three-valued logic: a missing field gives cannot_determine, never a guess. Rules produce
+  preparation steps, cautions and evidence gaps, never eligibility decisions. Every rule cites verified
+  fact IDs in data/policy_facts.jsonl; ''sources'' repeats their official metadata for reviewers.'
+operators:
+- eq
+- ne
+- lt
+- gte
+- in
+- is_null
+- all
+- any
+fields:
+  relationship:
+    type: enum
+    values:
+    - married
+    - engaged
+    - other
+  applicant_1.age:
+    type: int
+  applicant_2.age:
+    type: int
+  applicant_1.citizenship:
+    type: enum
+    values:
+    - SC
+    - SPR
+    - non_resident
+  applicant_2.citizenship:
+    type: enum
+    values:
+    - SC
+    - SPR
+    - non_resident
+  applicant_1.prior_flat_or_subsidy:
+    type: bool
+  applicant_2.prior_flat_or_subsidy:
+    type: bool
+  applicant_1.employment:
+    type: enum
+    values: &id001
+    - unemployed
+    - full_time_nsf
+    - full_time_student
+    - employed_with_cpf
+    - employed_without_cpf
+    - self_employed
+    status: 'proposed (I-10): aligns architecture §5 with the six S07 statuses'
+  applicant_2.employment:
+    type: enum
+    values: *id001
+    status: 'proposed (I-10): aligns architecture §5 with the six S07 statuses'
+  applicant_1.job_count:
+    type: int
+    status: 'proposed (I-11): not in architecture §5'
+  applicant_2.job_count:
+    type: int
+    status: 'proposed (I-11): not in architecture §5'
+  hfe_status:
+    type: enum
+    values:
+    - not_started
+    - preliminary_done
+    - applied
+    - issued
+  hfe_issue_date:
+    type: date
+  private_property_interest:
+    type: bool
+  children_or_expecting:
+    type: bool
+derived:
+  derived.hfe_days_to_expiry:
+    type: int
+    inputs:
+    - hfe_issue_date
+    definition: days from the as-of date to hfe_issue_date + 9 calendar months (day clamped to month end;
+      I-02)
+rules:
+- rule_id: R-APP-001
+  version: 1
+  title: Valid HFE letter before applying for a flat
+  topics:
+  - application_requirements
+  - hfe_process
+  kind: preparation
+  basis: source_established
+  requires_human_review: false
+  when:
+    field: hfe_status
+    ne: issued
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: 'Get an HFE letter before the sales exercise you plan to join: a flat application can only be
+    made while you hold a valid letter.'
+  source_fact_ids:
+  - APP-HFE-001
+  - HFE-VALID-001
+  sources:
+  - source_id: S04
+    section: Application for a New Flat
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application
+  - source_id: S02
+    section: Application for an HDB Flat Eligibility (HFE) Letter > Validity and possible review of HFE
+      letter
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter?anchor=review-HFE
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-APP-002
+  version: 1
+  title: Application fee and ballot
+  topics:
+  - application_requirements
+  kind: preparation
+  basis: source_established
+  requires_human_review: false
+  when: &id005
+    field: relationship
+    in:
+    - married
+    - engaged
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: Each flat application costs a non-refundable $10 fee (card or QR payment). After the application
+    period closes, HDB ballots all eligible applications to set the booking queue.
+  source_fact_ids:
+  - APP-FEE-001
+  - APP-BALLOT-001
+  sources:
+  - source_id: S04
+    section: Application for a New Flat
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-APP-003
+  version: 1
+  title: Keep household and finances unchanged once the HFE letter is issued
+  topics:
+  - application_requirements
+  kind: caution
+  basis: source_established
+  requires_human_review: false
+  when:
+    field: hfe_status
+    eq: issued
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: The flat application must match the approved HFE letter. A change to household particulars or
+    finances during a sales exercise means cancelling both the letter and the application, so you would
+    miss that exercise; after it, contact HDB through MyRequest@HDB. A change of town, flat type or priority
+    scheme is only possible by cancelling and re-applying within the application period.
+  source_fact_ids:
+  - APP-CHANGE-001
+  - APP-CHANGE-002
+  - APP-CHANGE-003
+  sources:
+  - source_id: S04
+    section: Application for a New Flat > Changes to flat application
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application?anchor=changes-to-flat-application
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HFE-001
+  version: 1
+  title: Plan the two HFE steps
+  topics:
+  - hfe_process
+  kind: preparation
+  basis: source_established
+  requires_human_review: false
+  when:
+    field: hfe_status
+    in:
+    - not_started
+    - preliminary_done
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: Apply online on the HDB Flat Portal (free); every applicant and required occupier needs a valid
+    Singpass account. Finish Step 1 and Step 2 no more than 30 calendar days apart, ideally in the same
+    calendar month, otherwise everyone's employment and income details must be updated.
+  source_fact_ids:
+  - HFE-APPLY-001
+  - HFE-SINGPASS-001
+  - HFE-STEPS-001
+  sources:
+  - source_id: S02
+    section: Application for an HDB Flat Eligibility (HFE) Letter > When to apply > Additional notes
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter
+  - source_id: S02
+    section: Application for an HDB Flat Eligibility (HFE) Letter > How to apply > Additional information
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter?anchor=how-to-apply
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HFE-002
+  version: 1
+  title: Allow for HFE processing time
+  topics:
+  - hfe_process
+  kind: preparation
+  basis: source_established
+  requires_human_review: false
+  when:
+    field: hfe_status
+    in:
+    - not_started
+    - preliminary_done
+    - applied
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: Allow up to a month after HDB has all required documents, and longer around a sales-exercise
+    month. Apply early.
+  source_fact_ids:
+  - HFE-TIME-001
+  sources:
+  - source_id: S02
+    section: Application for an HDB Flat Eligibility (HFE) Letter > When to apply
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HFE-003
+  version: 1
+  title: HFE letter close to expiry
+  topics:
+  - hfe_process
+  kind: caution
+  basis: interpretation
+  requires_human_review: true
+  when:
+    all:
+    - field: hfe_status
+      eq: issued
+    - field: derived.hfe_days_to_expiry
+      gte: 0
+    - field: derived.hfe_days_to_expiry
+      lt: 31
+  exceptions: []
+  interpretations:
+  - id: I-02
+    note: Expiry is computed as the issue date plus 9 calendar months, clamped to month end; HDB does
+      not state the convention.
+  - id: I-03
+    note: '''Expiring in the next 30 days'' is treated as 0-30 days inclusive.'
+  limitations: []
+  action: Your HFE letter appears to expire within about 30 days. If you have not yet submitted a flat
+    application and need more time, apply for a fresh letter; you can keep using the current one until
+    the new one is issued.
+  source_fact_ids:
+  - HFE-VALID-001
+  - HFE-RENEW-001
+  - HFE-VALID-002
+  sources:
+  - source_id: S02
+    section: Application for an HDB Flat Eligibility (HFE) Letter > Validity and possible review of HFE
+      letter
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter?anchor=review-HFE
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HFE-004
+  version: 1
+  title: HFE letter appears to have expired
+  topics:
+  - hfe_process
+  - application_requirements
+  kind: caution
+  basis: interpretation
+  requires_human_review: true
+  when:
+    all:
+    - field: hfe_status
+      eq: issued
+    - field: derived.hfe_days_to_expiry
+      lt: 0
+  exceptions: []
+  interpretations:
+  - id: I-02
+    note: Same expiry convention as R-HFE-003.
+  limitations: []
+  action: Your HFE letter appears to have expired. A new flat application needs a valid letter, so apply
+    for a fresh one; a flat application already submitted with this letter can still go ahead.
+  source_fact_ids:
+  - HFE-VALID-001
+  - HFE-VALID-002
+  - APP-HFE-001
+  sources:
+  - source_id: S02
+    section: Application for an HDB Flat Eligibility (HFE) Letter > Validity and possible review of HFE
+      letter
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter?anchor=review-HFE
+  - source_id: S04
+    section: Application for a New Flat
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HFE-005
+  version: 1
+  title: Household changes after the HFE letter is approved
+  topics:
+  - hfe_process
+  kind: caution
+  basis: source_established
+  requires_human_review: false
+  when:
+    field: hfe_status
+    eq: issued
+  exceptions:
+  - id: X-U01
+    when: &id002
+      field: relationship
+      eq: engaged
+    effect: human_review
+    note: 'Unconfirmed (U-01): the sources do not say whether an engaged couple''s planned marriage counts
+      as a marital-status change. Check with HDB.'
+    fact_ids:
+    - HFE-HOUSEHOLD-002
+  interpretations: []
+  limitations: []
+  action: 'If household members, applicant/occupier roles, marital status, citizenship or private property
+    ownership change, follow HDB''s change procedure: cancel and re-apply before any flat application,
+    or write through MyRequest@HDB after one. A change in income alone needs no action.'
+  source_fact_ids:
+  - HFE-HOUSEHOLD-001
+  - HFE-HOUSEHOLD-002
+  sources:
+  - source_id: S02
+    section: Application for an HDB Flat Eligibility (HFE) Letter > Validity and possible review of HFE
+      letter
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter?anchor=review-HFE
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HH-001
+  version: 1
+  title: 'Engaged couple: marriage and no change of persons'
+  topics:
+  - household_composition
+  kind: preparation
+  basis: source_established
+  requires_human_review: false
+  when: *id002
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: 'Plan to register your marriage within 3 months after the flat purchase is completed and keep
+    the certificate (overseas marriages: send HDB a copy within the same period). The application stays
+    valid only while the listed persons are unchanged; a break-up cancels it.'
+  source_fact_ids:
+  - HH-COUPLE-001
+  - HH-MARRY-001
+  - HH-CHANGE-001
+  sources:
+  - source_id: S01
+    section: Couples and Families > Fiancé and fiancée > Core family nucleus
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=fs
+  - source_id: S01
+    section: Couples and Families > Fiancé and fiancée > Solemnisation of marriage
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=fs
+  - source_id: S01
+    section: Couples and Families > Fiancé and fiancée > No change of persons listed in the application
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=fs
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HH-002
+  version: 1
+  title: Engaged partner under 21
+  topics:
+  - household_composition
+  kind: preparation
+  basis: source_established
+  requires_human_review: false
+  when:
+    all:
+    - *id002
+    - any:
+      - field: applicant_1.age
+        lt: 21
+      - field: applicant_2.age
+        lt: 21
+  exceptions: []
+  interpretations: []
+  limitations:
+  - Age is taken as stated; HDB does not say at which date the age of 21 is assessed (I-05).
+  action: List the partner under 21 as a core occupier, not an applicant, and write to HDB with both partners'
+    particulars before starting the HFE letter application.
+  source_fact_ids:
+  - HH-AGE-002
+  - HH-AGE-001
+  sources:
+  - source_id: S01
+    section: Couples and Families > Fiancé and fiancée > If your fiancé/ fiancée is below 21 years old
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=fs
+  - source_id: S01
+    section: Couples and Families > Fiancé and fiancée > Eligibility conditions
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=fs
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HH-003
+  version: 1
+  title: Married partner under 21
+  topics:
+  - household_composition
+  kind: caution
+  basis: source_established
+  requires_human_review: true
+  when:
+    all:
+    - &id003
+      field: relationship
+      eq: married
+    - any:
+      - field: applicant_1.age
+        lt: 21
+      - field: applicant_2.age
+        lt: 21
+  exceptions: []
+  interpretations: []
+  limitations:
+  - 'I-05: assessment date of age not stated.'
+  action: The published minimum age for couples buying a new flat is 21, and S01 lists an under-21 arrangement
+    only for fiancé(e)s. Write to HDB to confirm your options before applying.
+  source_fact_ids:
+  - HH-AGE-001
+  - HH-OTHER-001
+  sources:
+  - source_id: S01
+    section: Couples and Families > Fiancé and fiancée > Eligibility conditions
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=fs
+  - source_id: S01
+    section: Couples and Families
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HH-004
+  version: 1
+  title: Two SPR partners and a new flat
+  topics:
+  - household_composition
+  kind: caution
+  basis: source_established
+  requires_human_review: true
+  when:
+    all:
+    - field: applicant_1.citizenship
+      eq: SPR
+    - field: applicant_2.citizenship
+      eq: SPR
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: The couples rules for new flats require a Singapore Citizen applicant. With two SPR partners,
+    confirm your options with HDB.
+  source_fact_ids:
+  - HH-CIT-001
+  - HH-OTHER-001
+  sources:
+  - source_id: S01
+    section: Couples and Families > Fiancé and fiancée > Eligibility conditions
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=fs
+  - source_id: S01
+    section: Couples and Families
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HH-005
+  version: 1
+  title: Married SC with a non-resident spouse
+  topics:
+  - household_composition
+  kind: preparation
+  basis: source_established
+  requires_human_review: false
+  when:
+    all:
+    - *id003
+    - &id004
+      any:
+      - all:
+        - field: applicant_1.citizenship
+          eq: SC
+        - field: applicant_2.citizenship
+          eq: non_resident
+      - all:
+        - field: applicant_1.citizenship
+          eq: non_resident
+        - field: applicant_2.citizenship
+          eq: SC
+  exceptions:
+  - id: X-NR-AGE
+    when:
+      any:
+      - all:
+        - field: applicant_1.citizenship
+          eq: SC
+        - field: applicant_1.age
+          lt: 35
+      - all:
+        - field: applicant_2.citizenship
+          eq: SC
+        - field: applicant_2.age
+          lt: 35
+    effect: human_review
+    note: The SC applicant is under the published minimum age of 35 for this route; confirm options with
+      HDB.
+    fact_ids:
+    - HH-NONRES-002
+  - id: X-NR-CHILD
+    when:
+      field: children_or_expecting
+      eq: true
+    effect: human_review
+    note: If the couple has a child who is an SC or SPR, the married couples rules apply instead; the
+      child's citizenship is not captured.
+    fact_ids:
+    - HH-NONRES-001
+  interpretations: []
+  limitations: []
+  action: 'Prepare for the non-resident spouse route: new flats are limited to 2-room Flexi, the SC applicant
+    must be at least 35, and the spouse needs a valid Visit Pass or Work Pass at the HFE application and
+    the flat application, renewed if it expires before key collection.'
+  source_fact_ids:
+  - HH-NONRES-001
+  - HH-NONRES-002
+  - HH-NONRES-003
+  sources:
+  - source_id: S01
+    section: Couples and Families > Families with non-residents > Non-resident spouse
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=nc-families
+  - source_id: S01
+    section: Couples and Families > Families with non-residents > Eligibility conditions
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=nc-families
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-GAP-U03
+  version: 1
+  title: Engaged SC with a non-resident partner
+  topics:
+  - household_composition
+  kind: evidence_gap
+  basis: interpretation
+  requires_human_review: true
+  when:
+    all:
+    - *id002
+    - *id004
+  exceptions: []
+  interpretations:
+  - id: U-03
+    note: The gap is identified from what the sources do not cover; no outcome is inferred.
+  limitations: []
+  action: 'Not covered by the published sources (U-03): HDB''s non-resident rules describe a spouse, and
+    the fiancé/fiancée rules need an SC or SPR partner. Write to HDB to confirm your options.'
+  source_fact_ids:
+  - HH-NONRES-001
+  - HH-CIT-001
+  - HH-OTHER-001
+  sources:
+  - source_id: S01
+    section: Couples and Families > Families with non-residents > Non-resident spouse
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=nc-families
+  - source_id: S01
+    section: Couples and Families > Fiancé and fiancée > Eligibility conditions
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=fs
+  - source_id: S01
+    section: Couples and Families
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HH-006
+  version: 1
+  title: Private residential property
+  topics:
+  - household_composition
+  kind: caution
+  basis: source_established
+  requires_human_review: true
+  when:
+    field: private_property_interest
+    eq: true
+  exceptions: []
+  interpretations: []
+  limitations:
+  - The profile does not record past disposals, so a sale within 30 months is not detected when this field
+    is false.
+  action: When buying from HDB, no applicant or occupier may own or have an interest in private residential
+    property (local or overseas), and 30 months must have passed since any such sale's legal completion
+    before the HFE application. Resolve this with HDB before applying.
+  source_fact_ids:
+  - HH-PROP-001
+  sources:
+  - source_id: S01
+    section: Couples and Families > Fiancé and fiancée > Eligibility conditions
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=fs
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-HH-007
+  version: 1
+  title: A partner has taken a housing subsidy
+  topics:
+  - household_composition
+  - priority_considerations
+  kind: caution
+  basis: interpretation
+  requires_human_review: true
+  when:
+    any:
+    - field: applicant_1.prior_flat_or_subsidy
+      eq: true
+    - field: applicant_2.prior_flat_or_subsidy
+      eq: true
+  exceptions: []
+  interpretations:
+  - id: I-08
+    note: The profile field 'prior flat or subsidy' is read as 'has taken a housing subsidy'; S01's subsidy
+      list is broader than owning a flat.
+  - id: I-09
+    note: The number of subsidies and how HDB counts them are not captured.
+  limitations: []
+  action: A partner who has taken a housing subsidy is a second-timer; a couple with one first-timer is
+    still treated as a first-timer family. HDB bars applying where two housing subsidies have been taken.
+    Confirm your subsidy history with HDB.
+  source_fact_ids:
+  - HH-SUBSIDY-001
+  - HH-SUBSIDY-002
+  - PRI-FT-001
+  sources:
+  - source_id: S01
+    section: Couples and Families > Fiancé and fiancée > Eligibility conditions
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=fs
+  - source_id: S05
+    section: Priority Schemes > Greater priority for first-timer families
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-DOC-001
+  version: 1
+  title: Employment status and documents
+  topics:
+  - hfe_documents
+  kind: preparation
+  basis: source_established
+  requires_human_review: false
+  when:
+    all:
+    - field: applicant_1.employment
+      in: *id001
+    - field: applicant_2.employment
+      in: *id001
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: Choose each person's employment status in the HFE application using HDB's Employment Status
+    Guide. Income is assessed over the 12 months ending 2 months before the application month. HDB pulls
+    data from Myinfo and asks for any further documents by SMS and email; it publishes no per-status document
+    list (G-17).
+  source_fact_ids:
+  - DOC-STATUS-001
+  - DOC-PERIOD-001
+  - DOC-MYINFO-001
+  sources:
+  - source_id: S07
+    section: HFE Employment Status Guide (PDF)
+    url: https://file.go.gov.sg/hfe-employment-status-guide.pdf
+  - source_id: S03
+    section: Income Guidelines and Documents for HFE Letter Application > Income guidelines
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter/income-guidelines-and-documents
+  - source_id: S03
+    section: Income Guidelines and Documents for HFE Letter Application > Documents
+    url: https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter/income-guidelines-and-documents
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-DOC-002
+  version: 1
+  title: More than one job in the assessment period
+  topics:
+  - hfe_documents
+  kind: preparation
+  basis: source_established
+  requires_human_review: false
+  when:
+    any:
+    - field: applicant_1.job_count
+      gte: 2
+    - field: applicant_2.job_count
+      gte: 2
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: 'Declare each job as HDB''s Income Declaration Guide shows: enter 2 positions and fill in each
+    job''s status and income; with more than two jobs, group them by employment status. If HDB asks for
+    documents, provide them for every job.'
+  source_fact_ids:
+  - DOC-MULTIJOB-001
+  - DOC-MULTIJOB-002
+  sources:
+  - source_id: S08
+    section: HFE Income Declaration Guide (PDF)
+    url: https://file.go.gov.sg/hfe-income-declaration-guide.pdf
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-PRI-001
+  version: 1
+  title: How priority schemes work
+  topics:
+  - priority_considerations
+  kind: preparation
+  basis: source_established
+  requires_human_review: false
+  when: *id005
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: Priority schemes improve your ballot chances but do not guarantee a queue number. You can request
+    one scheme per application (FPPS-eligible buyers may add one more), based on your household when you
+    apply for the HFE letter.
+  source_fact_ids:
+  - PRI-GEN-001
+  - PRI-GEN-002
+  - PRI-FT-001
+  sources:
+  - source_id: S05
+    section: Priority Schemes > Priority schemes for different groups of flat buyers
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes
+  - source_id: S05
+    section: Priority Schemes > Greater priority for first-timer families
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-PRI-002
+  version: 1
+  title: FT(PMC) category may apply
+  topics:
+  - priority_considerations
+  kind: preparation
+  basis: interpretation
+  requires_human_review: true
+  when:
+    all:
+    - *id003
+    - &id006
+      all:
+      - field: applicant_1.prior_flat_or_subsidy
+        eq: false
+      - field: applicant_2.prior_flat_or_subsidy
+        eq: false
+    - any:
+      - field: applicant_1.age
+        lt: 41
+      - field: applicant_2.age
+        lt: 41
+      - field: children_or_expecting
+        eq: true
+  exceptions:
+  - id: X-I01
+    when:
+      any:
+      - field: applicant_1.age
+        gte: 41
+      - field: applicant_2.age
+        gte: 41
+    effect: human_review
+    note: One partner is over 40; HDB does not say whose age the 'aged 40 and below' criterion uses (I-01).
+    fact_ids:
+    - PRI-FTPMC-001
+  interpretations:
+  - id: I-01
+    note: Whose age counts is not stated.
+  - id: I-08
+    note: '''Never owned or sold a residential property'' is broader than the profile field.'
+  limitations: []
+  action: 'Your household may fall within the FT(PMC) category. There is nothing to request: HDB assesses
+    it after the flat application. HDB''s other conditions are not captured here: never having owned or
+    sold a residential property, no chance to book a BTO/SBF flat in the past 5 years, and (for families)
+    an SC child aged 18 or below.'
+  source_fact_ids:
+  - PRI-FTPMC-001
+  - PRI-FTPMC-002
+  - PRI-FTPMC-003
+  sources:
+  - source_id: S05
+    section: Priority Schemes > First-Timer (Parents & Married Couples), or FT(PMC) category > Flat allocation
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes
+  - source_id: S05
+    section: Priority Schemes > First-Timer (Parents & Married Couples), or FT(PMC) category > Additional
+      ballot chance
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-PRI-003
+  version: 1
+  title: FPPS may apply
+  topics:
+  - priority_considerations
+  kind: preparation
+  basis: source_established
+  requires_human_review: true
+  when:
+    all:
+    - *id003
+    - *id006
+    - field: children_or_expecting
+      eq: true
+  exceptions: []
+  interpretations: []
+  limitations:
+  - The child's citizenship and age are not captured.
+  action: 'You may be able to request FPPS: both spouses must be first-timers, with an SC child aged 18
+    or below or a doctor''s certification of pregnancy; adoptive parents need the Adoption Order when
+    applying for the HFE letter.'
+  source_fact_ids:
+  - PRI-FPPS-001
+  - PRI-GEN-002
+  sources:
+  - source_id: S05
+    section: Priority Schemes > Family and Parenthood Priority Scheme (FPPS) > Eligibility conditions
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes?anchor=fpps
+  - source_id: S05
+    section: Priority Schemes > Priority schemes for different groups of flat buyers
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-GAP-U02
+  version: 1
+  title: Engaged couple and married-couple priority criteria
+  topics:
+  - priority_considerations
+  kind: evidence_gap
+  basis: interpretation
+  requires_human_review: true
+  when:
+    all:
+    - *id002
+    - *id006
+  exceptions: []
+  interpretations:
+  - id: U-02
+    note: No outcome is inferred for engaged couples.
+  limitations: []
+  action: 'Unconfirmed (U-02, U-04): the FT(PMC) and FPPS criteria name married couples, and the sources
+    do not say whether an engaged couple qualifies. HDB assesses FT(PMC) after the flat application.'
+  source_fact_ids:
+  - PRI-FTPMC-001
+  - PRI-FTPMC-002
+  - PRI-FPPS-001
+  sources:
+  - source_id: S05
+    section: Priority Schemes > First-Timer (Parents & Married Couples), or FT(PMC) category > Flat allocation
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes
+  - source_id: S05
+    section: Priority Schemes > Family and Parenthood Priority Scheme (FPPS) > Eligibility conditions
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes?anchor=fpps
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-NS-001
+  version: 1
+  title: Booking when invited, and the waiver
+  topics:
+  - non_selection
+  kind: caution
+  basis: source_established
+  requires_human_review: false
+  when:
+    any:
+    - field: applicant_1.prior_flat_or_subsidy
+      eq: false
+    - field: applicant_2.prior_flat_or_subsidy
+      eq: false
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: If you are invited to book while flats are available, choosing none gives a non-selection count
+    and cancels your ongoing applications; for first-timer families, later applications move to the second-timer
+    category for a year and extra ballot chances built up for Standard BTO flats reset to 0. HDB waives
+    the count when 10 or fewer BTO flats (5 or fewer SBF flats) are left to choose from.
+  source_fact_ids:
+  - NS-COUNT-001
+  - NS-WAIVE-001
+  - NS-FT-001
+  sources:
+  - source_id: S04
+    section: Application for a New Flat > Cancellation of flat application > Financial forfeitures and
+      consequences after cancellation
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application?anchor=cancellation
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
+- rule_id: R-NS-002
+  version: 1
+  title: Cancelling a flat application
+  topics:
+  - non_selection
+  kind: caution
+  basis: source_established
+  requires_human_review: false
+  when: *id005
+  exceptions: []
+  interpretations: []
+  limitations: []
+  action: Cancelling during the application period carries no penalty. A cancelled application cannot
+    be reinstated. Cancelling after booking forfeits the option fee, or 5% of the purchase price once
+    the Agreement for Lease is signed, and you must wait a year (with the forfeiture paid) before applying
+    again.
+  source_fact_ids:
+  - NS-CANCEL-001
+  - NS-CANCEL-002
+  - NS-BOOKED-001
+  sources:
+  - source_id: S04
+    section: Application for a New Flat > Cancellation of flat application > Financial forfeitures and
+      consequences after cancellation
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application?anchor=cancellation
+  - source_id: S04
+    section: Application for a New Flat > Cancellation of flat application
+    url: https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application?anchor=cancellation
+  effective:
+    from: null
+    to: null
+    basis: as published at retrieval (2026-10-28); no stated effective date
