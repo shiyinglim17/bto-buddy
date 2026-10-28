@@ -212,7 +212,9 @@ The full design is in [05_evaluation.md §3](05_evaluation.md).
     `/hdb-flat-portal` is disallowed.
   - `file.go.gov.sg`, `www.mynicehome.gov.sg`: not checked (PDFs were downloaded manually,
     not by a bot).
-  - HDB Terms of Use: **unread** (403 or JavaScript-only).
+  - HDB Terms of Use: **read** on 2026-10-28 (captured manually; page dated 24 Jul 2026). They
+    ban copying or reuse, and linking, without written permission. Local copies rely on
+    s 244/s 187, and linking is handled by D-057 (proposed).
   - Copyright Act ss 244 and 187: read from a secondary source.
 
   Details: [data_sources.md §6](../data_sources.md).

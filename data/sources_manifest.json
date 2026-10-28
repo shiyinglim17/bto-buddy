@@ -6,9 +6,9 @@
       "rights_id": "R-HDB-WWW",
       "host": "www.hdb.gov.sg",
       "terms_url": "https://www.hdb.gov.sg/terms-of-use",
-      "terms_checked_at": null,
-      "terms_sha256": null,
-      "terms_summary": "Not read: page body is JavaScript-rendered and automated clients receive HTTP 403. Developer to read in a browser.",
+      "terms_checked_at": "2026-10-28T13:44:35Z",
+      "terms_sha256": "99e1ae2a5e82797e45e59dfab47506f9e8c8292aef7e4e1b853d3b5ee4ee8cc2",
+      "terms_summary": "Authored summary of the HDB Terms of Use (page dated 24 Jul 2026), read in full 2026-10-28. (1) IP: all site Materials (text, images, data compilations, documents incl. linked files) are owned or controlled by HDB; copying, reproduction, reuse, adaptation, derivative works or transmission for 'commercial or any other purpose' needs HDB's prior written permission, requested in writing with identity, content, intent, manner and time frame. No personal-use or research carve-out is stated. (2) Hyperlinks: prior written permission is required before caching, linking to or framing the site; linking is at own risk and is deemed acceptance of the terms; HDB may object to or disable links. (3) Duties: no interference, unreasonable load, probing, or breaching security or authentication measures; no access to data not intended for the user. No explicit clause on robots, crawling, scraping, data mining or AI. (4) Reliance: Materials are general information only, not professional advice, may be incomplete; users must verify. (5) Terms may change without notice; Singapore law; Singapore Open Data Licence applies only to published open datasets, not site pages.",
       "robots_url": "https://www.hdb.gov.sg/robots.txt",
       "robots_checked_at": "2026-10-28T06:18:00Z",
       "robots_sha256": null,
@@ -20,7 +20,9 @@
       "legal_basis": "cda_s243_244",
       "redistribution": "not_permitted",
       "llm_transmission": "not_permitted",
-      "notes": "robots.txt read via a web-fetch tool after curl returned 403; no raw copy held. No Disallow rule matches /buying-a-flat/* or /-/media/; /hdb-flat-portal (S10) is disallowed. Bot protection returns 403 to curl and headless Chromium, so acquisition is manual browser capture (D-055). CDA basis is provisional: Copyright Act ss 244 and 187 read from a secondary source; Terms of Use unread."
+      "notes": "robots.txt read via a web-fetch tool after curl returned 403; no raw copy held. No Disallow rule matches /buying-a-flat/* or /-/media/; /hdb-flat-portal (S10) is disallowed. Bot protection returns 403 to automated clients; acquisition is manual browser capture (D-055). The ToU copying restriction is contractual; local copies rely on Copyright Act s 244, and s 187 voids contract terms to the extent they restrict that permitted use (statute read from a secondary source). Redistribution and LLM transmission of source text remain not permitted. Linking clause: see D-057. The 403 block page first saved for the ToU (sha256 df0a74...c9d6) was overwritten by the developer's manual copy; its hash remains recorded in docs/data_sources.md.",
+      "terms_private_path": "data/private_corpus/raw/rights/2026-10-28T134435Z_hdb_terms_of_use.html",
+      "terms_last_updated": "2026-07-24"
     },
     {
       "rights_id": "R-GOV-FILE",

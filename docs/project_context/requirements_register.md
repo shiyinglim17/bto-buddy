@@ -108,7 +108,7 @@ decisions. Page numbers are physical PDF pages.
 | REQ-LIC-010 | Never commit complete HDB HTML; store in `data/private_corpus/` (Git-ignored) | APPROVED | [APP p.13]; BD-03 | 03 §5.2 | repo_hygiene | `.gitignore` entry (done); `git ls-files` check |
 | REQ-LIC-011 | Substantial-text passages and derived indexes Git-ignored unless permission | APPROVED | [APP p.14] | 03 §5.2 | repo_hygiene | `git ls-files` check before submission |
 | REQ-LIC-012 | Never claim HDB granted redistribution licence | APPROVED | [APP p.14]; D-024 | 03 §5.1 | README | Wording review |
-| REQ-LIC-013 | Terms of Use and Copyright Act 2021 ss 243–244 recorded as preliminary; verify in Phase 2 | APPROVED | [APP p.14]; D-024 | 03 §5.1 | — | Phase 2 rights note |
+| REQ-LIC-013 | Terms of Use and Copyright Act 2021 ss 243–244 recorded as preliminary; verify in Phase 2 | APPROVED (ToU read 2026-10-28; statute via a secondary source; see data_sources §6, D-057) | [APP p.14]; D-024 | 03 §5.1 | — | Phase 2 rights note |
 | REQ-LIC-014 | robots.txt check for each host | APPROVED (www.hdb.gov.sg done 2026-10-28; file.go.gov.sg and mynicehome not checked, no automated access used) | [ASM p.2]; D-024 | 03 §5.1 | source_acquisition | Recorded robots.txt snapshot/date |
 | REQ-LIC-015 | Review all tracked data for copyright/privacy/credentials before submission | APPROVED | [APP p.14] | 03 §5.2 | repo_hygiene | Pre-submission checklist |
 | REQ-LIC-016 | Re-download ≠ reconstruct frozen snapshot; hashes and capture dates recorded | APPROVED | [APP p.13] | 03 §5.1 | source_manifest | SHA-256 + timestamp per source |

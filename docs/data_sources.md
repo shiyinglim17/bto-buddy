@@ -172,18 +172,33 @@ audit is **not** verification; every fact is checked against its source at autho
 | Check | Result |
 |---|---|
 | `www.hdb.gov.sg/robots.txt` | Read via a web-fetch tool; curl got HTTP 403. No rule matches S01–S06 or `/-/media/`. **`Disallow: /hdb-flat-portal`** matches S10. No crawl delay. No raw copy is held |
-| HDB Terms of Use | **Unread.** The page text loads with JavaScript, and automated clients get 403. The developer must read it in a browser. *Different site, for reference only:* HDB's mynicehome terms limit use to personal, non-commercial purposes |
+| HDB Terms of Use | **Read in full** on 2026-10-28. The developer captured it manually (`raw/rights/2026-10-28T134435Z_hdb_terms_of_use.html`, sha256 `99e1ae2a5e82…`); HDB's page date is 24 Jul 2026. The authored clause summary is in the manifest `R-HDB-WWW` record. Key points are in §6.2 |
 | Bot protection | curl and headless Chromium with an honest user agent both get **403**. The block pages are kept privately as evidence |
 | Copyright Act 2021 s 244 (secondary source; Statutes Online returned 403) | Allows copies made for computational data analysis, subject to: no other use; no supply to others except to verify results or for collaborative research; lawful access (not obtained by breaching terms or circumventing controls); a non-infringing source |
 | s 187 | Contract terms restricting that exception are void |
 | `file.go.gov.sg`, `mynicehome.gov.sg` robots/terms | Not checked. No automated access was used |
 
-### 6.2 Consequences
+### 6.2 What the Terms of Use say, and what follows
+
+These are authored paraphrases. The terms are contractual, and this is the project's own
+reading, not legal advice.
+
+| Clause | Effect on this project |
+|---|---|
+| **IP:** no copying, reuse, adaptation or transmission of site Materials "for commercial or any other purpose" without HDB's prior written permission. No research or personal-use carve-out | The contract alone would forbid even the local snapshots. They rely instead on **s 244**, and **s 187** voids contract terms to the extent they restrict that permitted use. Redistribution and LLM transmission aren't covered by s 244 either, so both stay prohibited, which is consistent with the clause |
+| **Facts vs expression** | Copyright protects expression, not facts. Authored, independently worded facts (§8.2) don't reproduce Materials. Residual risk: the clause's "adapted / derivative work" wording is broad. Mitigated by the overlap check and disclosure |
+| **Hyperlinks:** prior written permission is required before caching, linking or framing; linking counts as accepting the terms; HDB may object to or disable links | **Conflicts with REQ-ARC-009** (answers link to HDB pages). Proposed handling in **D-057**: links stay in the private, locally run prototype, are disclosed as a deployment condition, and a public deployment would need HDB's permission |
+| **Duties:** no interference, unreasonable load, probing, or breaching security or authentication measures | Supports the decision not to get past the bot protection (D-055). Manual, one-page-at-a-time access complies |
+| No clause on robots, crawling, scraping or AI | Nothing beyond the duties above |
+| **Reliance:** Materials are general information only, may be incomplete, and must be verified by the user | Aligns with the app's disclaimer (REQ-PRB-010). The README and UI repeat that guidance isn't official advice |
+| Terms change without notice | The version read is pinned by hash and page date in the manifest |
+| Open Data Licence covers only published open datasets | **Not** applicable to these pages. No open-data licence is claimed |
+| Privacy section (HDB's handling of its users' data) | Not applicable: the app uses fictional profiles only (REQ-PRIV-001) |
 
 | Use | Position |
 |---|---|
 | Automated capture | **Not used.** Getting past bot protection would undermine lawful access, so capture is manual (D-055) |
-| Local raw/processed copies (Git-ignored) | Plausible under s 244 (lawful manual access, analysis only). **Provisional** until the Terms of Use are read |
+| Local raw/processed copies (Git-ignored) | Lawful manual access; analysis only; s 244, with s 187 overriding the terms' copying ban. **Defensible, with the residual contractual risk disclosed** |
 | Committing copies or copied passages to GitHub | **Not permitted** (outside s 244(2)(c); REQ-LIC-010/011) |
 | Sending source text to an LLM provider (runtime, evaluation or coding agent) | **Not permitted** ("supply" to a third party). Only authored facts, rules and fictional profiles are sent (D-054) |
 | Authored facts, URLs, titles, short headings, hashes | Tracked, after rights review (§8.2) |
@@ -202,7 +217,8 @@ audit is **not** verification; every fact is checked against its source at autho
 | REQ-SRC-002 / REQ-LIC-016: provenance | Each acquired file has `retrieved_at` (UTC creation time; for PDFs this matches the browser download record), `raw_sha256`, `text_sha256`, size, private path, requested and final URL, and method in the manifest. It is regenerated by `snapshots.py register` |
 | REQ-SRC-015 / D-021: temporal metadata | The page "last updated" date or PDF metadata date is recorded, never presented as an effective date |
 | REQ-LIC-012 / REQ-LIC-015: no licence claim; review of tracked data | Tracked files hold authored text, URLs, titles, short headings and hashes only. The anonymity and secret scans run before each suggested push |
-| Still provisional | HDB Terms of Use unread (§10 R-ToU); statute read from a secondary source |
+| HDB Terms of Use | Read and pinned (§6.2). The copying ban is handled under s 244/s 187. The linking clause is handled by D-057 |
+| Still provisional | Statute read from a secondary source. No written permission from HDB has been sought (optional; D-057) |
 
 ---
 
@@ -321,7 +337,8 @@ Top level: `manifest_version`, `rights_records[]`, `sources[]`.
 | G-07 | Conditions may vary by flat classification or sales exercise (*agent knowledge*) | Application and non-selection facts | Record conditions in `applies_to`; never generalise |
 | G-11 | No grants redirect page | Excluded-topic redirect | Redirect to S02 |
 | G-15 | S02 changed on capture day | Currency | Facts from the snapshot; drift check before submission |
-| R-ToU | HDB Terms of Use unread | Legal basis provisional | The developer reads them |
+| R-ToU | Terms read (2026-10-28). Copying ban (handled under s 244/s 187) and linking-permission clause | Residual contractual risk | D-057; disclose in the README; optionally ask HDB for written permission |
+| R-evidence | The ToU 403 block page (sha256 `df0a74…c9d6`) was overwritten by the manual copy | That piece of evidence is lost; its hash stays in §6.1 | None needed |
 | R-dates | S01 and S05 files modified 2–8 min after creation | Hash fidelity | The developer confirms no edits after pasting |
 
 ---

@@ -180,6 +180,21 @@ matrix.
     licensing requirements and to the Copyright Act s 244 conditions.
   - The Chromium cache (~587 MB, outside the repo) is left for the developer to delete.
 
+**HDB Terms of Use (2026-10-28 13:44Z):**
+- The developer captured them manually, over the earlier 403 block-page file. The agent
+  renamed the file to `raw/rights/2026-10-28T134435Z_hdb_terms_of_use.html`, using the
+  modification time, since the creation time belonged to the overwritten file.
+- `snapshots.py register` now records the terms hash and check time in the manifest.
+- The agent read them in full under the approved rights check (R4) and wrote an authored
+  summary.
+- Findings:
+  - copying or reuse needs written permission, with no research carve-out, so local copies
+    rest on s 244/s 187;
+  - linking, caching or framing needs written permission, which conflicts with REQ-ARC-009
+    → proposed **D-057**;
+  - no robots, scraping or AI clauses;
+  - the reliance disclaimer matches the app's.
+
 **Not done (by design):** no automated fetch, download or extraction beyond the Gate R checks
 and the audits above. No facts have been authored. robots.txt, the Terms of
 Use and Copyright Act ss 243–244 are **unchecked**. Every permission is UNRESOLVED.

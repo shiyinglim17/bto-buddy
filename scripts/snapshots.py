@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data" / "private_corpus" / "raw"
 MANIFEST = ROOT / "data" / "sources_manifest.json"
 STAMP = re.compile(r"^(\d{4}-\d{2}-\d{2}T\d{6}Z)_")  # UTC capture-time filename prefix
+RIGHTS_FILES = {"hdb_terms_of_use": "R-HDB-WWW"}  # raw/rights/<UTC>_<suffix>.html -> record
 
 SKIP_TAGS = {"script", "style", "noscript", "svg", "template"}
 HEADING_TAGS = {"h1", "h2", "h3", "h4", "h5", "h6"}
@@ -343,6 +344,19 @@ def run_register() -> None:
             }
         )
         print(f"{folder.name}: {acq['retrieved_at']} sha256={acq['raw_sha256'][:12]} ({f.name})")
+    # Terms-of-use copies in raw/rights/ update their host's rights record (hash + check time).
+    rights = {r["rights_id"]: r for r in manifest["rights_records"]}
+    for suffix, rights_id in RIGHTS_FILES.items():
+        files = sorted(f for f in (RAW / "rights").glob(f"*_{suffix}.html") if STAMP.match(f.name))
+        if not files or rights_id not in rights:
+            continue
+        f = files[-1]
+        stamp = STAMP.match(f.name).group(1)  # type: ignore[union-attr]
+        checked = datetime.strptime(stamp, "%Y-%m-%dT%H%M%SZ").replace(tzinfo=UTC)
+        rights[rights_id]["terms_checked_at"] = checked.isoformat().replace("+00:00", "Z")
+        rights[rights_id]["terms_sha256"] = hashlib.sha256(f.read_bytes()).hexdigest()
+        rights[rights_id]["terms_private_path"] = str(f.relative_to(ROOT))
+        print(f"{rights_id}: terms {rights[rights_id]['terms_checked_at']} ({f.name})")
     MANIFEST.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
 
 
