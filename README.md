@@ -45,7 +45,7 @@ docker run --rm -p 8501:8501 --env-file .env bto-buddy
 
 ```bash
 uv sync                                   # exact versions from uv.lock
-uv run pytest                             # 135 offline tests, no API key needed
+uv run pytest                             # 138 offline tests, no API key needed
 uv run ruff check . && uv run mypy        # lint + strict typing
 uv run streamlit run src/bto_buddy/app.py
 ```
@@ -60,6 +60,7 @@ them without an API key:
 uv run python -m evaluation.run diagnostics 20261028T203350Z-A-dev 20261028T205255Z-B-dev 20261028T211724Z-D-dev
 uv run python -m evaluation.run run --config B --split dev     # live re-run (needs a key)
 uv run python -m evaluation.run verify <B_run_id>              # D from B's saved answers (needs a key)
+uv run python -m evaluation.metrics 20261028T203350Z-A-dev 20261028T205255Z-B-dev 20261028T211724Z-D-dev  # offline
 ```
 
 ## 2. Problem and objective
@@ -245,7 +246,18 @@ D (+ verification), all with the same model, instructions, cases and output cont
   retrieval recall@k, and verifier accuracy on labelled claims (false approvals, false alarms,
   contradiction recall, insufficient-evidence detection).
 - **Ablation as built:** A vs B (retrieval) and **B vs D (verification, identical generated
-  answers)**. B vs C and C vs D need C.
+  answers)**. B vs C and C vs D need C, so they are omitted.
+- **Automated metrics** (`evaluation/metrics.py`):
+  - missing-information recall;
+  - conflict identification;
+  - appropriate abstention and over-abstention (proxies of metric_spec §4.5);
+  - answer-coverage proxy;
+  - citation traceability, and citation precision against the gold facts;
+  - unsupported-claim rate (B and D, from claim labels).
+
+  Statistics are exact McNemar plus paired and case-cluster bootstraps, tested against
+  hand-computed values. Required-rule recall is not applicable because no built
+  configuration applies rules.
 - **Scorer:** the developer, blind. `evaluation.run sheet` exports answers under random IDs
   with the configuration hidden. **This scoring has not been done yet**, so no primary metric
   is reported below.
@@ -258,24 +270,43 @@ D (+ verification), all with the same model, instructions, cases and output cont
 
 ## 8. Results (development set)
 
-> **Preliminary and diagnostic only.** 18 dev cases, one run per configuration, and no blind
-> primary scoring yet. These numbers describe **what the structured output contains**, not
-> whether it is correct, except for the verifier table, which is claim-level. **No claim is
-> made that B or D is better overall.** Source: `evaluation/results/diagnostics_dev.json`.
+> **Development set only:** 18 cases, one run per configuration. **No held-out run** (the
+> benchmark isn't frozen and the labels stay sealed), and **no human-judged primary metrics
+> yet**: critical-error rate, key-point coverage and actionability await the developer's
+> blind scoring. Case-level tests on 18 cases have almost no power. Claim-level labels were
+> made by the coding agent after the run. **No configuration is claimed to be better
+> overall.**
 
-| Diagnostic (dev, n = 18) | A: direct | B: retrieval | D: B + verifier |
+Full report with definitions, the per-category table and the failure analysis:
+**[evaluation/results/evaluation_report.md](evaluation/results/evaluation_report.md)**.
+Machine-readable: `evaluation/results/metrics_dev.json`, computed offline by
+`uv run python -m evaluation.metrics <A_run> <B_run> <D_run>`.
+
+| Metric (dev, 18 paired cases) | A | B | D |
 |---|---|---|---|
-| Failed cases (kept in all counts) | 0 | 1 (DEV-12: HTTP 413) | 1 (inherited from B) |
-| Generation retries | 0 | 1 | 1 (same answers as B) |
-| Required missing fields listed in `missing_profile_fields` | 2/6 | 3/6 | 3/6 |
-| Expected conflicts flagged in `profile_conflicts` | 0/3 | 0/3 | 0/3 |
-| Out-of-scope requests flagged | 3/3 | 3/3 | 3/3 |
-| Whole answer refused on answerable cases | 0/9 | 0/9 | 0/9 |
-| Policy claims shown with an official source link | 0/34 | 33/35 | 28/35 (verified only) |
-| Claims withheld / shown as unconfirmed | n/a | n/a | 1 / 15 of 49 checked |
-| Answer coverage proxy (in-scope cases with ≥1 substantive claim not withheld or unconfirmed) | 15/15 | 14/15 | 14/15 |
+| Failed cases (kept in denominators) | 0 | 1 | 1 |
+| Missing-information recall (instances) | 2/6 (0.33) | 3/6 (0.50) | 3/6 (0.50) |
+| Conflict identification (instances) | 0/3 (0.00) | 0/3 (0.00) | 0/3 (0.00) |
+| Appropriate abstention (automated proxy) | 3/3 (1.00) | 3/3 (1.00) | 3/3 (1.00) |
+| Over-abstention (answerable = yes) | 0/9 (0.00) | 0/9 (0.00) | 0/9 (0.00) |
+| Answer coverage proxy (in-scope) | 15/15 (1.00) | 14/15 (0.93) | 14/15 (0.93) |
+| Citation traceability (shown policy claims with official source) | 0/34 (0.00) | 33/35 (0.94) | 28/34 (0.82) |
+| Citation precision vs case gold facts | 0/0 | 19/50 (0.38) | 19/50 (0.38) |
 | Median latency per case (includes rate-limit waits) | 4.3 s | 15.7 s | 21.5 s |
-| Total cost, 18 cases (list price) | US$0.0095 | US$0.0127 | US$0.0182 (+43% over B) |
+| Total cost, 18 cases (list price) | US$0.0095 | US$0.0127 | US$0.0182 |
+
+**Paired comparisons** (same cases; failures included):
+
+| Paired comparison | Discordant cases or claims | Test |
+|---|---|---|
+| A vs B: all required missing fields listed (4 cases) | A only 0, B only 1 | exact McNemar p = 1.0 |
+| A vs B: answer covered (15 cases) | A only 1, B only 0 | p = 1.0 (B's one loss is the DEV-12 API failure) |
+| A vs B: per-case missing-info recall | mean diff +0.25 | bootstrap 95% CI [0.00, 0.75] |
+| B vs D: answer covered / missing fields | 0 discordant | identical (same generated answers) |
+| **B vs D: claims shown as established that are not gold-supported (49 claims)** | B 22/49 → D 6/33; B only 16, D only 0 | McNemar p = 3.1e-05 *if claims were independent (they are not)*; **case-cluster bootstrap: -0.94 per case, 95% CI [-1.41, -0.47]** |
+| B vs D: contradicted claims shown as established | B 8 → D 4 (and D labels those 4 "verified") | — |
+| B vs D: correct claims lost | D 0 | — |
+
 
 **Verifier evaluation (B vs D, the same 49 checked claims).** Each claim was labelled against
 its cited facts and the applicant's situation. Labels and rationales are in
@@ -302,7 +333,7 @@ developer-blind and are not the planned D-065 claim set**, so treat them as indi
 **@12 0.52**. This is well below the 0.90 target in D-031. Misses per case are listed in
 `diagnostics_dev.json`.
 
-**Observed behaviour** (developer review pending; observations, not scores):
+**Observed behaviour** (observations, not scores):
 - **A states wrong policy confidently:**
   - HFE validity given as "one year" (DEV-10) or "6 months" (DEV-13), against 9 months in
     `HFE-VALID-001`;
@@ -378,7 +409,7 @@ from changed sections are suspended until re-verified; and every answer shows th
 
 ## 12. Development narrative
 
-- **Phase 0–1:** turned the brief and the approach document into a requirements register
+- **Phase 0–1:** turned the brief and my own planning approach document into a requirements register
   and a decision log (`docs/decisions.md`, D-001 onward). Scaffolded with uv, Docker and
   Streamlit.
 - **Phase 2:**

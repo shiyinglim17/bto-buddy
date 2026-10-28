@@ -245,6 +245,8 @@ caches out of the build context.
     retrieval recall → `evaluation/results/diagnostics_dev.json`)
   - `--config B` runs retrieval-grounded generation (D-069); `--config D` is B + verifier (D-071)
   - `uv run python -m evaluation.run verify <B_run_id>` (D from B's saved answers; identical generations)
+  - `uv run python -m evaluation.metrics <A_run> <B_run> <D_run>` (offline automated metrics, paired
+    stats → `evaluation/results/metrics_dev.json`; report: `evaluation/results/evaluation_report.md`)
   - C is not built
 - Model-selection harness (D-067): `uv run python -m evaluation.model_selection run|blind|summarise`
 

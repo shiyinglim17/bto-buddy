@@ -668,3 +668,25 @@ answers gives a clean ablation.
 **Diagnostics** now include D, verification counts and an answer-coverage proxy (A 15/15,
 B 14/15, D 14/15). The `retried` metric excludes the judge call. Blinded A/B/D sheet:
 `evaluation/results/scoring/sheet-de54b20a64/`. README §3, §4, §7–§10 and §12 updated.
+
+## 2026-10-29: Evaluation harness and ablation report (D-072)
+
+- **`evaluation/metrics.py`:** automated metrics with raw counts and denominators; overall
+  and per category; paired A-vs-B and B-vs-D comparisons (exact McNemar, paired bootstrap,
+  case-cluster bootstrap for claims). 3 hand-computed tests in `tests/test_metrics.py`.
+- **Output:** `evaluation/results/metrics_dev.json`. Report:
+  `evaluation/results/evaluation_report.md`, with definitions, a component-separated failure
+  analysis, task-13 status and the held-out procedure.
+- **Definition fix before reporting:** the first abstention proxy also required "no policy
+  claims". That marked DEV-17 (declines the odds, then adds priority context, as the label
+  expects) and B's DEV-18 as failures. It was aligned with metric_spec §4.5 (decline plus
+  official redirect), giving 3/3 for A, B and D.
+- **Key dev results:**
+  - missing-information recall A 2/6, B 3/6, D 3/6;
+  - conflicts 0/3 for all;
+  - answer coverage A 15/15, B 14/15, D 14/15 (B and D lose DEV-12 to the API failure);
+  - claims shown as established that are not gold-supported: B 22/49 → D 6/33. Case-cluster
+    bootstrap difference −0.94 per case, 95% CI [−1.41, −0.47];
+  - contradicted claims shown as established: B 8 → D 4, and D marks those 4 "verified".
+- **Not done:** held-out run (no freeze); human-judged primary metrics (critical errors,
+  coverage, actionability); B vs C and C vs D (no C).
