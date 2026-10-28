@@ -92,3 +92,22 @@ def test_excluded_sources_are_never_cited(kb: policy.KnowledgeBase) -> None:
         assert "/hdb-flat-portal" not in str(f.source.url)
     for r in policy.load_visual_resources(sources=kb.sources):
         assert "/hdb-flat-portal" not in str(r.url)
+
+
+def test_one_frozen_kb_for_app_rules_retrieval_and_benchmark() -> None:
+    # The app, BM25 index and evaluation all load data/policy_facts.jsonl through load_kb();
+    # this pins that file (and the rules) to the hashes recorded at the corpus freeze.
+    import hashlib
+
+    from bto_buddy import pipeline
+
+    root = Path(__file__).resolve().parents[1]
+    frozen = json.loads((root / "data/corpus/corpus_version.json").read_text())
+    for rel in ("data/policy_facts.jsonl", "data/policy_rules.yaml"):
+        digest = hashlib.sha256((root / rel).read_bytes()).hexdigest()
+        assert digest == frozen["files_sha256"][rel], rel
+    kb, reg = policy.load_kb(), policy.load_rules()
+    bench = json.loads((root / "evaluation/benchmark/manifest.json").read_text())
+    versions = {kb.kb_version, reg.kb_version, bench["kb_version"], frozen["kb_version"]}
+    assert versions == {pipeline.get_index().kb_version}
+    assert policy.validate_registry(reg, kb) == []

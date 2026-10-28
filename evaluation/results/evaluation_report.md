@@ -1,9 +1,12 @@
-# Evaluation report: ablation on the development set (2026-10-29)
+# Evaluation report: development set and held-out run (2026-10-29)
 
-**Status: development-set results only.** The benchmark is still a candidate (not frozen),
-held-out labels are sealed and unused (D-064), and the human-judged primary metrics
-(metric_spec §3) are not scored yet. Nothing here is a held-out result, and no
-configuration is claimed to be better overall.
+**Status.** §1–§5 are development-set results (18 cases). §7 is the **held-out run** (30
+cases), executed once after the benchmark was frozen (D-073). On the held-out set,
+configurations B and D **failed 23 of 30 cases** because the Groq free tier's daily token cap
+(200,000 tokens/day) was exhausted, and D's judge call was rate-limited in all 7 completed
+cases. Held-out results are therefore complete for A only. The human-judged primary metrics
+(metric_spec §3) are not scored for either split. No configuration is claimed to be better
+overall.
 
 ## 1. What was compared
 
@@ -121,7 +124,7 @@ Reproduce from saved outputs (offline, no API key):
 |---|---|
 | Same model, instructions, scenarios and schema across configurations | ✅ (A, B, D) |
 | C vs D reuses identical pre-verification outputs | ✅ as **B vs D** (C not built) |
-| Held-out evaluation with frozen labels, rubric and metrics | ❌ Not run: freeze not approved; labels sealed and untouched |
+| Held-out evaluation with frozen labels, rubric and metrics | ⚠️ Run once (D-073): A complete; B and D 7/30 completed (free-tier daily token cap); see §7 |
 | Retrieval evaluated separately (recall@k, k justified) | ✅ dev recall@3/5/8/12 with ceiling normalisation; k = 12 justified by the retrieval budget |
 | Retrieval at rule level; indexing conditions, exceptions and topic | ✅ index includes aliases, topic, section, exceptions; ❌ rule-level retrieval (no C) |
 | Required-rule recall | ❌ Not applicable (no configuration applies rules) |
@@ -148,3 +151,55 @@ Reproduce from saved outputs (offline, no API key):
    through `load_test_labels(final=True)` with `BTO_BUDDY_FINAL_EVAL=1`.
 4. Extend `evaluation.metrics` to the test split. It currently loads dev labels only, by
    design.
+
+> §6 status (2026-10-29): steps 1, 2 and 4 are done (D-073). Step 3, blind human scoring, is
+> not done.
+
+## 7. Held-out run (30 cases, frozen benchmark, D-073)
+
+Runs: `20261028T215710Z-A-test`, `20261028T215944Z-B-test`, `20261028T220205Z-D-test` (D from
+B's saved held-out answers). Metrics: `evaluation/results/metrics_test.json`, recomputable
+offline with
+`BTO_BUDDY_FINAL_EVAL=1 uv run python -m evaluation.metrics 20261028T215710Z-A-test 20261028T215944Z-B-test 20261028T220205Z-D-test`
+(needs the sealed label file, which matches the committed SHA-256).
+
+**What happened.** A ran 30/30. B ran TST-01 to TST-06 and TST-08, then every later call got
+HTTP 429 "tokens per day (TPD): Limit 200000". The same day's dev runs, re-runs and A's
+held-out run had used the free tier's daily budget. The bucket refills at about 140
+tokens/minute, and each B case needs about 3.3K tokens, so the remaining 23 cases could not
+be completed before the deadline. D's single judge call was also rate-limited in all 7
+completed cases, so every checked claim failed closed to "insufficient" (25/25). **The
+held-out D run therefore says nothing about verifier accuracy.** It only shows that the
+fail-closed path works: no unverified claim was shown as verified.
+
+| Metric (held-out, 30 cases; failures stay in denominators) | A | B | D |
+|---|---|---|---|
+| Failed cases | 0 | 23 (HTTP 429, daily cap) | 23 (same cases) |
+| Missing-information recall (instances) | 2/5 | 1/5 | 1/5 |
+| Conflict identification (instances) | 1/5 | 0/5 | 0/5 |
+| Appropriate abstention (automated proxy) | 1/3 | 0/3 | 0/3 |
+| Over-abstention (answerable = yes) | 0/14 | 0/14 | 1/14 |
+| Answer coverage proxy (in-scope) | 26/27 | 7/27 | 5/27 |
+| Citation traceability (shown policy claims with official source) | 0/58 | 17/17 | 0/17 (judge unavailable → all unconfirmed) |
+| Citation precision vs case gold facts | 0/0 | 11/25 | 11/25 |
+
+The paired B-vs-A "answer covered" test (A only 19, B only 0; exact McNemar p < 0.0001)
+measures B's API failures, not answer quality.
+
+**Exploratory, chosen after seeing the failures (not pre-registered): the 7 cases B
+completed** (5 standard, 2 missing-information). A and B are identical on every automated
+metric: missing-information recall 1/2 each, coverage 7/7 each, over-abstention 0/4 each.
+The one difference is traceability: B 17/17 policy claims linked to an official source, A
+0/17. Seven cases from two categories support no conclusion about accuracy.
+
+**What the held-out run does show:**
+- **A is not robust out of sample on abstention.** It declined properly in only 1 of 3
+  answerable = no cases (dev: 3/3). It found 1 of 5 expected conflicts (dev: 0/3).
+- **Free-tier capacity is a binding constraint on evaluation.** One full A + B + D pass over
+  48 cases (~3K–5K tokens per call, up to 3 calls per case), on top of development runs,
+  does not fit in 200K tokens/day.
+
+**To complete it** (no re-tuning allowed): after the quota recovers (about 24 h) or on a paid
+tier, re-run B on the 23 failed cases with `--cases`, then `verify`, then recompute
+`metrics_test.json`. Keep the partial runs above as the first attempt and disclose both.
+

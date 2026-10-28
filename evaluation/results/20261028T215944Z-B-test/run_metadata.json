@@ -1,0 +1,68 @@
+{
+ "run_id": "20261028T215944Z-B-test",
+ "config_id": "B",
+ "split": "test",
+ "case_ids": [
+  "TST-01",
+  "TST-02",
+  "TST-03",
+  "TST-04",
+  "TST-05",
+  "TST-06",
+  "TST-07",
+  "TST-08",
+  "TST-09",
+  "TST-10",
+  "TST-11",
+  "TST-12",
+  "TST-13",
+  "TST-14",
+  "TST-15",
+  "TST-16",
+  "TST-17",
+  "TST-18",
+  "TST-19",
+  "TST-20",
+  "TST-21",
+  "TST-22",
+  "TST-23",
+  "TST-24",
+  "TST-25",
+  "TST-26",
+  "TST-27",
+  "TST-28",
+  "TST-29",
+  "TST-30"
+ ],
+ "model_id": "openai/gpt-oss-120b",
+ "base_url": "https://api.groq.com/openai/v1",
+ "settings": {
+  "temperature": 0.0,
+  "reasoning_effort": "low",
+  "max_completion_tokens": 4096,
+  "timeout_s": 60.0,
+  "max_transport_retries": 8,
+  "response_format": "json_schema strict",
+  "validation_retries": 1
+ },
+ "prompt_versions": {
+  "generate": "generate_v1"
+ },
+ "prompt_sha256": {
+  "generate": "9870937fc410d097e89fb97699c97525194bee34aafeee99d29406558c723680"
+ },
+ "schema_name": "bto_guidance",
+ "schema_sha256": "6638aab5027bb256d0d330e08b00b2a909c81ebd27776b7937896389e452249e",
+ "prices_usd_per_m": [
+  0.15,
+  0.6
+ ],
+ "kb_version": "kb-2026-10-28.1",
+ "retrieval_k": 12,
+ "rules_version": null,
+ "git_commit": "836909214123f6058759c24725b6453d217ae5d9-dirty",
+ "started_at": "2026-10-28T21:59:44.260700+00:00",
+ "finished_at": "2026-10-28T22:02:03.974490+00:00",
+ "n_cases": 30,
+ "n_failed": 23
+}

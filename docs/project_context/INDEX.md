@@ -52,6 +52,9 @@ Configuration A (direct LLM) is built: `llm.py`, `generation.py`, `pipeline.py`,
 additions are D-068 (PROPOSED). **Config B (BM25 RAG) is built (D-069, D-070). D (verifier) is built on B (D-071), run
 `20261028T211724Z-D-dev`. C is deferred.** The README holds the results and limitations; the dev runs are A
 `20261028T203350Z-A-dev` and B `20261028T205255Z-B-dev`.
+**Held-out (D-073):** benchmark frozen; runs `20261028T215710Z-A-test` (30/30),
+`20261028T215944Z-B-test` and `20261028T220205Z-D-test` (7/30, free-tier daily cap);
+`evaluation/results/metrics_test.json`. Pre-submission audit: `docs/submission_audit.md`.
 
 ## Files
 

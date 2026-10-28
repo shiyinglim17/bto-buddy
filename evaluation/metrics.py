@@ -1,6 +1,10 @@
 """Automated evaluation metrics and paired ablation statistics (05 §4, metric_spec §4-§8).
 
   uv run python -m evaluation.metrics <A_run> <B_run> <D_run>   # dev runs -> metrics_dev.json
+  BTO_BUDDY_FINAL_EVAL=1 uv run python -m evaluation.metrics <A> <B> <D>  # -> metrics_test.json
+
+The split comes from the runs' metadata. Held-out labels are released only through
+`load_test_labels(final=True)` (D-064); the metric definitions are identical for both splits.
 
 Scope and honesty rules:
 - Only metrics that can be computed WITHOUT human judgement are computed here. The primary
@@ -25,7 +29,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from evaluation.benchmark import CaseLabel, load_dev
+from evaluation.benchmark import CaseLabel, load_dev, load_test_labels
 from evaluation.run import RESULTS, load_predictions
 
 SEED = 20261029
@@ -149,11 +153,19 @@ def aggregate(outs: list[dict[str, Any]], labs: list[CaseLabel]) -> dict[str, An
 
 
 # ---- claim-level (B vs D) -----------------------------------------------------------------
-def claim_level(d_run: str) -> dict[str, Any]:
+def claim_level(d_run: str, split: str = "dev") -> dict[str, Any]:
     """Unsupported-claim rate as exposed to the user, B vs D, on the same annotated claims.
     B shows every claim as stated; D withholds contradicted and labels insufficient ones as
     unconfirmed, so only D's 'supported' claims count as presented-as-established."""
     path = RESULTS / d_run / "claim_annotations.jsonl"
+    if not path.exists() and split == "test":
+        # Held-out claims are not hand-labelled: report the verifier's outcomes only, with no
+        # accuracy claim (label-free, descriptive).
+        outcomes: dict[str, int] = defaultdict(int)
+        for p in load_predictions(d_run):
+            for r in (p["verifier"] or {}).get("results", []):
+                outcomes[r["outcome"]] += 1
+        return {"annotated": False, "verifier_outcomes": dict(outcomes)}
     if not path.exists():
         # Gold claim labels are written by hand after a D run; a fresh live D run has none.
         raise SystemExit(
@@ -214,8 +226,19 @@ def _per_case(
 
 
 # ---- main ------------------------------------------------------------------------------
+def run_split(runs: dict[str, str]) -> str:
+    splits = {
+        json.loads((RESULTS / r / "run_metadata.json").read_text())["split"] for r in runs.values()
+    }
+    if len(splits) != 1:
+        raise SystemExit(f"runs mix splits: {sorted(splits)}")
+    return splits.pop()
+
+
 def evaluate(runs: dict[str, str]) -> dict[str, Any]:
-    labels = {lb.case_id: lb for _, lb in load_dev()}
+    split = run_split(runs)
+    gold = [lb for _, lb in load_dev()] if split == "dev" else load_test_labels(final=True)
+    labels = {lb.case_id: lb for lb in gold}
     per_cfg: dict[str, dict[str, dict[str, Any]]] = {}
     for cfg, run_id in runs.items():
         per_cfg[cfg] = {
@@ -225,7 +248,7 @@ def evaluate(runs: dict[str, str]) -> dict[str, Any]:
     case_ids = sorted(set.intersection(*(set(v) for v in per_cfg.values())))
     labs = [labels[c] for c in case_ids]
     report: dict[str, Any] = {
-        "split": "dev",
+        "split": split,
         "runs": runs,
         "n_paired_cases": len(case_ids),
         "pending_human_metrics": [
@@ -295,7 +318,7 @@ def evaluate(runs: dict[str, str]) -> dict[str, Any]:
     for x_cfg, y_cfg in itertools.pairwise(cfgs):
         report["paired"][f"{x_cfg}_vs_{y_cfg}"] = paired(x_cfg, y_cfg)
     if "D" in runs:
-        report["claim_level_B_vs_D"] = claim_level(runs["D"])
+        report["claim_level_B_vs_D"] = claim_level(runs["D"], split)
     report["by_category"] = dict(report["by_category"])
     return report
 
@@ -305,7 +328,7 @@ def main() -> None:
     if len(args) != 3:
         raise SystemExit(__doc__)
     report = evaluate(dict(zip(["A", "B", "D"], args, strict=True)))
-    out = RESULTS / "metrics_dev.json"
+    out = RESULTS / f"metrics_{report['split']}.json"
     out.write_text(json.dumps(report, indent=1))
     print(json.dumps({k: report[k] for k in ("overall", "paired", "claim_level_B_vs_D")}, indent=1))
     print(f"wrote {out.relative_to(Path(__file__).resolve().parents[1])}")

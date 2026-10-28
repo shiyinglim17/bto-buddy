@@ -1,0 +1,899 @@
+{
+ "split": "test",
+ "runs": {
+  "A": "20261028T215710Z-A-test",
+  "B": "20261028T215944Z-B-test",
+  "D": "20261028T220205Z-D-test"
+ },
+ "n_paired_cases": 30,
+ "pending_human_metrics": [
+  "critical-error rate (labelled + unlabelled critical errors)",
+  "required-information coverage (content key points)",
+  "claim-level factual correctness for A",
+  "actionability"
+ ],
+ "not_applicable": {
+  "required_rule_recall": "C is not built; no configuration applies rules (diagnostic D1 needs C)"
+ },
+ "overall": {
+  "A": {
+   "cases": 30,
+   "failed": 0,
+   "missing_information_recall": {
+    "num": 2,
+    "den": 5,
+    "rate": 0.4
+   },
+   "conflict_identification": {
+    "num": 1,
+    "den": 5,
+    "rate": 0.2
+   },
+   "appropriate_abstention": {
+    "num": 1,
+    "den": 3,
+    "rate": 0.333
+   },
+   "over_abstention": {
+    "num": 0,
+    "den": 14,
+    "rate": 0.0
+   },
+   "answer_coverage_proxy": {
+    "num": 26,
+    "den": 27,
+    "rate": 0.963
+   },
+   "citation_traceability": {
+    "num": 0,
+    "den": 58,
+    "rate": 0.0
+   },
+   "citation_precision_vs_gold_facts": {
+    "num": 0,
+    "den": 0,
+    "rate": null
+   }
+  },
+  "B": {
+   "cases": 30,
+   "failed": 23,
+   "missing_information_recall": {
+    "num": 1,
+    "den": 5,
+    "rate": 0.2
+   },
+   "conflict_identification": {
+    "num": 0,
+    "den": 5,
+    "rate": 0.0
+   },
+   "appropriate_abstention": {
+    "num": 0,
+    "den": 3,
+    "rate": 0.0
+   },
+   "over_abstention": {
+    "num": 0,
+    "den": 14,
+    "rate": 0.0
+   },
+   "answer_coverage_proxy": {
+    "num": 7,
+    "den": 27,
+    "rate": 0.259
+   },
+   "citation_traceability": {
+    "num": 17,
+    "den": 17,
+    "rate": 1.0
+   },
+   "citation_precision_vs_gold_facts": {
+    "num": 11,
+    "den": 25,
+    "rate": 0.44
+   }
+  },
+  "D": {
+   "cases": 30,
+   "failed": 23,
+   "missing_information_recall": {
+    "num": 1,
+    "den": 5,
+    "rate": 0.2
+   },
+   "conflict_identification": {
+    "num": 0,
+    "den": 5,
+    "rate": 0.0
+   },
+   "appropriate_abstention": {
+    "num": 0,
+    "den": 3,
+    "rate": 0.0
+   },
+   "over_abstention": {
+    "num": 1,
+    "den": 14,
+    "rate": 0.071
+   },
+   "answer_coverage_proxy": {
+    "num": 5,
+    "den": 27,
+    "rate": 0.185
+   },
+   "citation_traceability": {
+    "num": 0,
+    "den": 17,
+    "rate": 0.0
+   },
+   "citation_precision_vs_gold_facts": {
+    "num": 11,
+    "den": 25,
+    "rate": 0.44
+   }
+  }
+ },
+ "by_category": {
+  "standard": {
+   "A": {
+    "cases": 5,
+    "failed": 0,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 4,
+     "rate": 0.0
+    },
+    "answer_coverage_proxy": {
+     "num": 5,
+     "den": 5,
+     "rate": 1.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 16,
+     "rate": 0.0
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   },
+   "B": {
+    "cases": 5,
+    "failed": 0,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 4,
+     "rate": 0.0
+    },
+    "answer_coverage_proxy": {
+     "num": 5,
+     "den": 5,
+     "rate": 1.0
+    },
+    "citation_traceability": {
+     "num": 13,
+     "den": 13,
+     "rate": 1.0
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 10,
+     "den": 17,
+     "rate": 0.588
+    }
+   },
+   "D": {
+    "cases": 5,
+    "failed": 0,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 1,
+     "den": 4,
+     "rate": 0.25
+    },
+    "answer_coverage_proxy": {
+     "num": 4,
+     "den": 5,
+     "rate": 0.8
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 13,
+     "rate": 0.0
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 10,
+     "den": 17,
+     "rate": 0.588
+    }
+   }
+  },
+  "missing_information": {
+   "A": {
+    "cases": 5,
+    "failed": 0,
+    "missing_information_recall": {
+     "num": 2,
+     "den": 5,
+     "rate": 0.4
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "answer_coverage_proxy": {
+     "num": 5,
+     "den": 5,
+     "rate": 1.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 8,
+     "rate": 0.0
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   },
+   "B": {
+    "cases": 5,
+    "failed": 3,
+    "missing_information_recall": {
+     "num": 1,
+     "den": 5,
+     "rate": 0.2
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "answer_coverage_proxy": {
+     "num": 2,
+     "den": 5,
+     "rate": 0.4
+    },
+    "citation_traceability": {
+     "num": 4,
+     "den": 4,
+     "rate": 1.0
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 1,
+     "den": 8,
+     "rate": 0.125
+    }
+   },
+   "D": {
+    "cases": 5,
+    "failed": 3,
+    "missing_information_recall": {
+     "num": 1,
+     "den": 5,
+     "rate": 0.2
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "answer_coverage_proxy": {
+     "num": 1,
+     "den": 5,
+     "rate": 0.2
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 4,
+     "rate": 0.0
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 1,
+     "den": 8,
+     "rate": 0.125
+    }
+   }
+  },
+  "policy_exception": {
+   "A": {
+    "cases": 5,
+    "failed": 0,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 5,
+     "rate": 0.0
+    },
+    "answer_coverage_proxy": {
+     "num": 5,
+     "den": 5,
+     "rate": 1.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 11,
+     "rate": 0.0
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   },
+   "B": {
+    "cases": 5,
+    "failed": 5,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 5,
+     "rate": 0.0
+    },
+    "answer_coverage_proxy": {
+     "num": 0,
+     "den": 5,
+     "rate": 0.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   },
+   "D": {
+    "cases": 5,
+    "failed": 5,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 5,
+     "rate": 0.0
+    },
+    "answer_coverage_proxy": {
+     "num": 0,
+     "den": 5,
+     "rate": 0.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   }
+  },
+  "misconception": {
+   "A": {
+    "cases": 5,
+    "failed": 0,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 4,
+     "rate": 0.0
+    },
+    "answer_coverage_proxy": {
+     "num": 5,
+     "den": 5,
+     "rate": 1.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 6,
+     "rate": 0.0
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   },
+   "B": {
+    "cases": 5,
+    "failed": 5,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 4,
+     "rate": 0.0
+    },
+    "answer_coverage_proxy": {
+     "num": 0,
+     "den": 5,
+     "rate": 0.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   },
+   "D": {
+    "cases": 5,
+    "failed": 5,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 4,
+     "rate": 0.0
+    },
+    "answer_coverage_proxy": {
+     "num": 0,
+     "den": 5,
+     "rate": 0.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   }
+  },
+  "conflicting": {
+   "A": {
+    "cases": 5,
+    "failed": 0,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 1,
+     "den": 5,
+     "rate": 0.2
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 1,
+     "rate": 0.0
+    },
+    "answer_coverage_proxy": {
+     "num": 5,
+     "den": 5,
+     "rate": 1.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 11,
+     "rate": 0.0
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   },
+   "B": {
+    "cases": 5,
+    "failed": 5,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 5,
+     "rate": 0.0
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 1,
+     "rate": 0.0
+    },
+    "answer_coverage_proxy": {
+     "num": 0,
+     "den": 5,
+     "rate": 0.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   },
+   "D": {
+    "cases": 5,
+    "failed": 5,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 5,
+     "rate": 0.0
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 1,
+     "rate": 0.0
+    },
+    "answer_coverage_proxy": {
+     "num": 0,
+     "den": 5,
+     "rate": 0.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   }
+  },
+  "out_of_scope": {
+   "A": {
+    "cases": 5,
+    "failed": 0,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 1,
+     "den": 3,
+     "rate": 0.333
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "answer_coverage_proxy": {
+     "num": 1,
+     "den": 2,
+     "rate": 0.5
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 6,
+     "rate": 0.0
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   },
+   "B": {
+    "cases": 5,
+    "failed": 5,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 3,
+     "rate": 0.0
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "answer_coverage_proxy": {
+     "num": 0,
+     "den": 2,
+     "rate": 0.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   },
+   "D": {
+    "cases": 5,
+    "failed": 5,
+    "missing_information_recall": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "conflict_identification": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "appropriate_abstention": {
+     "num": 0,
+     "den": 3,
+     "rate": 0.0
+    },
+    "over_abstention": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "answer_coverage_proxy": {
+     "num": 0,
+     "den": 2,
+     "rate": 0.0
+    },
+    "citation_traceability": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    },
+    "citation_precision_vs_gold_facts": {
+     "num": 0,
+     "den": 0,
+     "rate": null
+    }
+   }
+  }
+ },
+ "paired": {
+  "A_vs_B": {
+   "all_missing_fields_listed": {
+    "cases": 5,
+    "A_only": 1,
+    "B_only": 0,
+    "mcnemar_exact_p": 1.0
+   },
+   "answer_covered": {
+    "cases": 27,
+    "A_only": 19,
+    "B_only": 0,
+    "mcnemar_exact_p": 0.0
+   },
+   "missing_information_recall_bootstrap": {
+    "diff": -0.2,
+    "ci_low": -0.6,
+    "ci_high": 0.0
+   }
+  },
+  "B_vs_D": {
+   "all_missing_fields_listed": {
+    "cases": 5,
+    "B_only": 0,
+    "D_only": 0,
+    "mcnemar_exact_p": 1.0
+   },
+   "answer_covered": {
+    "cases": 27,
+    "B_only": 2,
+    "D_only": 0,
+    "mcnemar_exact_p": 0.5
+   },
+   "missing_information_recall_bootstrap": {
+    "diff": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0
+   }
+  }
+ },
+ "claim_level_B_vs_D": {
+  "annotated": false,
+  "verifier_outcomes": {
+   "insufficient_evidence": 25
+  }
+ }
+}

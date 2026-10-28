@@ -727,3 +727,40 @@ made in the temporary clone and not kept.
 **Not reproducible from the repository (disclosed in README §1):** snapshot capture and fact
 authoring (private corpus not redistributed; live pages may have changed) and held-out
 scoring (sealed).
+
+## 2026-10-29: Held-out run (D-073), README rewrite and submission audit
+
+**Freeze and run.** At the developer's instruction, the benchmark manifest was set to
+`frozen` (labels unchanged; SHA-256 still matches). Before any held-out output was opened,
+`evaluation/metrics.py` was extended only to read the split from run metadata and to release
+labels through `load_test_labels(final=True)`; dev metrics were recomputed byte-identically.
+`evaluation.run verify` was fixed to take label-free test inputs for a test-split B run (it
+used dev inputs only).
+
+**Runs.** A `20261028T215710Z-A-test`: 30/30 ok. B `20261028T215944Z-B-test`: 7 ok, then
+**23 × HTTP 429 "tokens per day (TPD): Limit 200000"**. The free tier's daily budget had been
+used by the day's dev runs, clean-clone re-runs and held-out A. D `20261028T220205Z-D-test`:
+the judge call was rate-limited in all 7 completed cases, so all 25 checked claims failed
+closed to `insufficient_evidence`. **No verifier evidence from the held-out set.** Completing
+the 23 cases needs about 76K tokens; at the observed refill rate (about 140 tokens/min) that
+was not possible before the deadline.
+
+**Held-out metrics** (`metrics_test.json`, failures in denominators): A missing-info 2/5,
+conflicts 1/5, abstention 1/3, coverage 26/27. B and D coverage 7/27 and 5/27 (failures).
+Exploratory 7-case subset (chosen after seeing the failures): A and B tie on all automated
+metrics; traceability B 17/17 vs A 0/17.
+
+**Docs.** README rewritten in the first person: Docker step-by-step with troubleshooting,
+built-vs-designed table, Mermaid diagrams (as built, C as designed, evaluation flow),
+held-out results, constraint-to-metric limitations table, original approach-document
+limitations (from `03_data_and_licensing.md` §9, REQ-PRIV-010 and `05_evaluation.md` §10;
+the private PDF was not reopened), enhancements, and a 210-word deployment section.
+`evaluation_report.md` gained §7 (held-out). New `docs/submission_audit.md`. New test pins
+one frozen KB across app, rules, retrieval and benchmark.
+
+**Audit findings:** `ai_logs/` missing (REQ-SUB-010) and the demo link is a placeholder
+(REQ-SUB-003), both blockers. `HH-CIT-001` shares one 8-word run with its source under a
+stricter scan (left unchanged; KB frozen). A Groq org ID appears in saved error messages.
+
+**Next:** export and redact the session logs; record the demo; complete held-out B/D after
+the quota resets; blind human scoring.
