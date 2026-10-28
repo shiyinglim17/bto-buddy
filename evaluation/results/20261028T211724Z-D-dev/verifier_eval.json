@@ -1,0 +1,28 @@
+{
+ "annotator": "coding agent, post hoc, against cited facts and the applicant situation; not developer-blind; not the D-065 claim set",
+ "n_checked_claims": 49,
+ "gold": {
+  "contradicted": 8,
+  "supported": 27,
+  "insufficient_evidence": 14
+ },
+ "verifier": {
+  "supported": 33,
+  "insufficient_evidence": 15,
+  "contradicted": 1
+ },
+ "confusion_gold_by_verifier": {
+  "contradicted->contradicted": 1,
+  "contradicted->insufficient_evidence": 3,
+  "contradicted->supported": 4,
+  "insufficient_evidence->insufficient_evidence": 12,
+  "insufficient_evidence->supported": 2,
+  "supported->supported": 27
+ },
+ "false_approvals": "6/22",
+ "false_approvals_of_contradicted": "4/8",
+ "contradiction_recall": "1/8",
+ "contradicted_not_shown_as_established": "4/8",
+ "insufficient_detection": "12/14",
+ "false_alarms_on_supported": "0/27"
+}

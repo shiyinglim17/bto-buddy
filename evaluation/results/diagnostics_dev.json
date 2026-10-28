@@ -13,6 +13,7 @@
    "policy_claims_with_official_source": 0,
    "cited_fact_ids_in_case_gold": "0/0",
    "distinct_facts_cited": 0,
+   "answer_coverage_proxy": "15/15",
    "latency_ms_median": 4332,
    "cost_usd_total": 0.00954,
    "tokens_in_mean": 1707,
@@ -30,10 +31,36 @@
    "policy_claims_with_official_source": 33,
    "cited_fact_ids_in_case_gold": "19/50",
    "distinct_facts_cited": 18,
+   "answer_coverage_proxy": "14/15",
    "latency_ms_median": 15699,
    "cost_usd_total": 0.01272,
    "tokens_in_mean": 2649,
    "tokens_out_mean": 516
+  },
+  "20261028T211724Z-D-dev": {
+   "n": 18,
+   "failed": 1,
+   "retried": 1,
+   "missing_fields_listed": "3/6",
+   "conflicts_flagged": "0/3",
+   "out_of_scope_flagged": "3/3",
+   "whole_answer_out_of_scope_on_answerable": "0/9",
+   "policy_claims": 35,
+   "policy_claims_with_official_source": 28,
+   "cited_fact_ids_in_case_gold": "19/50",
+   "distinct_facts_cited": 18,
+   "verified_claims": 49,
+   "verdicts": {
+    "supported": 33,
+    "contradicted": 1,
+    "insufficient_evidence": 15
+   },
+   "claims_withheld": 1,
+   "answer_coverage_proxy": "14/15",
+   "latency_ms_median": 21549,
+   "cost_usd_total": 0.01815,
+   "tokens_in_mean": 3398,
+   "tokens_out_mean": 831
   }
  },
  "retrieval": {

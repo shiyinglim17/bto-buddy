@@ -627,3 +627,44 @@ sections (S01, S02, S05; authored summaries only) and applied the agreed edits t
 3. AI session log export to `ai_logs/` with redactions;
 4. final rights clearance and the G-15 drift check;
 5. benchmark freeze, held-out run, and configurations C and D (deferred).
+
+## 2026-10-29: Configuration D (verifier) on B (D-071)
+
+**Choice:** D over C, because it is one module rather than five, and verifying B's saved
+answers gives a clean ablation.
+
+**Built**
+- `verification.py`:
+  - deterministic layer: no citation, or a citation that wasn't retrieved, means
+    insufficient;
+  - one batched judge (`prompts/verify_v1.md`, same model), seeing only the cited facts and
+    the applicant's situation;
+  - display per D-011, failing closed when the judge errors or gives no verdict;
+  - no rewriting and no regeneration.
+- `pipeline.run_verified` and `evaluation.run verify <B_run>`. The prediction file stores a
+  SHA-256 of the pre-verification output, the verdicts and the raw judge response.
+- App: a D mode showing verified / unconfirmed / withheld.
+- `tests/test_verification.py` (6 tests). Total 135 pass; ruff and strict mypy are clean.
+
+**Run `20261028T211724Z-D-dev`** (on `20261028T205255Z-B-dev`)
+- 17 judge calls, no judge failures. DEV-12 inherits B's failure.
+- 49 checked claims: verifier said 33 supported, 1 contradicted, 15 insufficient.
+- Cost US$0.0182 (+43% over B); median latency 21.5 s.
+
+**Verifier evaluation** (agent annotation after the run:
+`claim_annotations.jsonl`, `verifier_eval.json`)
+- Gold labels: 27 supported, 8 contradicted, 14 insufficient.
+- False alarms 0/27.
+- False approvals 6/22. 4/8 contradicted claims were approved:
+  - DEV-01 c2, DEV-13 c1, DEV-13 c3: FT(PMC) criteria generalised to all first-timer couples;
+  - DEV-17 c2: ballot chances.
+- Contradiction recall 1/8 (DEV-13 c2). 3 more contradicted claims were downgraded to
+  unconfirmed.
+- Insufficient detection 12/14. The 2 misses were an over-generalisation (DEV-02 c2) and an
+  assumed citizenship (DEV-05 c1).
+- **Main failure mode:** applicant-category applicability (fact `applies_to` is not given to
+  the judge). Shared-model blind spot is a hypothesis.
+
+**Diagnostics** now include D, verification counts and an answer-coverage proxy (A 15/15,
+B 14/15, D 14/15). The `retried` metric excludes the judge call. Blinded A/B/D sheet:
+`evaluation/results/scoring/sheet-de54b20a64/`. README §3, §4, §7–§10 and §12 updated.

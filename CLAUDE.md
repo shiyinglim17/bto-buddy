@@ -243,7 +243,9 @@ caches out of the build context.
   - `uv run python -m evaluation.run sheet <run_id> [...]` (blinded scoring sheet, metric_spec §3)
   - `uv run python -m evaluation.run diagnostics <run_id> [...]` (offline structural diagnostics +
     retrieval recall → `evaluation/results/diagnostics_dev.json`)
-  - `--config B` runs retrieval-grounded generation (D-069); C and D are not built
+  - `--config B` runs retrieval-grounded generation (D-069); `--config D` is B + verifier (D-071)
+  - `uv run python -m evaluation.run verify <B_run_id>` (D from B's saved answers; identical generations)
+  - C is not built
 - Model-selection harness (D-067): `uv run python -m evaluation.model_selection run|blind|summarise`
 
 **Secret scan before a push** (until a dedicated tool is approved):

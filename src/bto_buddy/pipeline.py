@@ -45,7 +45,23 @@ def run(request: UserRequest, config_id: ConfigId, client: LLMClient) -> FinalGu
         return run_direct(request, client)
     if config_id == "B":
         return run_rag(request, client)
+    if config_id == "D":
+        return run_verified(request, client)
     raise NotImplementedError(f"configuration {config_id} is not built (D-069)")
+
+
+def retrieve_for(request: UserRequest, k: int = retrieval.DEFAULT_K) -> EvidenceBundle:
+    """B's retrieval step; deterministic, so D can rebuild B's exact bundle."""
+    return retrieval.retrieve(get_index(), f"{request.question} {request.situation_text}", k)
+
+
+def run_verified(request: UserRequest, client: LLMClient) -> FinalGuidance:
+    """Configuration D as built (D-071): B's output plus claim verification. The approved
+    design runs the verifier on C; C is not built, so D here isolates verification on B."""
+    from bto_buddy.verification import apply_verification
+
+    pre = run_rag(request, client)
+    return apply_verification(pre, request, retrieve_for(request), client)[0]
 
 
 _INDEX: retrieval.Index | None = None
@@ -63,8 +79,7 @@ def run_rag(request: UserRequest, client: LLMClient, k: int = retrieval.DEFAULT_
     """Configuration B: BM25 over the authored KB (question + situation), the retrieved facts
     in the shared prompt's evidence slot, citations restricted to the bundle."""
     started = datetime.now(UTC)
-    index = get_index()
-    bundle = retrieval.retrieve(index, f"{request.question} {request.situation_text}", k)
+    bundle = retrieve_for(request, k)
     allowed = frozenset(e.fact_id for e in bundle.items)
     result = generate(
         request, client, evidence=retrieval.evidence_block(bundle), allowed_fact_ids=allowed

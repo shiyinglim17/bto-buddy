@@ -2,7 +2,8 @@
 
 Run with: uv run streamlit run src/bto_buddy/app.py
 
-Every answer is live inference through `pipeline.run` (configurations A and B, D-069). The
+Every answer is live inference through `pipeline.run` (configurations A, B and D; D-069,
+D-071). The
 presets only fill the input boxes; nothing is cached or hard-coded.
 """
 
@@ -41,7 +42,8 @@ PRESETS = {
     ),
 }
 CONFIGS = {
-    "B: grounded in verified HDB facts (recommended)": "B",
+    "D: grounded + claim verification (recommended)": "D",
+    "B: grounded in verified HDB facts": "B",
     "A: model knowledge only (baseline)": "A",
 }
 
@@ -54,13 +56,26 @@ def show(g: FinalGuidance) -> None:
     st.write(g.summary)
 
     facts = [d for d in g.claims if d.claim.kind == "policy_fact"]
-    steps = [d for d in g.claims if d.claim.kind == "preparation_step"]
+    steps = [
+        d
+        for d in g.claims
+        if d.claim.kind == "preparation_step"
+        and not (d.verification and d.verification.outcome == "contradicted")
+    ]
     caveats = [d for d in g.claims if d.claim.kind == "caveat"]
+    withheld = [d for d in g.claims if d.verification and d.verification.outcome == "contradicted"]
+    facts = [d for d in facts if d not in withheld]
     if facts:
         st.subheader("Published requirements")
         for d in facts:
             links = " ".join(f"[source]({u})" for u in d.sources)
-            st.markdown(f"- {d.claim.text} {links or '*(no verified source)*'}")
+            ver = d.verification
+            tag = " ✅ verified" if ver and ver.outcome == "supported" else ""
+            if ver and ver.outcome == "insufficient_evidence":
+                tag = " ⚠️ *unconfirmed by our sources*"
+            st.markdown(f"- {d.claim.text}{tag} {links or '*(no verified source)*'}")
+    if withheld:
+        st.error(f"{len(withheld)} statement(s) were withheld because our sources contradict them.")
     if steps:
         st.subheader("Preparation actions")
         for d in steps:

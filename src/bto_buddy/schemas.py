@@ -310,6 +310,18 @@ class VerificationResult(_Frozen):
     display_action: Literal["show_with_source", "withhold_and_flag", "state_as_unconfirmed"]
 
 
+class JudgeVerdict(_Frozen):
+    """One claim's outcome from the batched LLM judge (LLM #3, D-034)."""
+
+    claim_id: str
+    outcome: Literal["supported", "contradicted", "insufficient_evidence"]
+    rationale: str
+
+
+class JudgeOutput(_Frozen):
+    verdicts: list[JudgeVerdict]
+
+
 class DisplayedClaim(_Frozen):
     claim: GeneratedClaim
     verification: VerificationResult | None  # None in A-C (no verifier)

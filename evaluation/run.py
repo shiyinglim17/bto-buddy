@@ -3,6 +3,7 @@
   uv run python -m evaluation.run run --config A --split dev [--cases DEV-01,DEV-02]
   uv run python -m evaluation.run check <run_id>          # completeness + contract + label join
   uv run python -m evaluation.run sheet <run_id> [...]     # blinded scoring sheet (metric_spec §3)
+  uv run python -m evaluation.run verify <B_run_id>          # D from B's saved outputs
   uv run python -m evaluation.run diagnostics <run_id> [...]  # structural diagnostics + retrieval
 
 The generation process sees `CaseInput` only (as_of, situation_text, question); labels are
@@ -58,7 +59,7 @@ def _git_commit() -> str | None:
 
 
 def run(config: ConfigId, split: str, case_ids: list[str] | None, final: bool) -> Path:
-    if config not in ("A", "B"):
+    if config not in ("A", "B", "D"):
         raise SystemExit(f"configuration {config} is not built (D-069)")
     if split == "test" and not final:
         raise SystemExit("the held-out split runs only in the final evaluation (--final)")
@@ -164,6 +165,72 @@ class _RecordingClient:
             }
         )
         return resp
+
+
+def verify_run(b_run_id: str) -> Path:
+    """Configuration D from a saved B run: B's exact pre-verification outputs are reloaded
+    (no new generation) and only the verifier calls the model, so B vs D isolates
+    verification (REQ-EVL-012). Failed B cases stay failed in D."""
+    from bto_buddy.verification import VERIFY_PROMPT, apply_verification, record_json
+
+    b_meta = json.loads((RESULTS / b_run_id / "run_metadata.json").read_text())
+    if b_meta["config_id"] != "B":
+        raise SystemExit("verify takes a configuration-B run")
+    index = pipeline.get_index()
+    if index.kb_version != b_meta["kb_version"]:
+        raise SystemExit("KB version differs from the B run; bundles would not match")
+    inputs = {c.case_id: c for c, _ in load_dev()}
+    client = llm.OpenAICompatibleClient.from_env(ROOT / ".env")
+    run_id = f"{datetime.now(UTC):%Y%m%dT%H%M%SZ}-D-{b_meta['split']}"
+    out_dir = RESULTS / run_id
+    out_dir.mkdir(parents=True)
+    meta = {
+        **{k: v for k, v in b_meta.items() if k not in ("run_id", "started_at", "finished_at")},
+        "run_id": run_id,
+        "config_id": "D",
+        "pre_verification_run": b_run_id,
+        "prompt_versions": {**b_meta["prompt_versions"], "verify": VERIFY_PROMPT},
+        "verify_prompt_sha256": hashlib.sha256(
+            (ROOT / "src/bto_buddy/prompts/verify_v1.md").read_bytes()
+        ).hexdigest(),
+        "judge_model_id": client.model_id,
+        "judge_settings": {
+            "temperature": client.temperature,
+            "reasoning_effort": client.reasoning_effort,
+            "max_completion_tokens": client.max_completion_tokens,
+        },
+        "git_commit": _git_commit(),
+        "started_at": datetime.now(UTC).isoformat(),
+    }
+    n_failed = 0
+    with (out_dir / "predictions.jsonl").open("w") as f:
+        for p in load_predictions(b_run_id):
+            pre = FinalGuidance.model_validate(p["final_guidance"])
+            req = to_request(inputs[p["case_id"]])
+            g, rec = apply_verification(pre, req, pipeline.retrieve_for(req), client)
+            n_failed += g.run.status == "failed"
+            row = {
+                "case_id": p["case_id"],
+                "final_guidance": g.model_dump(mode="json"),
+                "visible_answer": render_answer(g),
+                "pre_verification_sha256": hashlib.sha256(
+                    json.dumps(p["final_guidance"], sort_keys=True).encode()
+                ).hexdigest(),
+                "verifier": record_json(rec),
+            }
+            f.write(json.dumps(row) + "\n")
+            f.flush()
+            outcomes = [r.outcome[:4] for r in rec.results]
+            print(
+                f"{p['case_id']} {g.run.status} verdicts={outcomes} judge_ms={rec.latency_ms}"
+                + (f" judge_error={rec.judge_error[:100]}" if rec.judge_error else ""),
+                flush=True,
+            )
+    meta["finished_at"] = datetime.now(UTC).isoformat()
+    meta["n_failed"] = n_failed
+    (out_dir / "run_metadata.json").write_text(json.dumps(meta, indent=1))
+    print(f"saved {out_dir.relative_to(ROOT)}")
+    return out_dir
 
 
 def load_predictions(run_id: str) -> list[dict[str, Any]]:
@@ -272,7 +339,9 @@ def diagnostics(run_ids: list[str]) -> dict[str, Any]:
         g = [p["final_guidance"] for p in preds]
         lab = [labels[p["case_id"]] for p in preds]
         r["failed"] = sum(x["run"]["status"] == "failed" for x in g)
-        r["retried"] = sum(x["run"]["llm_calls"] > 1 for x in g)
+        # A generation retry, not the verifier's judge call (D adds one call per case).
+        judge = [int("verify" in x["run"]["prompt_versions"] and bool(x["claims"])) for x in g]
+        r["retried"] = sum(x["run"]["llm_calls"] - j > 1 for x, j in zip(g, judge, strict=True))
         pairs = list(zip(g, lab, strict=True))
         req = [(f, x) for x, lb in pairs for f in lb.required_missing_fields]
         listed = sum(f in {m["field"] for m in x["missing_profile_fields"]} for f, x in req)
@@ -299,6 +368,27 @@ def diagnostics(run_ids: list[str]) -> dict[str, Any]:
                 n_gold += len(set(c["claim"]["cited_fact_ids"]) & set(lb.evidence_fact_ids))
         r["cited_fact_ids_in_case_gold"] = f"{n_gold}/{n_cites}"
         r["distinct_facts_cited"] = len(cited)
+        ver = [c["verification"] for x in g for c in x["claims"] if c["verification"]]
+        if ver:
+            r["verified_claims"] = len(ver)
+            r["verdicts"] = {
+                o: sum(v["outcome"] == o for v in ver)
+                for o in ("supported", "contradicted", "insufficient_evidence")
+            }
+            r["claims_withheld"] = r["verdicts"]["contradicted"]
+
+        # Answer-coverage proxy for every run: in-scope cases showing at least one non-caveat
+        # claim that was not withheld or left unconfirmed by the verifier.
+        def substantive(x: dict[str, Any]) -> bool:
+            return any(
+                c["claim"]["kind"] != "caveat"
+                and (c["verification"] is None or c["verification"]["outcome"] == "supported")
+                for c in x["claims"]
+            )
+
+        ok = [x for x, lb in pairs if lb.answerable != "no" and x["run"]["status"] == "ok"]
+        in_scope = sum(lb.answerable != "no" for lb in lab)
+        r["answer_coverage_proxy"] = f"{sum(substantive(x) for x in ok)}/{in_scope}"
         lat = sorted(x["run"]["latency_ms"] for x in g)
         r["latency_ms_median"] = lat[len(lat) // 2]
         r["cost_usd_total"] = round(sum(x["run"]["estimated_cost_usd"] or 0 for x in g), 5)
@@ -328,6 +418,8 @@ def main() -> None:
         run(config, split, cases, "--final" in args)  # type: ignore[arg-type]
     elif args[:1] == ["check"] and len(args) == 2:
         sys.exit(0 if check(args[1])["ok"] else 1)
+    elif args[:1] == ["verify"] and len(args) == 2:
+        verify_run(args[1])
     elif args[:1] == ["diagnostics"] and len(args) >= 2:
         diagnostics(args[1:])
     elif args[:1] == ["sheet"] and len(args) >= 2:

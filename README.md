@@ -45,7 +45,7 @@ docker run --rm -p 8501:8501 --env-file .env bto-buddy
 
 ```bash
 uv sync                                   # exact versions from uv.lock
-uv run pytest                             # 129 offline tests, no API key needed
+uv run pytest                             # 135 offline tests, no API key needed
 uv run ruff check . && uv run mypy        # lint + strict typing
 uv run streamlit run src/bto_buddy/app.py
 ```
@@ -57,8 +57,9 @@ potentially non-deterministic API experiment**, even at temperature 0. Saved pre
 them without an API key:
 
 ```bash
-uv run python -m evaluation.run diagnostics 20261028T203350Z-A-dev 20261028T205255Z-B-dev
+uv run python -m evaluation.run diagnostics 20261028T203350Z-A-dev 20261028T205255Z-B-dev 20261028T211724Z-D-dev
 uv run python -m evaluation.run run --config B --split dev     # live re-run (needs a key)
+uv run python -m evaluation.run verify <B_run_id>              # D from B's saved answers (needs a key)
 ```
 
 ## 2. Problem and objective
@@ -101,21 +102,26 @@ critical errors compared with the same model answering from its own knowledge?
 | **Configuration A**, direct LLM (baseline) | ✅ | `pipeline.run_direct` |
 | **Configuration B**, BM25 retrieval plus grounded generation with citations restricted to retrieved facts | ✅ | `retrieval.py`, `pipeline.run_rag` |
 | Configuration C (LLM profile extraction, coverage gate, rules wired in) | ❌ designed, not built | `docs/architecture.md` §3 |
-| Configuration D (claim-level verifier) | ❌ designed, not built | `docs/architecture.md` §3.1, D-034 |
-| Streamlit app (A/B toggle, 3 live presets, source links, learning resources) | ✅ | `src/bto_buddy/app.py` |
+| **Configuration D**, claim-level verifier (deterministic checks + one batched LLM judge), **applied to B** | ✅ built on B, not C (D-071) | `verification.py`, `pipeline.run_verified` |
+| Streamlit app (A/B/D toggle, 3 live presets, verified/unconfirmed/withheld display, source links, learning resources) | ✅ | `src/bto_buddy/app.py` |
 | Benchmark: 48 fictional cases (18 dev / 30 sealed held-out) | ✅ (candidate, not frozen) | `evaluation/benchmark/`, `docs/evaluation_benchmark.md` |
 | Evaluation runner, blinded scoring sheet, diagnostics | ✅ | `evaluation/run.py`, `evaluation/metric_spec.md` |
 
-C and D were dropped for time (D-069, recorded in `docs/decisions.md`). The held-out set was
-never opened or run, so a full A–D evaluation can still be done without leakage.
+C was dropped for time (D-069). D was then built **on B instead of C** (D-071). The
+verifier re-checks B's *saved* answers, so **B vs D is a clean verification ablation**:
+identical generated answers, and only verification differs. The held-out set was never opened
+or run, so a full A–D evaluation can still be done without leakage.
 
 ## 4. How it works
 
 ```
 free text + question
    ├─ A: ─────────────────────────────────────────────► LLM (generate_v1, no evidence) ─► FinalGuidance
-   └─ B: BM25 over 89 authored facts (top 12) ─► evidence block ─► LLM (generate_v1) ─► citation check ─► FinalGuidance
-   (C/D design: LLM extraction → quote guard → deterministic gate → rules ∥ BM25 → generation → verifier)
+   ├─ B: BM25 over 89 authored facts (top 12) ─► evidence block ─► LLM (generate_v1) ─► citation check ─► FinalGuidance
+   └─ D: B's output ─► deterministic checks (no citation / citation not retrieved → insufficient)
+                   ─► ONE batched LLM judge (verify_v1, cited facts + applicant situation only)
+                   ─► supported: show with source · contradicted: withhold + flag · insufficient: "unconfirmed", no source
+   (approved C design, not built: LLM extraction → quote guard → deterministic gate → rules ∥ BM25 → generation)
 ```
 
 - **One output contract** (`FinalGuidance`, Pydantic) for every configuration. It always
@@ -135,6 +141,13 @@ free text + question
   citation is shown as "not confirmed by our sources" (an `evidence_gap`), never as
   established. Missing evidence is never presented as proof that a requirement does not
   exist.
+- **Verification (D):** checks every `policy_fact` claim and any cited preparation step;
+  caveats and uncited procedural steps are not policy assertions. The judge must find that the
+  cited facts **substantively** state the claim, including numbers, conditions and who it
+  applies to; a fact on the same topic is not enough. Claims are never rewritten and nothing
+  is regenerated. If the judge fails or returns no verdict, the claim is shown only as
+  unconfirmed (fail closed). The judge uses the same model as generation (A5), so they can
+  share a misunderstanding; the results below show this happening.
 - **Retrieval:** one authored fact is one passage. Facts are atomic, so splitting would
   separate conditions from qualifiers and merging would blur citations. The index text is
   the statement, aliases, topic, section heading and exceptions. Tokenisation is
@@ -229,7 +242,10 @@ D (+ verification), all with the same model, instructions, cases and output cont
   Factual correctness is scored separately from citation, so A is not penalised just for
   having no citation mechanism.
 - **Diagnostics** (never used to rank): structured-signal counts, citation traceability,
-  retrieval recall@k, and the verifier (planned).
+  retrieval recall@k, and verifier accuracy on labelled claims (false approvals, false alarms,
+  contradiction recall, insufficient-evidence detection).
+- **Ablation as built:** A vs B (retrieval) and **B vs D (verification, identical generated
+  answers)**. B vs C and C vs D need C.
 - **Scorer:** the developer, blind. `evaluation.run sheet` exports answers under random IDs
   with the configuration hidden. **This scoring has not been done yet**, so no primary metric
   is reported below.
@@ -244,20 +260,43 @@ D (+ verification), all with the same model, instructions, cases and output cont
 
 > **Preliminary and diagnostic only.** 18 dev cases, one run per configuration, and no blind
 > primary scoring yet. These numbers describe **what the structured output contains**, not
-> whether it is correct. **No claim is made that B is better than A.**
-> Source: `evaluation/results/diagnostics_dev.json`.
+> whether it is correct, except for the verifier table, which is claim-level. **No claim is
+> made that B or D is better overall.** Source: `evaluation/results/diagnostics_dev.json`.
 
-| Diagnostic (dev, n = 18) | A: direct | B: retrieval |
-|---|---|---|
-| Failed cases (kept in all counts) | 0 | 1 (DEV-12: HTTP 413, see below) |
-| Required missing fields listed in `missing_profile_fields` | 2/6 | 3/6 |
-| Expected conflicts flagged in `profile_conflicts` | 0/3 | 0/3 |
-| Out-of-scope requests flagged | 3/3 | 3/3 |
-| Whole answer refused on answerable cases | 0/9 | 0/9 |
-| Policy claims with an official source link | 0/34 | 33/35 |
-| Cited fact IDs that are among the case's gold facts | n/a | 19/50 |
-| Median latency per case (includes rate-limit waits) | 4.3 s | 15.7 s |
-| Total cost, 18 cases (list price) | US$0.0095 | US$0.0127 |
+| Diagnostic (dev, n = 18) | A: direct | B: retrieval | D: B + verifier |
+|---|---|---|---|
+| Failed cases (kept in all counts) | 0 | 1 (DEV-12: HTTP 413) | 1 (inherited from B) |
+| Generation retries | 0 | 1 | 1 (same answers as B) |
+| Required missing fields listed in `missing_profile_fields` | 2/6 | 3/6 | 3/6 |
+| Expected conflicts flagged in `profile_conflicts` | 0/3 | 0/3 | 0/3 |
+| Out-of-scope requests flagged | 3/3 | 3/3 | 3/3 |
+| Whole answer refused on answerable cases | 0/9 | 0/9 | 0/9 |
+| Policy claims shown with an official source link | 0/34 | 33/35 | 28/35 (verified only) |
+| Claims withheld / shown as unconfirmed | n/a | n/a | 1 / 15 of 49 checked |
+| Answer coverage proxy (in-scope cases with ≥1 substantive claim not withheld or unconfirmed) | 15/15 | 14/15 | 14/15 |
+| Median latency per case (includes rate-limit waits) | 4.3 s | 15.7 s | 21.5 s |
+| Total cost, 18 cases (list price) | US$0.0095 | US$0.0127 | US$0.0182 (+43% over B) |
+
+**Verifier evaluation (B vs D, the same 49 checked claims).** Each claim was labelled against
+its cited facts and the applicant's situation. Labels and rationales are in
+`evaluation/results/20261028T211724Z-D-dev/claim_annotations.jsonl`; metrics are in
+`verifier_eval.json`. **The coding agent annotated these after the run. They are not
+developer-blind and are not the planned D-065 claim set**, so treat them as indicative.
+
+| Gold \ verifier | supported | contradicted | insufficient |
+|---|---|---|---|
+| supported (27) | **27** | 0 | 0 |
+| contradicted (8) | **4** | 1 | 3 |
+| insufficient (14) | **2** | 0 | 12 |
+
+- **False alarms: 0/27.** No correct claim was withheld or downgraded, so there is no
+  usefulness loss on the answer-coverage proxy (14/15 in both B and D).
+- **False approvals: 6/22**, including **4 of the 8 contradicted claims**, which D then
+  displays as verified with an official source.
+- **Contradiction recall: 1/8.** 4/8 contradicted claims are no longer shown as established
+  (1 withheld, 3 unconfirmed). In B, all 8 were shown as established, 7 with a source link.
+- **Insufficient-evidence detection: 12/14.**
+- **Cost:** about 5.9 s median and US$0.0003 per case for one extra call.
 
 **Retrieval (dev, 52 gold facts over 18 cases):** recall@3 0.23 · @5 0.33 · @8 0.42 ·
 **@12 0.52**. This is well below the 0.90 target in D-031. Misses per case are listed in
@@ -275,7 +314,14 @@ D (+ verification), all with the same model, instructions, cases and output cont
   (DEV-07, DEV-10, DEV-13).
 - **Neither configuration flags contradictions** (0/3), and both sometimes assume missing
   values (DEV-05). That is exactly what C's deterministic profile checks are designed for.
-- **Out-of-scope requests** (grant amounts, ballot odds, singles) are declined by both.
+- **Out-of-scope requests** (grant amounts, ballot odds, singles) are declined by all
+  configurations.
+- **D's main weakness is applicant-category applicability.** 4 of the 6 false approvals cite
+  the FT(PMC) fact for claims about all first-timer couples, e.g. telling an engaged couple
+  "first-timer couples must be married" (DEV-01 c2, DEV-13 c1). The other two: "first-timer
+  families receive three ballot chances", when the fact gives 2, or 3 only with FT(PMC)
+  (DEV-17 c2); and an assumed citizenship (DEV-05 c1). The generator and the judge appear to
+  share this misreading.
 
 ## 9. Error analysis (dev, confirmed vs hypothesised)
 
@@ -285,12 +331,19 @@ D (+ verification), all with the same model, instructions, cases and output cont
 | Retrieval miss | 9/18 cases miss ≥1 gold fact at k=12 | Generation lacks some facts | Gold facts present | Lexical gap between colloquial questions and fact text; multi-fact questions (confirmed by recall) | Rule-linked facts (C, by design); more aliases from dev misses only |
 | Evidence over-generalisation (B) | DEV-07, 10, 13 | "Engaged couples unconfirmed" | Unconfirmed only for FT(PMC) | Gap note retrieved out of context (hypothesis) | Retrieve gap notes only on matching topics (C's topic filter); verifier (D) |
 | Conflict not detected | DEV-13, 14, 15 | No conflict listed (A and B) | Neutral clarification | The LLM is not asked to compare statements systematically (hypothesis) | Deterministic conflict checks on the extracted profile (C) |
+| Verifier false approval: wrong applicant category | DEV-01 c2, DEV-13 c1, DEV-13 c3, DEV-17 c2 | Shown as verified | Contradicted | Fact names a sub-group (FT(PMC)) and the claim generalises it; the same model generates and judges (hypothesis) | Pass `applies_to` metadata to the judge and check it deterministically; a different judge model family (A5) |
+| Verifier missed contradiction ("both must be SC") | DEV-01 c3, DEV-07 c3, DEV-16 c3 | Unconfirmed, not withheld | Contradicted | The judge treats "stricter than the fact" as "not stated" (confirmed by rationales) | Prompt example for stricter/looser conditions; rule-based citizenship check (C) |
+| True correction shown as unconfirmed | DEV-11 c1 | "Engaged couples can apply without marrying" unconfirmed | Supported by HH-COUPLE-001 | Generator did not cite the fact (deterministic rule: no citation → insufficient) | Rule-linked facts and a citation prompt (C); not a verifier error |
 | Rate-limit configuration | DEV-12 (B) | HTTP 413 "request too large" | An answer | `max_completion_tokens` 6000 + prompt exceeded the 8K tokens/min plan (confirmed) | Cap lowered to 4096 for future runs; saved run unchanged |
 
 ## 10. Limitations
 
-- **C and D are not built**, so the core hybrid hypothesis (rules + verification) is
-  untested. The rule engine exists and is unit-tested but does not influence answers.
+- **C is not built**, and **D runs on B rather than C** (D-071). The rule engine exists and is
+  unit-tested but does not influence answers, so the "deterministic rules" half of the hybrid
+  hypothesis is untested.
+- **The verifier evaluation uses agent annotations made after the run**, on 49 claims from
+  one run. Counts this small (e.g. 4/8) have very wide uncertainty and are not statistically
+  significant. The verifier shares the generator's model, so the errors are not independent.
 - **No blind primary scoring and no held-out run.** Results are dev diagnostics from one run
   per configuration on 18 synthetic cases, with no statistical power. The benchmark is still
   a candidate (not frozen).
@@ -310,9 +363,9 @@ D (+ verification), all with the same model, instructions, cases and output cont
 preparing for a BTO application, using a web assistant run by a public agency. It sits
 beside the official HDB Flat Portal, not inside it, and never collects NRIC or Singpass
 data. **Cost at scale:** configuration B used about 2,650 input and 520 output tokens per
-query, about US$0.0007 at gpt-oss-120b list prices. That is roughly US$70 a month for
-100,000 queries. The full C/D design adds up to two calls, roughly tripling this to about
-US$0.002 per query. Retrieval and rules run on the CPU at negligible cost. **Monitoring:**
+query, about US$0.0007 at gpt-oss-120b list prices; the verifier adds about US$0.0003. That
+is roughly US$100 a month for 100,000 verified queries. C's extraction call would add about
+another US$0.0005. Retrieval and rules run on the CPU at negligible cost. **Monitoring:**
 weekly blind audits of sampled answers for critical-error rate; the share of policy claims
 with a valid citation; evidence-gap and out-of-scope rates by topic (a rise signals coverage
 holes); schema-failure and API-error rates; p95 latency and cost per query; and user
@@ -344,7 +397,9 @@ from changed sections are suspended until re-verified; and every answer shows th
     thresholds, with that disclosed (D-067).
   - **Baseline A:** built with fail-closed handling and 25 failure-mode tests.
   - **Time-boxing:** with about 1.5 h left, C and D were deferred in favour of B, a working
-    Docker build and this documentation (D-069). Every failed attempt (an aborted harness
+    Docker build and this documentation (D-069). With one hour left, D was chosen over C
+    because it needed one module rather than five, and could re-verify B's saved answers for
+    a clean ablation (D-071). Every failed attempt (an aborted harness
     run, Cloudflare and 413 errors) is recorded in `docs/development_log.md`.
 - **Tooling:** uv (reproducible lockfile); Pydantic (typed contracts); `openai` client
   (provider-agnostic); `rank-bm25` (deterministic, explainable retrieval); stdlib for
