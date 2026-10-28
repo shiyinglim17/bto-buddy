@@ -17,7 +17,7 @@ Public-sector AI prototype · fictional applicant profiles only · not an offici
 <a href="#15-ai-coding-agent-usage">AI usage</a>
 </p>
 
-<p><b>Demo video (3–5 min):</b> <a href="https://tinyurl.com/bto-buddy-demo">https://tinyurl.com/bto-buddy-demo</a></p>
+<p><b>Demo video:</b> <a href="https://tinyurl.com/bto-buddy-demo">https://tinyurl.com/bto-buddy-demo</a></p>
 
 </div>
 
