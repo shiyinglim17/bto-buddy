@@ -36,32 +36,85 @@ docker run --rm -p 8501:8501 --env-file .env bto-buddy
 
 - The image contains only the tracked, reviewer-facing data (`data/policy_facts.jsonl`,
   `policy_rules.yaml`, `sources_manifest.json`, `visual_resources.json`). It never needs the
-  private source snapshots.
-- Without an API key the app starts and shows a clear "No LLM API key is configured" message.
-- Verified on 2026-10-29 (macOS, Docker): the build succeeded, the health endpoint returned
-  200, and a live configuration-B answer ran inside the container.
+  private source snapshots (`data/private_corpus/`), the held-out labels or any local file
+  other than `.env`.
+- The only credential is `BTO_BUDDY_LLM_API_KEY` (or `GROQ_API_KEY`). Base URL and model
+  default to Groq and `openai/gpt-oss-120b` when left blank. Write the key unquoted.
+- Without a key the app still starts, passes the health check and shows "No LLM API key is
+  configured" at the top of the page. No answer can be generated until a key is set.
 
 **Local development** (uv 0.13.6, Python ≥ 3.12):
 
 ```bash
 uv sync                                   # exact versions from uv.lock
-uv run pytest                             # 138 offline tests, no API key needed
+uv run pytest                             # 145 offline tests, no API key (1 skips without held-out labels)
 uv run ruff check . && uv run mypy        # lint + strict typing
-uv run streamlit run src/bto_buddy/app.py
+uv run streamlit run src/bto_buddy/app.py # reads ./.env, like the evaluation runner
 ```
 
-**Offline vs live.** `pytest`, lint, typing, the KB loader and retrieval are deterministic
-and offline. Anything that calls the model (the app, `evaluation.run run`) is a **live,
-potentially non-deterministic API experiment**, even at temperature 0. Saved predictions in
-`evaluation/results/` are the reproducible record, and the diagnostics can be recomputed from
-them without an API key:
+### Offline (deterministic) vs live (API, non-deterministic)
+
+| Kind | Commands | Needs | Reproduces |
+|---|---|---|---|
+| **Offline, deterministic** | `pytest`, `ruff`, `mypy`, KB load, BM25 retrieval, `evaluation.run check / sheet / diagnostics`, `evaluation.metrics` on the saved runs | Nothing beyond `uv sync` | **Exactly**: `diagnostics_dev.json` and `metrics_dev.json` are recomputed byte-for-byte from the saved predictions |
+| **Live, non-deterministic** | the app, `evaluation.run run`, `evaluation.run verify` | API key, network, Groq availability | **Not exactly.** Provider-side variation remains even at temperature 0, so a re-run is a *new experiment*, saved under a new run ID; it never overwrites the saved record |
+
+The saved predictions in `evaluation/results/` are the reproducible record of the reported
+results:
 
 ```bash
+# Offline: recompute the reported diagnostics and metrics from the saved runs (no key)
 uv run python -m evaluation.run diagnostics 20261028T203350Z-A-dev 20261028T205255Z-B-dev 20261028T211724Z-D-dev
-uv run python -m evaluation.run run --config B --split dev     # live re-run (needs a key)
-uv run python -m evaluation.run verify <B_run_id>              # D from B's saved answers (needs a key)
-uv run python -m evaluation.metrics 20261028T203350Z-A-dev 20261028T205255Z-B-dev 20261028T211724Z-D-dev  # offline
+uv run python -m evaluation.metrics 20261028T203350Z-A-dev 20261028T205255Z-B-dev 20261028T211724Z-D-dev
+git diff --exit-code evaluation/results/   # no diff = reproduced
+
+# Live: new runs (key needed; results vary)
+uv run python -m evaluation.run run --config A --split dev
+uv run python -m evaluation.run verify 20261028T205255Z-B-dev   # D re-judged on B's saved answers
 ```
+
+`evaluation.metrics` on a **new** D run needs claim labels (`claim_annotations.jsonl`) to be
+written for that run first. They are hand labels, not generated.
+
+**Live re-run variance (measured 2026-10-29 from a clean clone).** `verify` on the saved B
+answers reused identical pre-verification outputs (18/18 hashes) and reproduced the saved
+verifier verdicts on **46 of 49 claims**. In the three that changed, the judge moved from
+"insufficient" to "supported" (2) or to "contradicted" (1). Re-running A gave 18/18
+successful cases, with the same counts of missing fields, conflicts and out-of-scope
+reasons in 17/18 cases, but identical summary text in only 5/18. The reported numbers come
+from the saved runs, not from these re-runs.
+
+### What a reviewer cannot reproduce from the repository
+
+- **Source snapshots and fact authoring (L0/L1 → L2).** `scripts/corpus.py` and
+  `scripts/snapshots.py` need `data/private_corpus/`. These HDB snapshots are not
+  redistributed, because rights to redistribute are not established (§5). A reviewer can
+  recapture the same pages by hand in a browser (`docs/data_sources.md` §7), but the live
+  pages may have changed, so the hashes in `data/sources_manifest.json` may not match. The
+  tracked `policy_facts.jsonl` is the reproducible starting point. Without snapshots, both
+  scripts stop with a message and change nothing.
+- **Held-out scoring.** The labels are sealed (D-064); only their hash is tracked.
+
+### Clean-machine smoke test
+
+Run from a fresh `git clone`, with no `.env`, no `data/private_corpus/` and no
+`references/`:
+
+1. `uv lock --check && uv sync`: resolves 61 packages from `uv.lock`.
+2. `uv run pytest`: 144 passed, 1 skipped (held-out labels absent).
+3. `uv run ruff check . && uv run ruff format --check . && uv run mypy`: clean.
+4. `uv run python -c "from bto_buddy.policy import load_kb; print(load_kb().kb_version)"` prints `kb-2026-10-28.1`.
+5. Offline evaluation recomputation (above) leaves `git diff` empty.
+6. `cp .env.example .env && docker build -t bto-buddy . && docker run --rm -p 8501:8501 --env-file .env bto-buddy`.
+7. `curl -f http://localhost:8501/_stcore/health` returns `ok`; the page shows the "No LLM API key" error.
+8. Put the key in `.env`, restart the container, choose a preset and click **Get preparation
+   guidance**. A summary, sourced requirements, and a footer with the model, latency and
+   token count appear.
+
+Verified on 2026-10-29 (macOS, Docker 29.9.2, uv 0.13.6). The image was built with
+`--no-cache` from a fresh clone of commit `8947d7e` (plus the reproducibility fixes listed
+in `docs/development_log.md`). Steps 1–8 passed. Live answers ran inside the container for
+configurations A and D.
 
 ## 2. Problem and objective
 

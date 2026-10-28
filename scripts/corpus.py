@@ -1472,6 +1472,14 @@ def main() -> None:
     }
     if cmd not in commands:
         sys.exit("usage: python -I scripts/corpus.py {extract|validate|facts|verify|freeze}")
+    # Without the private snapshots every command would rewrite tracked outputs (including
+    # policy_facts.jsonl validation records) from nothing. Stop before writing anything.
+    if not any(RAW.glob("*/*")):
+        sys.exit(
+            f"no source snapshots in {RAW.relative_to(ROOT)}: the private corpus is not "
+            "redistributed (README §1, docs/data_sources.md §7). Nothing was changed; the "
+            "tracked data/policy_facts.jsonl is the reviewer's starting point."
+        )
     commands[cmd]()
 
 

@@ -20,10 +20,13 @@ def test_app_renders_with_disclaimer() -> None:
     assert "eligibility assessment" in app.warning[0].value
 
 
-def test_preset_fills_inputs_and_missing_key_gives_clear_error(monkeypatch) -> None:  # type: ignore[no-untyped-def]
+def test_preset_fills_inputs_and_missing_key_gives_clear_error(monkeypatch, tmp_path) -> None:  # type: ignore[no-untyped-def]
     monkeypatch.delenv("BTO_BUDDY_LLM_API_KEY", raising=False)
     monkeypatch.delenv("GROQ_API_KEY", raising=False)
+    monkeypatch.chdir(tmp_path)  # no ./.env here, like a clean clone or the Docker image
     app = AppTest.from_file(str(APP_PATH)).run(timeout=30)
+    # The missing key is reported at startup, before any click.
+    assert any("No LLM API key" in e.value for e in app.error)
     app.selectbox[0].select("Missing information").run(timeout=30)
     assert "Rachel and Jun Hao" in app.text_area[0].value
     app.button[0].click().run(timeout=30)

@@ -362,6 +362,12 @@ def run_register() -> None:
 
 def main() -> None:
     command = sys.argv[1] if len(sys.argv) > 1 else ""
+    # Without snapshots, `register` would rewrite the tracked manifest's hashes from nothing.
+    if command in ("audit", "register") and not any(RAW.glob("*/*")):
+        sys.exit(
+            f"no source snapshots in {RAW.relative_to(ROOT)}: the private corpus is not "
+            "redistributed (docs/data_sources.md §7). Nothing was changed."
+        )
     if command == "audit":
         run_audit()
     elif command == "register":

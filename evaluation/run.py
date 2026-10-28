@@ -58,6 +58,18 @@ def _git_commit() -> str | None:
         return None
 
 
+def _client() -> llm.OpenAICompatibleClient:
+    """Live runs need a key; fail before creating a results directory, without a traceback."""
+    try:
+        return llm.OpenAICompatibleClient.from_env(ROOT / ".env")
+    except llm.LLMError:
+        raise SystemExit(
+            "No LLM API key: set BTO_BUDDY_LLM_API_KEY in .env (cp .env.example .env) or the "
+            "environment. Offline commands (check, sheet, diagnostics, evaluation.metrics) "
+            "need no key."
+        ) from None
+
+
 def run(config: ConfigId, split: str, case_ids: list[str] | None, final: bool) -> Path:
     if config not in ("A", "B", "D"):
         raise SystemExit(f"configuration {config} is not built (D-069)")
@@ -66,7 +78,7 @@ def run(config: ConfigId, split: str, case_ids: list[str] | None, final: bool) -
     cases = [i for i, _ in load_dev()] if split == "dev" else load_test_inputs()
     if case_ids:
         cases = [c for c in cases if c.case_id in case_ids]
-    client = llm.OpenAICompatibleClient.from_env(ROOT / ".env")
+    client = _client()
     run_id = f"{datetime.now(UTC):%Y%m%dT%H%M%SZ}-{config}-{split}"
     out_dir = RESULTS / run_id
     out_dir.mkdir(parents=True)
@@ -179,8 +191,10 @@ def verify_run(b_run_id: str) -> Path:
     index = pipeline.get_index()
     if index.kb_version != b_meta["kb_version"]:
         raise SystemExit("KB version differs from the B run; bundles would not match")
-    inputs = {c.case_id: c for c, _ in load_dev()}
-    client = llm.OpenAICompatibleClient.from_env(ROOT / ".env")
+    # Label-free inputs for either split; the held-out labels are never loaded here.
+    cases = [c for c, _ in load_dev()] if b_meta["split"] == "dev" else load_test_inputs()
+    inputs = {c.case_id: c for c in cases}
+    client = _client()
     run_id = f"{datetime.now(UTC):%Y%m%dT%H%M%SZ}-D-{b_meta['split']}"
     out_dir = RESULTS / run_id
     out_dir.mkdir(parents=True)

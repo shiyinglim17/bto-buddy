@@ -253,3 +253,19 @@ def test_copied_wording_is_flagged(record: dict) -> None:
     sources = {"S99": SOURCE | {"mvp_class": "essential", "content_format": ["html_text"]}}
     rows, _ = corpus.check_facts([copied], sources, {"S99": record})
     assert rows[0]["overlap_flag"] is True
+
+
+@pytest.mark.parametrize("cmd", ["extract", "validate", "facts", "verify", "freeze"])
+def test_corpus_commands_refuse_without_snapshots(
+    cmd: str, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # A clean clone has no private corpus; the commands must not rewrite tracked outputs.
+    import snapshots
+
+    for module in (corpus, snapshots):
+        monkeypatch.setattr(module, "RAW", tmp_path / "data" / "private_corpus" / "raw")
+        monkeypatch.setattr(module, "ROOT", tmp_path)
+    for module, command in ((corpus, cmd), (snapshots, "register"), (snapshots, "audit")):
+        monkeypatch.setattr(sys, "argv", ["x", command])
+        with pytest.raises(SystemExit, match="no source snapshots"):
+            module.main()

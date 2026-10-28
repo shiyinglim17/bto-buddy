@@ -154,6 +154,12 @@ def claim_level(d_run: str) -> dict[str, Any]:
     B shows every claim as stated; D withholds contradicted and labels insufficient ones as
     unconfirmed, so only D's 'supported' claims count as presented-as-established."""
     path = RESULTS / d_run / "claim_annotations.jsonl"
+    if not path.exists():
+        # Gold claim labels are written by hand after a D run; a fresh live D run has none.
+        raise SystemExit(
+            f"{d_run} has no claim_annotations.jsonl: label its checked claims first "
+            "(template: evaluation/claims/claim_template.jsonl), or pass the saved D run."
+        )
     rows = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
     b_est = rows  # B: all checked claims are presented as established
     d_est = [r for r in rows if r["verifier"] == "supported"]

@@ -81,8 +81,11 @@ def estimate_cost_usd(model_id: str, input_tokens: int, output_tokens: int) -> f
 
 def read_env(name: str, env_file: Path | None = None) -> str | None:
     """Environment first, then a simple KEY=VALUE `.env` file (no python-dotenv dependency)."""
-    if os.environ.get(name):
-        return os.environ[name]
+    # `docker run --env-file` keeps quotes literally (KEY="x" arrives as "x" with quotes), so
+    # environment values get the same quote stripping as the .env parser below.
+    value = os.environ.get(name, "").strip().strip("'\"")
+    if value:
+        return value
     if env_file is not None and env_file.exists():
         for line in env_file.read_text().splitlines():
             key, sep, value = line.partition("=")

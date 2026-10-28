@@ -301,3 +301,27 @@ def test_heldout_split_needs_final_flag() -> None:
 
     with pytest.raises(SystemExit, match="final"):
         run.run("A", "test", None, final=False)
+
+
+def test_env_key_quotes_are_stripped_like_dotenv(monkeypatch: pytest.MonkeyPatch) -> None:
+    # `docker run --env-file` passes KEY="x" through with its quotes.
+    from bto_buddy.llm import read_env
+
+    monkeypatch.setenv("BTO_BUDDY_LLM_API_KEY", '"gsk_test"')
+    assert read_env("BTO_BUDDY_LLM_API_KEY") == "gsk_test"
+    monkeypatch.setenv("BTO_BUDDY_LLM_API_KEY", "")  # empty line from .env.example
+    assert read_env("BTO_BUDDY_LLM_API_KEY") is None
+
+
+def test_live_run_without_key_exits_cleanly_before_writing(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Any
+) -> None:
+    from evaluation import run
+
+    monkeypatch.delenv("BTO_BUDDY_LLM_API_KEY", raising=False)
+    monkeypatch.delenv("GROQ_API_KEY", raising=False)
+    monkeypatch.setattr(run, "ROOT", tmp_path)  # no .env here
+    monkeypatch.setattr(run, "RESULTS", tmp_path / "results")
+    with pytest.raises(SystemExit, match="No LLM API key"):
+        run.run("A", "dev", ["DEV-01"], final=False)
+    assert not (tmp_path / "results").exists()

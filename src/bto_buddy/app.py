@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import date
+from pathlib import Path
 
 import streamlit as st
 
@@ -41,6 +42,13 @@ PRESETS = {
         "next October, right?",
     ),
 }
+NO_KEY_MESSAGE = (
+    "No LLM API key is configured, so no guidance can be generated. Set BTO_BUDDY_LLM_API_KEY "
+    "in .env (see .env.example) and restart; with Docker, pass it via --env-file .env."
+)
+# Local runs (`uv run streamlit run ...` from the repo root) read ./.env like the evaluation
+# runner does. The Docker image has no .env file, so there the environment alone applies.
+ENV_FILE = Path(".env")
 CONFIGS = {
     "D: grounded + claim verification (recommended)": "D",
     "B: grounded in verified HDB facts": "B",
@@ -119,6 +127,11 @@ def main() -> None:
     st.caption(f"BTO pre-application preparation assistant · prototype v{__version__}")
     st.warning(pipeline.DISCLAIMER)
     st.info(PRIVACY_NOTICE)
+    try:
+        client: OpenAICompatibleClient | None = OpenAICompatibleClient.from_env(ENV_FILE)
+    except LLMError:
+        client = None
+        st.error(NO_KEY_MESSAGE)  # shown at startup, not only after the first click
 
     preset = st.selectbox("Load a demo example (optional)", ["(none)", *PRESETS])
     situation, question = PRESETS.get(preset, ("", ""))
@@ -130,14 +143,8 @@ def main() -> None:
         if not situation.strip() or not question.strip():
             st.error("Please describe your situation and ask a question.")
             return
-        try:
-            client = OpenAICompatibleClient.from_env()
-        except LLMError:
-            st.error(
-                "No LLM API key is configured. Set BTO_BUDDY_LLM_API_KEY (see .env.example) "
-                "and restart."
-            )
-            return
+        if client is None:
+            return  # the startup error above already explains the missing key
         request = UserRequest(
             request_id=uuid.uuid4().hex[:8],
             situation_text=situation,

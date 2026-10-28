@@ -690,3 +690,40 @@ B 14/15, D 14/15). The `retried` metric excludes the judge call. Blinded A/B/D s
   - contradicted claims shown as established: B 8 → D 4, and D marks those 4 "verified".
 - **Not done:** held-out run (no freeze); human-judged primary metrics (critical errors,
   coverage, actionability); B vs C and C vs D (no C).
+
+## 2026-10-29: Clean-clone reproducibility audit (REQ-NFR-001, REQ-SUB-002, REQ-DAT-012, REQ-DAT-021, REQ-DAT-022)
+
+Method: `git clone` of HEAD `8947d7e` into a temporary directory, with no `.env`,
+`data/private_corpus/`, `references/` or `evaluation/heldout/`. Ran every documented command
+there, and built the Docker image with `--no-cache` from that clone. The UI was driven inside
+the container with Streamlit's `AppTest` (preset → button → rendered output).
+
+**Passed as committed:** `uv lock --check` / `uv sync` (61 packages); pytest (1 skip without
+held-out labels); ruff; mypy; KB load (`kb-2026-10-28.1`); `evaluation.run check` on A/B/D;
+offline `diagnostics` and `metrics` recompute the tracked JSON byte-for-byte; image holds only
+the four tracked data files, runs as `app`, health `ok`; `.env.example` (blank values) falls
+back to the D-067 defaults; live A and D answers inside the container.
+
+**Defects found and fixed:**
+- `scripts/corpus.py` (all five commands) and `scripts/snapshots.py register` **rewrote
+  tracked files** on a clean clone, including the validation records in
+  `data/policy_facts.jsonl`, `data/corpus/*.json` and potentially the manifest. Both now
+  stop before writing when there are no snapshots. Test: `test_corpus_commands_refuse_without_snapshots`.
+- `evaluation.run run|verify` without a key raised a traceback; now a one-line message and
+  exit 1, before any results directory is created.
+- `evaluation.metrics` on a fresh D run raised `FileNotFoundError` (no hand claim labels);
+  now explains that the labels must be written first.
+- The app read the key from the environment only, so the documented local
+  `uv run streamlit run` ignored `.env`. It now reads `./.env` (absent in the image). The
+  missing-key error is shown at startup, not only after a click.
+- `docker run --env-file` keeps quotes literally; environment values are now quote-stripped
+  like `.env` values.
+
+**Live re-run variance (not a reported result):** `verify` on the saved B run gave identical
+pre-verification hashes (18/18) and the same verdict on 46/49 claims. A re-run gave 18/18 ok,
+the same signal counts in 17/18 cases and identical summary text in 5/18. Those runs were
+made in the temporary clone and not kept.
+
+**Not reproducible from the repository (disclosed in README §1):** snapshot capture and fact
+authoring (private corpus not redistributed; live pages may have changed) and held-out
+scoring (sealed).
