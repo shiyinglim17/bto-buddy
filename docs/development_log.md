@@ -90,7 +90,8 @@ matrix.
    C-14 and Q-06 to Q-08 resolved.
 2. **Rights check before fetching:** robots.txt and Terms of Use for each host. Never claim a
    redistribution licence.
-3. **Capture run:** Playwright (`--group capture`), approved pages only. No crawling,
+3. **Capture run** *(superseded: capture became manual, D-055/D-056; see Phase 2a)*:
+   Playwright (`--group capture`), approved pages only. No crawling,
    link-following or transactional pages. Output goes to `data/private_corpus/raw/`
    (Git-ignored), with SHA-256 and timestamps in `data/sources_manifest.json`.
 4. **Extraction and completeness audit:** 8 checks (03 §2.7), output to
@@ -101,3 +102,91 @@ matrix.
 **Can proceed in parallel, with no dependence on real facts:**
 - `schemas.py` and `policy.py` (loaders, rule interpreter, gate, profile assessment), with
   unit tests against a clearly fictional fixture KB in `tests/fixtures/`.
+
+## Phase 2a — Source discovery, MVP mapping and rights review (2026-10-28) — awaiting approval
+
+**Done:**
+- Reconciled every matrix row and linked resource against the approved scope. The result is
+  [source_acquisition_plan.md, since consolidated into data_sources.md](data_sources.md):
+  - stable IDs: 17 documents (S01–S17), about 30 sections, 5 media items;
+  - a five-way classification with reasons;
+  - a relationship tree and link-type inventory;
+  - a policy-dependency table;
+  - an MVP coverage matrix;
+  - a rights table per host;
+  - the manifest schema;
+  - the corpus layers L0–L3;
+  - an extraction method per source;
+  - a reviewer-reproducibility strategy;
+  - gaps G-01 to G-14 and gates R, C and P.
+- Reread APP p.4–12 of the private approach PDF (text and link annotations only) to confirm
+  the matrix's original references. The Phase 0 extraction was complete. C-14 is present in
+  the original.
+- Proposed D-044 to D-055. Added Q-25 (the PyMuPDF vs D-036 conflict) and Q-26 (agent access
+  to processed source text) to the register.
+
+**Update (same day):**
+- The developer asked to reconsider D-047. It was revised so that an SC + non-resident
+  spouse or fiancé(e) is an in-scope couple. The first draft would have silently reduced Core
+  scope.
+- **Gate R** (approved):
+  - HDB robots.txt allows S01–S06 and disallows `/hdb-flat-portal` (S10).
+  - HDB's bot protection returns **403** to curl and to headless Chromium with an honest
+    user agent. Both error pages are saved privately with hashes.
+  - The HDB Terms of Use couldn't be read automatically and stay **unresolved**.
+  - Copyright Act ss 244 and 187 were read from a secondary source (SSO returned 403).
+- D-055 revised: **manual rendered-DOM capture** is primary. No bot-protection evasion.
+
+**P1 capture (developer, manual rendered DOM, 2026-10-28 09:18–09:38Z):**
+- S01–S04 saved in their default state; all panels were already in the DOM. The agent
+  renamed the files with UTC creation-time prefixes and gave the two rights-check 403 pages
+  descriptive names.
+- Added `scripts/audit_snapshots.py` (offline, stdlib, structure-only output).
+- Results are in [data_sources.md §7](data_sources.md):
+  - capture is complete against the embedded page data (only metadata unrendered);
+  - gaps G-01, G-02 and G-03 resolved;
+  - **FT(PMC)/FPPS are no longer on S01**, so S05 is needed for the Limited priority area;
+  - S03 lacks per-employment document lists, so the P3 PDFs are needed;
+  - S02 was updated on 28 Oct 2026 (G-15).
+
+**Second capture batch (developer, 2026-10-28 10:29–10:30Z):**
+- S05 Priority Schemes, manual rendered DOM. It is now Essential, because FT(PMC) and FPPS
+  moved there.
+- S07 and S08 HFE PDF guides, manual browser download. The final URL comes from the
+  download metadata.
+- The agent added UTC prefixes; they match Chrome's download timestamps to within 2 s.
+- The S05 audit shows 9/9 concepts. The PDFs have a text layer, with metadata dated
+  19 Dec 2025.
+- Created `data/sources_manifest.json`: 22 records, 4 rights records, hashes for 7 acquired
+  files.
+- Added `scripts/register_snapshots.py`. Both scripts pass ruff and run with `python3 -I`.
+
+**Repository cleanup (2026-10-28):**
+- `docs/source_acquisition_plan.md`, which was pre-capture and partly superseded, was
+  replaced by the current-state [data_sources.md](data_sources.md). Superseded
+  automated-capture text and duplicated decision lists were removed. Decisions stay in this
+  file and in decisions.md.
+- `scripts/audit_snapshots.py` and `register_snapshots.py` were merged into
+  `scripts/snapshots.py {audit|register}`. The merged script reproduces the manifest
+  byte-for-byte.
+- Local artefacts (`.DS_Store`, `src/*.egg-info`, tool caches) were deleted. All are
+  Git-ignored and regenerated on demand.
+- **D-056 (approved by the developer, done):** removed the Playwright `capture` group,
+  because no current or planned step needs a browser driver.
+  - `uv remove --group capture playwright`; the lockfile went from 54 to 51 packages.
+  - D-042 is superseded.
+  - Architecture §11, CLAUDE.md, 03 and the register are updated.
+  - `data_sources.md` §6.3 maps the manual acquisition approach to the provenance and
+    licensing requirements and to the Copyright Act s 244 conditions.
+  - The Chromium cache (~587 MB, outside the repo) is left for the developer to delete.
+
+**Not done (by design):** no automated fetch, download or extraction beyond the Gate R checks
+and the audits above. No facts have been authored. robots.txt, the Terms of
+Use and Copyright Act ss 243–244 are **unchecked**. Every permission is UNRESOLVED.
+
+**Next:**
+1. Developer review of D-044 to D-055.
+2. Gate R fetches (plan §14.3).
+3. Gate C: capture P1 (S01–S04).
+4. Completeness audit and P3/P4 decisions.
+5. Fact authoring.

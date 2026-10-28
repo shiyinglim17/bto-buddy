@@ -39,6 +39,22 @@ is decided in Phase 2 (REQ-SRC-014).
 > **Status:** this matrix lists *candidate* sources. It is **not scoped to the MVP** and
 > does not expand it (REQ-SCP-007, BD-02). Each row notes its MVP tier relation for
 > orientation only.
+>
+> **Phase 2a (2026-10-28):** the reconciled, MVP-classified version with stable source IDs
+> (S01–S17, M00–M04) is in [../data_sources.md](../data_sources.md)
+> (PROPOSED, D-044 to D-055). It was re-checked against APP p.4–12; nothing below was lost
+> in extraction.
+>
+> **Live-site differences found at capture (2026-10-28):**
+> - FT(PMC) and FPPS are no longer on "Couples and Families"; they are on "Priority
+>   Schemes" (S05).
+> - "Priority Schemes" also lists an assistance scheme for second-timer divorced or widowed
+>   parents (Outside MVP).
+> - The HFE page has an "Income guidelines" accordion, and its timing details appear in the
+>   text as well as the infographic.
+> - The two HFE PDF guides are linked through `go.gov.sg` short links.
+>
+> The matrix below is kept as recorded.
 
 ### Row 1 — Applicant composition and types: definitions and eligibility conditions [APP p.5–8]
 

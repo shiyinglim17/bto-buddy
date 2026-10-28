@@ -9,16 +9,21 @@ Both PDFs are kept locally and are Git-ignored. This documentation is independen
 authored: it paraphrases requirements and policy content rather than reproducing them.
 
 **Status (2026-10-28):** Phase 0 (context) and Phase 1 (setup and architecture) are complete.
-**Next:** Phase 2 (policy sources); see the
-[development log handoff](../development_log.md#phase-2--policy-sources-handoff).
+Phase 2a (source discovery, scoping, rights and acquisition) is **done**. Its decisions
+D-044 to D-055 are still PROPOSED. D-056, which removed the Playwright capture group, is
+approved. It is documented in
+[../data_sources.md](../data_sources.md). S01–S05 (HTML) and S07–S08 (PDF) were captured
+manually by the developer, and are private and Git-ignored. Fact authoring hasn't started.
 
 **What exists:**
 - the uv project and lockfile;
 - a Streamlit entry-point shell;
 - one smoke test;
-- the Docker image.
+- the Docker image;
+- `data/sources_manifest.json`;
+- `scripts/snapshots.py`.
 
-No pipeline modules, data files, model choice or datasets exist yet.
+No pipeline modules, policy facts, rules, model choice or datasets exist yet.
 
 ## Files
 
@@ -33,6 +38,7 @@ No pipeline modules, data files, model choice or datasets exist yet.
 | [requirements_register.md](requirements_register.md) | **All requirement IDs** with source pages, components and acceptance evidence; contradictions; open questions; completeness audit |
 | [../decisions.md](../decisions.md) | Decision log (D-001 onward, BD-00…BD-09) and the instruction priority |
 | [../architecture.md](../architecture.md) | **Approved implementation design** (D-030 to D-040): pipeline, contracts, retrieval choice, dependencies, tests |
+| [../data_sources.md](../data_sources.md) | **Dataset A sources (current state):** source IDs and classes, matrix reconciliation, relationships, dependencies, coverage, rights checks, manual acquisition and audit, corpus layers, manifest schema, reproducibility, open gaps |
 | [../development_log.md](../development_log.md) | Progress per phase, verified commands, failures, next steps |
 | [../../CLAUDE.md](../../CLAUDE.md) | Working instructions for coding agents (scope, invariants, Git workflow, commands) |
 
@@ -70,7 +76,7 @@ No pipeline modules, data files, model choice or datasets exist yet.
 |---|---|
 | Any task | `CLAUDE.md`, then this index |
 | Scope questions | 01, plus D-008 / D-013 / D-033 in [decisions](../decisions.md) |
-| Source capture, extraction, facts | 02, 03, [architecture §5](../architecture.md) |
+| Source capture, extraction, facts | [data_sources](../data_sources.md) first, then 02, 03, [architecture §5](../architecture.md) |
 | Pipeline code | [architecture.md](../architecture.md) (§3 stages, §5 contracts, §11 modules, §12 tests), 04 |
 | Benchmark and evaluation | 05, register (REQ-EVL-*) |
 | README and submission | 06, register (REQ-SUB-*, REQ-DOC-*) |

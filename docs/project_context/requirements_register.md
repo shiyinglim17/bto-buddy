@@ -70,7 +70,7 @@ decisions. Page numbers are physical PDF pages.
 | REQ-SRC-003 | Passages keep enough context (condition stays with its applicant-group heading) | APPROVED | [APP p.4] | 03 §2.4 | source_acquisition | Spot-check in coverage audit |
 | REQ-SRC-004 | Frozen, versioned corpus for evaluation | APPROVED | [APP p.5] | 02 §2 | policy_facts_kb | `kb_version` recorded in every run |
 | REQ-SRC-005 | Discovery path seeds→anchors→linked→PDFs/visuals; manual mapping | APPROVED | [APP p.5] | 02 §2 | — | Matrix in 02 §3 (done) |
-| REQ-SRC-006 | Capture only approved pages (manual rendered-DOM or controlled automation, permissions documented); expand info sections; no auto link-following; no transactional services; no crawling | APPROVED | [APP p.11, 14] | 03 §2.6 | source_acquisition | Script allow-list; manifest method field |
+| REQ-SRC-006 | Capture only approved pages (manual rendered-DOM or controlled automation, permissions documented); expand info sections; no auto link-following; no transactional services; no crawling | APPROVED | [APP p.11, 14] | 03 §2.6 | source_acquisition | Manual capture of approved pages only (D-055); `acquisition.method` and hashes in `data/sources_manifest.json`; procedure in data_sources §7 |
 | REQ-SRC-007 | Normalise headings, paragraphs, tables, lists, links, metadata | APPROVED | [APP p.11] | 03 §2.6 | source_acquisition | Processed passages retain structure |
 | REQ-SRC-008 | Media only when unique & essential; simplest method | APPROVED | [APP p.11] | 02 §4 | source_acquisition | Media decision recorded per resource |
 | REQ-SRC-009 | PDFs: HTML-equivalent check first; PyMuPDF + manual validation; keep title/URL/page/pub date/section; OCR only if needed | APPROVED | [APP p.11–12] | 02 §4 | source_acquisition | Manifest entries for PDFs with page refs |
@@ -109,7 +109,7 @@ decisions. Page numbers are physical PDF pages.
 | REQ-LIC-011 | Substantial-text passages and derived indexes Git-ignored unless permission | APPROVED | [APP p.14] | 03 §5.2 | repo_hygiene | `git ls-files` check before submission |
 | REQ-LIC-012 | Never claim HDB granted redistribution licence | APPROVED | [APP p.14]; D-024 | 03 §5.1 | README | Wording review |
 | REQ-LIC-013 | Terms of Use and Copyright Act 2021 ss 243–244 recorded as preliminary; verify in Phase 2 | APPROVED | [APP p.14]; D-024 | 03 §5.1 | — | Phase 2 rights note |
-| REQ-LIC-014 | robots.txt check for each host | APPROVED (not done) | [ASM p.2]; D-024 | 03 §5.1 | source_acquisition | Recorded robots.txt snapshot/date |
+| REQ-LIC-014 | robots.txt check for each host | APPROVED (www.hdb.gov.sg done 2026-10-28; file.go.gov.sg and mynicehome not checked, no automated access used) | [ASM p.2]; D-024 | 03 §5.1 | source_acquisition | Recorded robots.txt snapshot/date |
 | REQ-LIC-015 | Review all tracked data for copyright/privacy/credentials before submission | APPROVED | [APP p.14] | 03 §5.2 | repo_hygiene | Pre-submission checklist |
 | REQ-LIC-016 | Re-download ≠ reconstruct frozen snapshot; hashes and capture dates recorded | APPROVED | [APP p.13] | 03 §5.1 | source_manifest | SHA-256 + timestamp per source |
 | REQ-LIC-017 | Project-context docs contain authored summaries, not substantial copied text | APPROVED | D-016 | 02 note | repo_hygiene | Phase 0 audit (§4 below) |
@@ -134,7 +134,7 @@ decisions. Page numbers are physical PDF pages.
 | REQ-ARC-009 | Answers link to actual HDB webpages | APPROVED | [APP p.13] | 04 §4 | report_ui | Every supported claim shows a URL |
 | REQ-ARC-010 | BM25 only (+ aliases, topic filter, rule-linked facts); dense/hybrid/rerank only if dev recall@5 < 0.90 because of paraphrase | APPROVED | [APP p.17, 21]; D-031 | architecture §4.2 | retriever | Recall@k table; escalation decision only on the trigger |
 | REQ-ARC-011 | One generation model; no unnecessary orchestration | APPROVED | [APP p.21] | 04 §6.1 | generator | Config |
-| REQ-ARC-012 | Dependencies limited to pydantic, pyyaml, rank-bm25, openai (compatible client), streamlit; dev pytest/ruff/mypy/types-PyYAML; opt-in capture group playwright (scripts only); stdlib statistics | APPROVED | [APP p.21]; D-036, D-042 | architecture §11.1 | all | `pyproject.toml` / `uv.lock` match the list |
+| REQ-ARC-012 | Dependencies limited to pydantic, pyyaml, rank-bm25, openai (compatible client), streamlit; dev pytest/ruff/mypy/types-PyYAML; stdlib statistics; `scripts/` stdlib-only (Playwright group removed) | APPROVED | [APP p.21]; D-036; D-042 superseded by D-056 | architecture §11.1 | all | `pyproject.toml` / `uv.lock` match the list |
 | REQ-ARC-013 | Never assume missing applicant values | APPROVED | [APP p.19] | 04 §3 | profile_extractor | Missing-info benchmark category |
 | REQ-ARC-014 | Missing evidence ≠ requirement absent | APPROVED | [APP p.20] | 04 §3 | generator, verifier | Prohibited-conclusion labels |
 | REQ-ARC-015 | Linear 8-stage pipeline, ≤3 LLM calls; A–D from one pipeline; pure modules don't import the LLM client | APPROVED | D-030 | architecture §3, §11.2 | pipeline | Integration tests per config; import-boundary test |
@@ -282,12 +282,12 @@ decisions. Page numbers are physical PDF pages.
 | ID | Question | Raised from | Needed by |
 |---|---|---|---|
 | ~~Q-05~~ | ~~Non-couple household types~~ → **resolved D-033**: out of scope, redirected | 01 §6.4, 02 Row 1 | Done |
-| Q-06 | SC + SPR household premium / Citizen Top-Up: Excluded (financing) or Limited (first-timer consideration)? | 02 Row 1 | Phase 2 |
-| Q-07 | Resale levy: Excluded (post-purchase) or Limited? | 02 Row 1 | Phase 2 |
-| Q-08 | Which of the HFE FAQ page's 5 sub-links, and which "Exceptions and waivers" source, are needed? | 02 Rows 2, 5 | Phase 2 |
-| Q-09 | Strip `si=` tracking parameters from video URLs? (minor) | 02 Row 2 | Phase 2 |
+| Q-06 | SC + SPR household premium / Citizen Top-Up: Excluded (financing) or Limited (first-timer consideration)? *Proposed: D-046* | 02 Row 1 | Phase 2 |
+| Q-07 | Resale levy: Excluded (post-purchase) or Limited? *Proposed: D-046* | 02 Row 1 | Phase 2 |
+| Q-08 | Which of the HFE FAQ page's 5 sub-links, and which "Exceptions and waivers" source, are needed? *Proposed: D-048* | 02 Rows 2, 5 | Phase 2 |
+| Q-09 | Strip `si=` tracking parameters from video URLs? (minor) *Proposed: D-049* | 02 Row 2 | Phase 2 |
 | ~~Q-10~~ | ~~Evaluation and run paths~~ → **resolved D-039** | 03 §1 | Done |
-| Q-11 | Is any experiment planned on the private corpus (affects REQ-DAT-013)? | 03 §2.2 | Phase 1 |
+| Q-11 | Is any experiment planned on the private corpus (affects REQ-DAT-013)? *Proposed: D-050* | 03 §2.2 | Phase 2 |
 | ~~Q-12~~ | ~~Coverage gate placement~~ → **resolved D-033** (after extraction, before rules/retrieval) | 04 §2 | Done |
 | Q-13 | Add a data-privacy criterion to the model scorecard? (C-17) | 04 §6.3 | Model selection |
 | Q-14 | Claim segmentation / "checkable claim" annotation guide | 05 §4.1 | Before eval |
@@ -300,7 +300,9 @@ decisions. Page numbers are physical PDF pages.
 | Q-21 | Approve proposed verifier claim set 60 (15 dev / 45 eval, balanced) or fallback 36 | 05 §6.1 | Before claim creation |
 | Q-22 | Finalise `policy_facts` schema field details (shape + `aliases` approved: D-031, architecture §5) | 03 §2.5 | Phase 2 |
 | ~~Q-23~~ | ~~Stack~~ → **resolved D-036** | 04 §6.1 | Done |
-| Q-24 | Fix C-14: which URL is intended for the BTO-process row? | 02 Row 4 | Phase 2 |
+| Q-24 | Fix C-14: which URL is intended for the BTO-process row? *Proposed: D-045* | 02 Row 4 | Phase 2 |
+| Q-25 | REQ-SRC-009 names PyMuPDF, but D-036/D-042 exclude it: which PDF method? *Proposed: D-052* (conflict between approved items) | data_sources §7 | Before any PDF extraction |
+| Q-26 | May the coding agent read processed source text (sends it to an external model provider)? *Proposed: D-054 option (a), no* | Phase 2a plan §9.4 | Before fact authoring |
 
 ## 4. Source-to-Markdown completeness audit (Phase 0, 2026-10-28)
 

@@ -104,7 +104,8 @@ and RAG baselines.
 - No autonomous agents, orchestration frameworks or vector DBs. Use one generation model.
 - Retrieval is BM25 + aliases + topic filter + rule-linked facts. Propose anything else only
   if dev recall@5 < 0.90 because of paraphrase (D-031).
-- **Dependencies are limited to D-036 + D-042** (Playwright, opt-in `capture` group, scripts only). Anything else needs an approved decision.
+- **Dependencies are limited to D-036.** The Playwright capture group (D-042) was removed by
+  D-056, and `scripts/` is stdlib-only. Anything else needs an approved decision.
 - Infographics and videos are links in `data/visual_resources.json`, never runtime evidence.
 
 ## Engineering rules
@@ -212,9 +213,16 @@ caches out of the build context.
 
 - Add a dependency with `uv add <pkg>` (or `uv add --dev <pkg>`), with a justification comment
   in `pyproject.toml`. Never hand-edit `uv.lock`.
-- Source capture tooling (opt-in, D-042): `uv sync --group capture`, then
-  `uv run --group capture playwright install chromium` (once per machine). Run capture only
-  with an approved page list.
+- **Source capture is manual** (D-055; procedure in `docs/data_sources.md` §7). HDB returns
+  403 to automated clients, and that block must never be bypassed (lawful access, Copyright
+  Act s 244(2)(d)).
+  - Only approved pages are captured, by the developer in a normal browser.
+  - Rendered DOM via `copy(document.documentElement.outerHTML)`; PDFs downloaded as-is.
+  - Saved to `data/private_corpus/raw/<source_id>/<UTC>_<name>`, which is Git-ignored and
+    never sent to an LLM (D-054).
+- Snapshot audit (offline, prints structure only, never source text):
+  `python3 -I scripts/snapshots.py audit`
+- Record hashes and timestamps in the manifest: `python3 -I scripts/snapshots.py register`
 - Evaluation commands: add them here only after they have been verified.
 
 **Secret scan before a push** (until a dedicated tool is approved):

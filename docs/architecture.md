@@ -464,7 +464,7 @@ with whitelisted operators (`eq`, `ne`, `lt`, `gte`, `in`, `is_null`, `all`, `an
 | `pyyaml` | runtime | Rule registry format (D-022) | — |
 | `rank-bm25` | runtime | Standard BM25Okapi, pure Python | Vector DB / embeddings |
 | `openai` | runtime | **OpenAI-compatible client.** Groq, OpenRouter, Gemini's compatible endpoint, Together, Cerebras and Ollama all expose this API, so changing provider or model is configuration, not code. Gives timeouts and retries. Doesn't commit us to OpenAI as a provider | Several provider SDKs |
-| `playwright` | opt-in `capture` group (D-042) | Controlled capture of approved pages for `scripts/capture_sources.py`; never runtime or Docker | Manual saving of rendered pages |
+| ~~`playwright`~~ | ~~opt-in `capture` group (D-042)~~ | **Removed (D-056).** HDB blocks automated clients, so capture is manual (D-055) | Manual rendered-DOM capture in a browser |
 | `streamlit` | runtime (app) | Quick Python-native demo UI (Q-23) | FastAPI + frontend |
 | `pytest`, `ruff`, `mypy`, `types-PyYAML` | dev | Tests, lint, strict typing | — |
 
@@ -499,8 +499,9 @@ evaluation/
   metrics.py        # D-004 metrics, retrieval recall@k, verifier metrics, bootstrap/McNemar
   metric_spec.md    # frozen operational definitions (written before the held-out run)
   results/<run_id>/ # run_metadata.json, predictions.jsonl, scores.json (tracked)
-scripts/            # Phase 2 developer tooling; not used at runtime or in Docker
-  capture_sources.py  prepare_corpus.py  validate_corpus.py
+scripts/            # Phase 2 developer tooling, stdlib only; not used at runtime or in Docker
+  snapshots.py      # audit + register manually captured sources (D-055, D-056)
+                    # (passage extraction / KB validation are added only when written)
 tests/              # test_policy.py, test_retrieval.py, test_verification.py,
                     # test_pipeline.py, test_smoke.py
 ```

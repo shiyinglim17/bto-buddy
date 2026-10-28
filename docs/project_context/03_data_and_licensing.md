@@ -105,6 +105,18 @@ One JSON object per line. Typed with Pydantic in code.
   - no automated discovery or unrestricted crawling [APP p.14].
 - **REQ-SRC-007:** extract and normalise headings, paragraphs, tables, lists, links and
   document metadata.
+- **As implemented (2026-10-28; D-055, D-056):** HDB's bot protection returns HTTP 403 to
+  automated clients, so capture is **manual**. The "controlled browser automation" option
+  isn't used, and its tooling (Playwright) was removed.
+  - HTML pages: the developer saves the rendered DOM from a normal browser. All accordion
+    panels were already in the DOM, so a single default-state copy per page sufficed.
+  - PDFs: downloaded manually in the browser.
+  - Files go to `data/private_corpus/raw/<source_id>/<UTC>_<name>`.
+  - Offline scripts: `scripts/snapshots.py audit` (completeness, structure-only output) and
+    `scripts/snapshots.py register` (hashes and timestamps into
+    `data/sources_manifest.json`).
+  - Acquired so far: S01–S05 (HTML) and S07–S08 (PDF). See
+    [data_sources.md §7](../data_sources.md).
 - Media rules are in [02 §4](02_policy_sources.md#4-media-handling-decisions-approved-app-p1112-18).
 
 ### 2.7 Validate completeness and freeze — REQ-SRC-012, REQ-SRC-013 (APPROVED) [APP p.12–13]
@@ -195,7 +207,15 @@ The full design is in [05_evaluation.md §3](05_evaluation.md).
   - `www.mynicehome.gov.sg`;
   - (YouTube: links only).
 
-  Status: **not yet checked**.
+  Status (2026-10-28, Gate R):
+  - `www.hdb.gov.sg`: checked. Planned `/buying-a-flat/` paths are allowed;
+    `/hdb-flat-portal` is disallowed.
+  - `file.go.gov.sg`, `www.mynicehome.gov.sg`: not checked (PDFs were downloaded manually,
+    not by a bot).
+  - HDB Terms of Use: **unread** (403 or JavaScript-only).
+  - Copyright Act ss 244 and 187: read from a secondary source.
+
+  Details: [data_sources.md §6](../data_sources.md).
 - **REQ-LIC-012:** **never claim HDB has granted a general redistribution licence.**
 - **REQ-LIC-016:** a script may support lawful acquisition. Re-downloading current pages
   can't rebuild a historical frozen snapshot, so hashes and capture dates must be recorded.
@@ -256,6 +276,9 @@ crawling), source provenance (manifest), licensing and access, data handling and
 redistribution, reproducibility and limitations.
 
 The draft must be revised before use:
+- "Optional browser automation" is **not used**. Acquisition was manual browser capture,
+  because HDB blocks automated clients (D-055, D-056). Describe it as in
+  [data_sources.md §6–7](../data_sources.md).
 - It says the prototype uses **"four official HDB webpages"**. That is SUPERSEDED by D-007;
   report the final source count after Phase 2.
 - It must reflect D-005 (canonical KB) and D-024 (preliminary rights findings).
