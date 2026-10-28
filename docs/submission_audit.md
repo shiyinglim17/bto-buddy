@@ -28,14 +28,14 @@ reviews it.
 | REQ-DOC-005 | Limitations and enhancements if constraints removed | README §10, §11 | Both present | ✅ |
 | REQ-SUB-001 | Full deployment/execution instructions | README §1 | Step-by-step Docker guide, troubleshooting, clean-clone smoke test | ✅ |
 | REQ-SUB-002 | Dockerised | `Dockerfile`; README §1 | `--no-cache` build from a fresh clone; health `ok`; live answers in the container (2026-10-29) | ✅ |
-| REQ-SUB-003 | 3–5 min demo video, URL in README | README header | **Placeholder only** | ❌ |
+| REQ-SUB-003 | 3–5 min demo video, URL in README | README header | Link `https://tinyurl.com/bto-buddy-demo` present; 3–5 min length and access settings to be confirmed by the developer | ✅ (link) |
 | REQ-SUB-004 | Private repo, collaborator invited | Private notes | Not verifiable from the repo | ⚠️ developer |
 | REQ-SUB-005 | Anonymous re organisation and role | Whole repo | `git grep -iFf references/private/anonymity_terms.txt` over tracked and new files: no matches | ✅ for the repo · ❌ risk for logs (§4) |
 | REQ-SUB-006 | Repo unchanged during evaluation | Process | Developer's responsibility after submission | ⚠️ developer |
 | REQ-SUB-007 | Submit via designated channel | Private | Not verifiable from the repo | ⚠️ developer |
 | REQ-SUB-008 | Deadline | Private | Not verifiable from the repo | ⚠️ developer |
 | REQ-SUB-009 | Coding-agent section at end of README | README §15 (last section) | Position checked | ✅ |
-| REQ-SUB-010 | All coding-agent session logs uploaded; location in README | README §15 names `ai_logs/` | **`ai_logs/` does not exist.** 5 local session files (about 26 MB) need redaction first (§4) | ❌ |
+| REQ-SUB-010 | All coding-agent session logs uploaded; location in README | README §15 → `ai_logs/` | 5/5 sessions exported (transcripts + redacted JSONL, about 17 MB); redactions in `ai_logs/REDACTIONS.md`; post-export scan clean. Session 05 is a snapshot and two wire-only prompts are missing (disclosed) | ⚠️ re-export session 05 at the very end |
 | REQ-NFR-001 | Runs from README on a clean machine | README §1 smoke test | 8/8 steps passed from a fresh clone (macOS); Linux/Windows untested | ✅ (macOS) |
 | REQ-NFR-002 | Code quality | `pyproject.toml`, `tests/` | `uv run pytest`, `ruff check`, `ruff format --check`, `mypy --strict`: all pass | ✅ |
 | REQ-NFR-003 | Developer can explain the rationale | Code comments; `docs/decisions.md` | Rationale comments at non-obvious choices; 73 decisions with reasons | ✅ |
@@ -124,7 +124,7 @@ marked as not built or not done.
    (b) private HDB source text from fact-authoring sessions, and (c) optionally local paths.
    List every redaction in `ai_logs/REDACTIONS.md`. Do not drop failed sessions. The agent
    can prepare a redaction script on request; the developer decides what to redact.
-2. **REQ-SUB-003: record the 3–5 min demo and put the URL in the README header.** Use the 3
+2. ✅ *Link added to the README header (2026-10-29); confirm the 3–5 min length and that the link is viewable without sign-in.* **REQ-SUB-003: record the 3–5 min demo and put the URL in the README header.** Use the 3
    presets with D, and show one ⚠️ unconfirmed and, if it occurs, one withheld claim.
 3. **REQ-SUB-004/006/007/008:** private-repo invite, submission channel and freezing the repo
    after submission (developer actions).

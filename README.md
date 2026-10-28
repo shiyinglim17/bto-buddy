@@ -17,7 +17,7 @@ Public-sector AI prototype · fictional applicant profiles only · not an offici
 <a href="#15-ai-coding-agent-usage">AI usage</a>
 </p>
 
-<p><b>Demo video (3–5 min):</b> <i>[placeholder: link to be added before submission]</i></p>
+<p><b>Demo video (3–5 min):</b> <a href="https://tinyurl.com/bto-buddy-demo">https://tinyurl.com/bto-buddy-demo</a></p>
 
 </div>
 
@@ -190,28 +190,57 @@ evaluated **A, B and D**, but not C.
 
 ## 3. Problem and objective
 
-**Stakeholder:** Singapore citizens applying for their first Build-To-Order (BTO) HDB flat as
-a couple, and the public agency that answers their questions.
+**In one sentence:** I identified a real public-service information challenge, built an AI
+assistant that turns complex published requirements into personalised preparation guidance,
+and evaluated whether evidence grounding and claim verification make it more reliable than a
+model answering on its own.
 
-Before applying, couples must get an HDB Flat Eligibility (HFE) letter. The rules on
-household composition, timing and documents are spread across several official pages and
-PDFs. Small misunderstandings, such as "the HFE letter lasts a year" or "we must marry before
-applying", lead to wasted applications and avoidable enquiries.
+**The problem.** First-time BTO applicants work through a chain of decisions: who counts as
+their household, whether they meet the applicant conditions, what income and employment
+documents the HDB Flat Eligibility (HFE) letter needs, which priority schemes apply, and what
+happens if an application fails. The official information exists. The difficulty is working
+out **which rules apply to my particular circumstances, and what I still need to find out
+before I apply**. Small misunderstandings, such as "the HFE letter lasts a year" or "we must
+marry before applying", lead to wasted applications and avoidable enquiries.
 
-**BTO Buddy** turns a free-text description of a (fictional) couple and a question into
-**preparation guidance**:
+**Why existing channels fall short.** HDB's website and chatbot leave most of the navigation
+and reading to the applicant:
+- Information for one applicant group is **scattered**: across pages, same-page anchors, PDFs
+  that open in new tabs, infographics published as images, and YouTube videos. Content meant
+  for other groups is shown alongside it.
+- Important clauses sit in collapsed sections and are **easy to miss** unless every section
+  is expanded and read carefully.
+- An applicant can qualify for a scheme **without realising it**, because its conditions sit
+  in a different section from the ones they are reading.
+- When I gave HDB's chatbot a detailed situation, it retrieved possibly relevant information
+  but **mostly redirected me to links** to read myself.
+
+The result is a generic, non-personalised experience that acts more like an information dump
+than an applicant-centred service, and that makes home-buying feel tiring.
+
+**What BTO Buddy adds:** a **pre-application preparation layer** that sits before, and never
+replaces, the official HFE assessment and application. From a free-text description of a
+(fictional) couple and a question, it produces:
 - what the published requirements say, each linked to the official HDB page;
 - what to prepare;
 - what information is missing;
 - which details contradict each other;
 - what my sources cannot confirm.
 
-It **never** decides eligibility, calculates grants or estimates ballot chances. Those
-requests are redirected to official services.
+The difference is **transparency and preparation, not authority**. It **never** decides
+eligibility, calculates grants or estimates ballot chances; it redirects those requests to
+official services.
+
+**Stakeholders and potential value.** The direct users are first-time couples; the agency is
+HDB. If applicants arrive better prepared, there could be fewer hotline enquiries and fewer
+ineligible applications to process. That is a **hypothesis this prototype does not test**;
+validating and quantifying it would need user testing.
 
 **Research question:** does grounding one LLM in a small, verified, source-attributed
 knowledge base, plus claim verification, reduce critical errors compared with the same
-model answering from its own knowledge?
+model answering from its own knowledge? My original design also tested structured reasoning
+(profile extraction plus deterministic rules, configuration C). I built the rule engine but
+not C, so that part of the question is still open (§2).
 
 **Scope (D-008):**
 
@@ -656,5 +685,8 @@ re-verified; and every answer shows its "sources retrieved" date.
   them, such as the model's threshold failure and the held-out quota failure.
 - **What the agent produced that I did not independently check:** the dev claim-level labels
   (§8.1) and the first drafts of most code and documents.
-- **Session logs:** `ai_logs/` *(to be added before submission, with any redactions of
-  private source text or identifying details listed in `ai_logs/REDACTIONS.md`)*.
+- **Session logs:** all five sessions are in [`ai_logs/`](ai_logs/README.md), as readable
+  transcripts (`session_NN.md`) and full redacted JSONL (`sessions/`). I redacted only
+  secrets (none found), identifying local paths and e-mails, assessment identifiers, private
+  file contents and verbatim HDB passages of 10+ words. Every rule and count, and one known
+  gap, are listed in [`ai_logs/REDACTIONS.md`](ai_logs/REDACTIONS.md).
