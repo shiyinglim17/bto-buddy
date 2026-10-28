@@ -141,6 +141,10 @@ and RAG baselines.
   known.
 
 ## Evaluation (05)
+- **Held-out labels are sealed (D-064):** never open, read, grep or print anything under
+  `evaluation/heldout/`. Use `evaluation/benchmark/dev.jsonl` for all development. Load
+  `test_inputs.jsonl` only to check schema compatibility. Labels are released only by
+  `evaluation.benchmark.load_test_labels(final=True)` at final scoring.
 - Same model, instructions, cases, labels and policy version across A–D. C vs D reuses
   identical pre-verification outputs.
 - Labels are policy-derived and independently checked. The runtime verifier is never ground
@@ -229,7 +233,10 @@ caches out of the build context.
   `python3 -I scripts/corpus.py extract`, then `validate`, `facts` (integrity and 8-word
   overlap check), `verify` (checklist re-verification, D-058) and `freeze`
 - Load the KB without the private corpus: `uv run python -c "from bto_buddy.policy import load_kb; print(load_kb().kb_version)"`
-- Evaluation commands: add them here only after they have been verified.
+- Benchmark validation (dev + held-out inputs; prints IDs and counts only):
+  `uv run python -m evaluation.benchmark validate`. The `--heldout` flag is for the
+  developer's label review only.
+- Evaluation run commands: add them here only after they have been verified.
 
 **Secret scan before a push** (until a dedicated tool is approved):
 ```bash

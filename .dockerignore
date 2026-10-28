@@ -36,3 +36,6 @@ ai_logs/
 CLAUDE.md
 Dockerfile
 .dockerignore
+
+# Held-out benchmark labels never enter the image (D-064)
+evaluation/heldout/
