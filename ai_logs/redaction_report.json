@@ -1,0 +1,116 @@
+{
+ "min_run_words": 10,
+ "sessions": [
+  {
+   "session": "session_01",
+   "source_file_id": "04a82c3b",
+   "title": "Bto-buddy project setup verification",
+   "first_timestamp": "2026-10-25T17:58:05.810Z",
+   "records_in": 49,
+   "records_out": 43,
+   "dropped_wire_copies": {
+    "api-request-blob": 3,
+    "api-request-shape": 1,
+    "api-request": 2
+   },
+   "redactions": {
+    "R4_local_path": 42,
+    "R3_email": 2
+   }
+  },
+  {
+   "session": "session_02",
+   "source_file_id": "fc208089",
+   "title": "Phase 0 project context documentation",
+   "first_timestamp": "2026-10-27T14:50:17.047Z",
+   "records_in": 1142,
+   "records_out": 894,
+   "dropped_wire_copies": {
+    "api-request-blob": 130,
+    "api-request-shape": 1,
+    "api-request": 117
+   },
+   "redactions": {
+    "R4_local_path": 1456,
+    "R5_assessment_id": 48,
+    "R3_email": 2,
+    "R6_private_write": 1,
+    "R6_private_output": 19,
+    "R7_hdb_text_spans": 41,
+    "R7_hdb_text_words": 669,
+    "R8_media": 28
+   }
+  },
+  {
+   "session": "session_03",
+   "source_file_id": "b764a348",
+   "title": "Phase 2: Data & Benchmark",
+   "first_timestamp": "2026-10-28T04:01:48.816Z",
+   "records_in": 3881,
+   "records_out": 3205,
+   "dropped_wire_copies": {
+    "api-request-blob": 358,
+    "api-request-shape": 2,
+    "api-request": 316
+   },
+   "redactions": {
+    "R4_local_path": 4827,
+    "R5_assessment_id": 3,
+    "R3_email": 8,
+    "R6_private_output": 52,
+    "R7_hdb_text_spans": 513,
+    "R7_hdb_text_words": 24499,
+    "R8_media": 4
+   }
+  },
+  {
+   "session": "session_04",
+   "source_file_id": "02a65132",
+   "title": "Phase 2: Data & Benchmark",
+   "first_timestamp": "2026-10-28T19:40:46.500Z",
+   "records_in": 1485,
+   "records_out": 1163,
+   "dropped_wire_copies": {
+    "api-request-blob": 169,
+    "api-request-shape": 2,
+    "api-request": 151
+   },
+   "redactions": {
+    "R4_local_path": 1447,
+    "R3_email": 2,
+    "R6_private_output": 1
+   }
+  },
+  {
+   "session": "session_05",
+   "source_file_id": "ffcbef25",
+   "title": "Phase 2: Data & Benchmark",
+   "first_timestamp": "2026-10-28T21:36:59.280Z",
+   "records_in": 1014,
+   "records_out": 786,
+   "dropped_wire_copies": {
+    "api-request-blob": 123,
+    "api-request-shape": 1,
+    "api-request": 104
+   },
+   "redactions": {
+    "R4_local_path": 1080,
+    "R2_account_id": 2,
+    "R3_email": 4,
+    "R6_private_output": 11
+   }
+  }
+ ],
+ "totals": {
+  "R4_local_path": 8852,
+  "R1_secret": 0,
+  "R2_account_id": 2,
+  "R5_assessment_id": 51,
+  "R3_email": 18,
+  "R6_private_write": 1,
+  "R6_private_output": 83,
+  "R7_hdb_text_spans": 554,
+  "R7_hdb_text_words": 25168,
+  "R8_media": 32
+ }
+}

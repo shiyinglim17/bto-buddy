@@ -45,3 +45,5 @@ tmp/
 
 # Held-out benchmark labels: sealed until final scoring (D-064). Only their SHA-256 is tracked.
 evaluation/heldout/
+
+ai_logs/private_staging/
