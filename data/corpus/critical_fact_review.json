@@ -473,6 +473,26 @@
     "assess and advise"
    ],
    "notes": "S01 introduction."
+  },
+  {
+   "fact_id": "CTX-HFE-001",
+   "checklist": "benchmark",
+   "term_anchors": [
+    "cpf housing grants",
+    "hdb housing loan",
+    "new or resale flat"
+   ],
+   "notes": "S01 introduction: the HFE letter states eligibility to buy and the grant and loan amounts. Needed for out-of-scope redirect labels (Phase 3)."
+  },
+  {
+   "fact_id": "CTX-GRANT-001",
+   "checklist": "benchmark",
+   "term_anchors": [
+    "enhanced cpf housing grant (families)",
+    "step-up cpf housing grant (families)",
+    "income ceiling"
+   ],
+   "notes": "Grant names and the existence of an income ceiling only; no amounts (D-013). Needed for out-of-scope redirect labels."
   }
  ]
 }

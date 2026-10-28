@@ -1281,7 +1281,9 @@ def run_facts() -> None:
 
 # ---------------------------------------------------------------- verify ------------------
 REVIEW = CORPUS_META / "critical_fact_review.json"
-NUMBER = re.compile(r"(?<![A-Za-z0-9])\$?\d[\d,]*\d%?|(?<![A-Za-z0-9])\$?\d%?")  # not IDs like S01
+NUMBER = re.compile(
+    r"(?<![A-Za-z0-9-])\$?\d[\d,]*\d%?|(?<![A-Za-z0-9-])\$?\d%?"
+)  # not IDs like S01
 ANCHOR_MAX_WORDS = 6  # anchors are short phrases, far below the 8-word overlap threshold
 
 

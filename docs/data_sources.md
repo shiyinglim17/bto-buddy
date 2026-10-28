@@ -607,6 +607,9 @@ possible. The developer should spot-check the live pages before submission.
 DOC-MULTIJOB-001/002, HH-OTHER-001), pass. That makes 51 `verified`, with 0 failures and 0
 critical facts left unreviewed.
 
+*Phase 3a (2026-10-29):* CTX-HFE-001 and CTX-GRANT-001 were verified the same way, because
+the benchmark's out-of-scope redirect labels cite them. That makes **53 verified**.
+
 **Corrections made before verifying:**
 
 | Fact | Problem found | Fix |

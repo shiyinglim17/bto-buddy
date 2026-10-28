@@ -568,6 +568,26 @@
    "missing": [],
    "anchor_too_long": [],
    "result": "pass"
+  },
+  {
+   "fact_id": "CTX-HFE-001",
+   "checklist": "benchmark",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "CTX-GRANT-001",
+   "checklist": "benchmark",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
   }
  ],
  "unreviewed_critical": []

@@ -99,24 +99,24 @@
    "context": 5
   },
   "validation": {
-   "verified": 51,
-   "snapshot_checked": 38
+   "verified": 53,
+   "snapshot_checked": 36
   },
   "rights": {
    "overlap_checked": 89
   }
  },
  "files_sha256": {
-  "data/policy_facts.jsonl": "0affd03237e6e6ce4b52f62b464e550ae80b0b39b8a6f225dcdac441fafe6dd3",
+  "data/policy_facts.jsonl": "30b736030381db5e4d6c114a9fe07d72d58371fe0b713fd2aa97711cc6ca363c",
   "data/visual_resources.json": "7991774bdb241681e69b1d88c7536bb5eae4639ebc57d091172cd09a2eaad189",
   "data/source_coverage.csv": "e8e090692accf5368177186f438d717a039fe3024e96f1c29b8224d0065f73bf",
   "data/sources_manifest.json": "dbf5e4d25407341a8eeecd23bd9942dd2e2c591873dfb697f89e81a9d9118503",
   "data/corpus/expected_sections.json": "ef980ffd29391f79f658228963934268107f308c26906227a738fb25861d1956",
   "data/policy_rules.yaml": "3179cf4dc9c9c71fd8d1435cf750c93d910f94b6d77b41aa20684c4d0051fd64",
-  "data/corpus/critical_fact_review.json": "684d0b45dd94b85ba50d853b9e3ad25ba1d1637b97e9dc1afc2dedb141a17d94",
-  "data/corpus/fact_verification.json": "b374a436fbb86ab296ae54ebdd895f2d2a6bced88ff41f6f4ce6a9bf76cf0f9a",
+  "data/corpus/critical_fact_review.json": "3dfd2aafbdea4908974cb7521154ada3c83f77e0491d71073c6528bca0e59b0d",
+  "data/corpus/fact_verification.json": "7064785ccf808ffc9c0dd68e84a2d0204cc815613ba8615b9128d872d41e9620",
   "data/corpus/extraction_report.json": "312f2f731f82d032c13e4d5bbf4cd002b665878fa7d77094052528ce5658c5be",
-  "data/corpus/fact_check_report.json": "c95cc72ebf0b3f2a2846b8e309ed1b6b1b097567d8345f2216c4411ef366e746"
+  "data/corpus/fact_check_report.json": "b3fa4554b4cf520706981fe2552de88e2f3b0037588707c29dfed02dc7839e6d"
  },
  "freeze_status": "frozen: scope (D-061), verification (D-058) and rules (D-062) approved"
 }
