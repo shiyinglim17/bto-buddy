@@ -1,14 +1,10 @@
-# --- Private / restricted material (never commit) ---
-# Original assessment brief, project-approach PDF and private submission notes.
-references/private/
-# HDB HTML snapshots, extracted source-derived passages and any index built from them.
-# Redistribution permission has not been established (see docs/project_context/03_data_and_licensing.md).
+# Private source documents and derived content
+# (assessment brief, planning PDF, private notes; HDB snapshots and extracted passages.
+#  Redistribution permission not established: docs/project_context/03_data_and_licensing.md)
 data/private_corpus/
+references/private/
 
-# Local LLM response cache. The reproducible record is results/runs/ (D-039).
-.cache/
-
-# --- Secrets and credentials ---
+# Secrets
 .env
 .env.*
 !.env.example
@@ -17,27 +13,32 @@ data/private_corpus/
 secrets/
 credentials*.json
 service-account*.json
+.streamlit/secrets.toml
 
-# --- Local environments ---
+# Python and tooling
 .venv/
 venv/
-env/
-.python-version
-
-# --- Python caches and build artefacts ---
 __pycache__/
 *.py[cod]
 *.egg-info/
 build/
 dist/
 .pytest_cache/
-.mypy_cache/
 .ruff_cache/
+.mypy_cache/
 .coverage
 htmlcov/
 .ipynb_checkpoints/
+.python-version
 
-# --- Editor / OS ---
+# Local caches and temporary outputs
+# LLM response cache; the reproducible record is evaluation/results/ (D-039, D-041).
+.cache/
+tmp/
+*.tmp
+*.log
+
+# Local operating-system and editor files
 .DS_Store
 .vscode/
 .idea/

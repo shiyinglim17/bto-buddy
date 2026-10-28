@@ -475,50 +475,64 @@ with whitelisted operators (`eq`, `ne`, `lt`, `gte`, `in`, `is_null`, `all`, `an
 
 This drops two items from the PROPOSED stack row in 04 §6.1.
 
-### 11.2 Module layout and dependency direction
+### 11.2 Repository layout and dependency direction (D-041, supersedes the D-030/D-039 layout)
+
+The developer's recommended structure, simplified so that no module exists only for show.
+Files are created when they get real content, never as empty stubs.
 
 ```
 src/bto_buddy/
-  contracts.py        # all models above; imports nothing from the package
-  config.py           # Settings (model id, k, thresholds, prompt versions) from env
-  knowledge.py        # load + validate facts, manifest, visual resources; fact lookup
-  rules.py            # load policy_rules.yaml; declarative condition interpreter; evaluate
-  profile.py          # assess_profile: quote guard, conflicts, missing fields (pure)
-  gate.py             # TOPIC_TIER map + coverage decision (pure)
-  retrieval.py        # tokenizer, BM25 index, topic-filtered search; Retriever protocol
-  evidence.py         # assemble_evidence: rule facts ∪ hits, evidence gaps (pure)
-  llm.py              # LLMClient protocol, OpenAI-compatible impl, disk cache, call accounting
-  prompts/            # extract_v1.md, generate_v1.md, verify_v1.md (versioned text)
-  extraction.py       # LLM #1 → ProfileExtraction
-  generation.py       # LLM #2 → GenerationOutput
-  verification.py     # deterministic checks + batched judge → VerificationResult
-  report.py           # build_report + D-011 display policy (pure)
-  pipeline.py         # run(request, config_id) composes stages for A–D
-  app/streamlit_app.py
-  eval/
-    datasets.py  scoring.py  retrieval_eval.py  verifier_eval.py  stats.py  cli.py
+  app.py            # Streamlit entry point (thin: calls pipeline, renders FinalGuidance)
+  schemas.py        # all Pydantic contracts and enums from §5; imports nothing from the package
+  policy.py         # pure policy domain: load/validate facts, manifest, visual resources;
+                    #   declarative rule interpreter; TOPIC_TIER gate; profile assessment
+                    #   (quote guard, conflicts, topic-scoped missing fields, follow-up templates)
+  retrieval.py      # tokenizer, BM25 index, topic-filtered search, evidence assembly (pure)
+  llm.py            # LLMClient protocol, OpenAI-compatible client, disk cache, call accounting
+  generation.py     # LLM #1 extraction and LLM #2 generation (prompts + output validation)
+  verification.py   # deterministic checks + batched LLM judge; D-011 display actions
+  pipeline.py       # run(request, config_id): composes A–D; builds FinalGuidance
+  prompts/          # versioned prompt text (extract_v1.md, generate_v1.md, verify_v1.md)
+evaluation/
+  run.py            # CLI: run configs on dev/test, save predictions, re-score offline
+  metrics.py        # D-004 metrics, retrieval recall@k, verifier metrics, bootstrap/McNemar
+  metric_spec.md    # frozen operational definitions (written before the held-out run)
+  results/<run_id>/ # run_metadata.json, predictions.jsonl, scores.json (tracked)
+scripts/            # Phase 2 developer tooling; not used at runtime or in Docker
+  capture_sources.py  prepare_corpus.py  validate_corpus.py
+tests/              # test_policy.py, test_retrieval.py, test_verification.py,
+                    # test_pipeline.py, test_smoke.py
 ```
 
+**Simplifications versus the recommended structure, with reasons:**
+
+| Recommended item | Change | Reason |
+|---|---|---|
+| — | **Added `llm.py`** | Three modules (`generation`, `verification`, and extraction inside `generation`) share one client. A separate module is the single seam where tests inject a fake and where caching and token accounting live. Without it, `verification` would import from `generation` |
+| `evaluation/baselines.py` | **Dropped** | D-030: configurations A–D are the same pipeline with stages switched off, so they live in `pipeline.py`. A separate baselines module would duplicate prompt logic and break "equivalent instructions" (D-003) |
+| Separate retrieval-query file | **Dropped** | Retrieval recall@k uses each benchmark case's gold fact IDs. One labelled source, no duplication |
+| `contracts.py`, `knowledge.py`, `rules.py`, `gate.py`, `profile.py`, `evidence.py`, `report.py`, `extraction.py` (D-030 layout) | **Merged** into `schemas.py`, `policy.py`, `retrieval.py`, `generation.py`, `pipeline.py` | Each was small. If `policy.py` grows past about 400 lines, split out `profile.py` (recorded as an allowed refactor, no new decision needed) |
+
 **Boundary rules:**
-- Pure modules (`profile`, `gate`, `rules`, `retrieval`, `evidence`, `report`) never import
+- `schemas`, `policy`, `retrieval` and `pipeline`'s report assembly are pure: they never import
   `llm`.
-- Only `extraction`, `generation` and `verification` call the `LLMClient` protocol, so tests
-  inject a fake.
+- Only `generation` and `verification` call the `LLMClient` protocol, so tests inject a fake.
 - `pipeline` is the only module that knows about configurations.
-- `eval` consumes `FinalGuidance` and never reaches into stage internals, except through the
-  component evaluators.
+- `evaluation/` consumes `FinalGuidance` and saved predictions. It never reaches into stage
+  internals, except through the component metrics.
+- `scripts/` is never imported by `src/` or used by Docker (REQ-DAT-022).
 
-**File paths (Q-10):**
+**Data paths (D-022 + D-041):**
 
-| Content | Path |
-|---|---|
-| Scenarios | `data/eval/scenarios.jsonl` |
-| Split | `data/eval/split.json` |
-| Verifier claims | `data/eval/verifier_claims.jsonl` |
-| Retrieval queries | `data/eval/retrieval_queries.jsonl` |
-| Frozen metric spec | `eval/metric_spec.md` |
-| Run outputs (tracked; allow offline rescoring) | `results/runs/<run_id>/{run_metadata.json, predictions.jsonl, scores.json}` |
-| LLM cache (Git-ignored; `results/` holds the reproducible record) | `.cache/llm/` |
+| Content | Path | Git |
+|---|---|---|
+| Canonical KB | `data/policy_facts.jsonl` | tracked after rights review |
+| Rules, manifest, coverage, visual resources | `data/policy_rules.yaml`, `data/sources_manifest.json`, `data/source_coverage.csv`, `data/visual_resources.json` | tracked |
+| Benchmark | `data/benchmark_dev.jsonl`, `data/benchmark_test.jsonl` (the held-out set is a physically separate file) | tracked |
+| Verifier claim set | `data/verifier_claims_dev.jsonl`, `data/verifier_claims_test.jsonl` | tracked |
+| Private source snapshots / derivatives | `data/private_corpus/raw/`, `data/private_corpus/processed/` | **ignored** |
+| Run outputs | `evaluation/results/<run_id>/` | tracked (offline re-scoring) |
+| LLM cache | `.cache/llm/` | **ignored** |
 
 ## 12. Tests
 

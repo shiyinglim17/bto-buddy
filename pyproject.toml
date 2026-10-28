@@ -12,6 +12,8 @@ requires-python = ">=3.12"
 dependencies = [
     # Typed contracts between pipeline stages (REQ-ARC-005, REQ-ARC-007).
     "pydantic>=2.7,<3",
+    # Demo UI; Python-native, single entry point (D-036). Not production hosting (D-026).
+    "streamlit>=1.40,<2",
 ]
 
 [dependency-groups]
@@ -33,6 +35,8 @@ addopts = "-q"
 line-length = 100
 target-version = "py312"
 src = ["src", "tests"]
+# docs/ holds design sketches (e.g. contract outlines in Markdown), not executable code.
+extend-exclude = ["docs"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]

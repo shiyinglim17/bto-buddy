@@ -1,0 +1,38 @@
+# Build context: only what the image needs. Private, secret and local files must never
+# enter the image (REQ-DAT-012, REQ-LIC-010).
+
+# Private material and secrets
+references/
+data/private_corpus/
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+secrets/
+
+# Version control, environments, caches, outputs
+.git/
+.gitignore
+.venv/
+**/__pycache__/
+**/*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.cache/
+tmp/
+*.log
+.DS_Store
+.vscode/
+.idea/
+
+# Not needed at runtime
+docs/
+tests/
+ai_logs/
+CLAUDE.md
+Dockerfile
+.dockerignore

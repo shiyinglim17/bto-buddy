@@ -1,0 +1,3 @@
+# Privacy: don't send Streamlit usage statistics from local or container runs.
+[browser]
+gatherUsageStats = false

@@ -1,0 +1,19 @@
+"""Smoke test: the package imports and the Streamlit entry point renders without errors."""
+
+from pathlib import Path
+
+from streamlit.testing.v1 import AppTest
+
+import bto_buddy
+
+APP_PATH = Path(__file__).resolve().parents[1] / "src" / "bto_buddy" / "app.py"
+
+
+def test_app_renders_with_disclaimer() -> None:
+    app = AppTest.from_file(str(APP_PATH)).run(timeout=30)
+
+    assert not app.exception
+    assert app.title[0].value == "BTO Buddy"
+    assert bto_buddy.__version__ in app.caption[0].value
+    # The non-assessment disclaimer must always be visible (REQ-PRB-010).
+    assert "not an official eligibility assessment" in app.warning[0].value

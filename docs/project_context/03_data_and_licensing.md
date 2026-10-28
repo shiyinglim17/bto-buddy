@@ -13,9 +13,9 @@ The legend is in [INDEX.md](INDEX.md#legend).
 | **Policy facts KB (canonical)** | `data/policy_facts.jsonl` | Tracked | Runtime, BM25 retrieval, primary evaluation | APPROVED (D-005); schema PROPOSED (D-023) |
 | Structured rule registry | `data/policy_rules.yaml` | Tracked | Deterministic checks | APPROVED (path); content after Phase 2 |
 | Visual-resource registry | `data/visual_resources.json` | Tracked | Infographic/video links and display conditions | APPROVED (path) |
-| Evaluation scenarios (Dataset C) | path OPEN (Q-10) | Tracked | Benchmark | APPROVED (design); not yet created |
-| Verifier claim set | path OPEN (Q-10) | Tracked | Verifier evaluation | APPROVED (D-020); size PROPOSED |
-| Saved predictions and run metadata | path OPEN (Q-10) | Tracked | Reproducible offline scoring | APPROVED (REQ-DAT-018) |
+| Evaluation scenarios (Dataset C) | `data/benchmark_dev.jsonl`, `data/benchmark_test.jsonl` (D-041) | Tracked | Benchmark | APPROVED (design); not yet created |
+| Verifier claim set | `data/verifier_claims_{dev,test}.jsonl` (D-041) | Tracked | Verifier evaluation | APPROVED (D-020); size PROPOSED |
+| Saved predictions and run metadata | `evaluation/results/<run_id>/` (D-041) | Tracked | Reproducible offline scoring | APPROVED (REQ-DAT-018) |
 
 ## 2. Dataset A — source acquisition and reviewer-facing KB [APP p.4–5, 11–14]
 

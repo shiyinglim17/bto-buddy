@@ -87,7 +87,40 @@ themselves live in [decisions.md](decisions.md). Requirement IDs are in
 - model selection;
 - judge model.
 
+**Repository and tooling setup (2026-10-28):**
+- **Layout:** D-041 adopts the developer's recommended structure, simplified:
+  - `llm.py` added;
+  - `evaluation/baselines.py` and a separate retrieval-query file dropped;
+  - benchmark and verifier claims split into physical dev/test files.
+- **Files:**
+  - `src/bto_buddy/app.py`: single Streamlit entry point; an honest shell with disclaimer and
+    privacy notice, no pipeline yet;
+  - `tests/test_smoke.py`: replaces `test_package.py`; uses Streamlit `AppTest`;
+  - `Dockerfile`, `.dockerignore`, `.env.example`, `.streamlit/config.toml` (telemetry off);
+  - `.gitignore`: merged with the developer's list, plus caches and temporary outputs.
+- **Dependency:** Streamlit 1.66.1 via `uv add`; `uv.lock` now pins 51 packages.
+- **Ruff:** ruff 0.17 formats Python blocks inside Markdown, so `docs/` is excluded (design
+  sketches, not code).
+
+**Verified (macOS, uv 0.13.6, Docker 29.9.2):**
+
+| Check | Result |
+|---|---|
+| `uv sync` / `uv lock --check` | OK; 51 packages, lock up to date |
+| `uv run ruff check .` / `ruff format --check .` | All passed / 5 files formatted |
+| `uv run mypy` (strict) | No issues in 2 source files |
+| `uv run pytest` | 1 passed (smoke: app renders, disclaimer visible) |
+| `docker build -t bto-buddy .` | OK; image 820 MB (Streamlit brings numpy, pandas, pyarrow) |
+| `docker run -p 8501:8501 --env-file .env.example bto-buddy` | `/_stcore/health` OK in ~4 s; Docker HEALTHCHECK `healthy` in ~8 s |
+| Image contents | Runs as `app` (non-root); `/app` = `.venv`, `.streamlit`, `app.py`; no PDFs, `.env`, `references/` or `private_corpus` |
+| `git check-ignore` | `.env`, private corpus raw/processed, `references/private/*`, `.cache/`, `tmp/`, `*.log`, Streamlit secrets, `.venv`, tool caches, `.DS_Store` all ignored; `.env.example` trackable |
+
+**Noted:**
+- `scripts/capture_sources.py` would need **Playwright**, which is not in the D-036 dependency
+  list. It needs approval before Phase 2 capture, as a dev-only dependency.
+
 **Next:**
-1. Implement the pure core: `contracts.py`, `knowledge.py`, `rules.py`, `gate.py`,
-   `profile.py`, with unit tests against a synthetic fixture KB. No LLM calls.
+1. Implement the pure core: `schemas.py` and `policy.py` (facts/rules loading, rule
+   interpreter, gate, profile assessment), with unit tests against a synthetic fixture KB.
+   No LLM calls.
 2. Then Phase 2: source verification and authoring `policy_facts.jsonl`.

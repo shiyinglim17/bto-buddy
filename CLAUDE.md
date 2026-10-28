@@ -193,27 +193,30 @@ Environment and dependencies are managed with **uv**. Exact versions are pinned 
 which must be committed (D-028). Verified on macOS with uv 0.13.6 and Python 3.13.2 (project
 requires ≥3.12):
 
-```bash
-uv sync                      # create .venv from uv.lock (package + dev group)
-uv run pytest                # tests
-uv run ruff check .          # lint
-uv run ruff format --check . # formatting
-uv run mypy                  # strict type check of src/bto_buddy
-uv lock --check              # fail if uv.lock is out of date with pyproject.toml
-```
+- Install: `uv sync` (creates `.venv` from `uv.lock`: package + dev group)
+- Test: `uv run pytest`
+- Lint: `uv run ruff check .`
+- Format check: `uv run ruff format --check .`
+- Type check: `uv run mypy` (strict, `src/bto_buddy`)
+- Lockfile check: `uv lock --check`
+- Run locally: `uv run streamlit run src/bto_buddy/app.py` → http://localhost:8501
+- Build image: `docker build -t bto-buddy .`
+- Run container: `cp .env.example .env` (once; fill in values when an LLM is configured), then
+  `docker run --rm -p 8501:8501 --env-file .env bto-buddy`
+- Health check: `curl -f http://localhost:8501/_stcore/health`
 
-- Add a dependency with `uv add <pkg>` (or `uv add --dev <pkg>`), with a justification
-  comment in `pyproject.toml`. Never hand-edit `uv.lock`.
-- **Not yet available:**
-  - the application run command (UI on hold pending architecture review);
-  - Docker build/run (Docker Desktop installation pending on the dev machine);
-  - evaluation commands.
+**Docker image:** two-stage build on `python:3.12-slim`, uv 0.13.6, runs as non-root `app`,
+port 8501, HEALTHCHECK on `/_stcore/health`. Configuration comes from environment variables
+only. `.dockerignore` keeps `references/`, `data/private_corpus/`, `.env*`, docs, tests and
+caches out of the build context.
 
-  Add each one here only after it has been verified.
+- Add a dependency with `uv add <pkg>` (or `uv add --dev <pkg>`), with a justification comment
+  in `pyproject.toml`. Never hand-edit `uv.lock`.
+- Evaluation commands: add them here only after they have been verified.
 
 **Secret scan before a push** (until a dedicated tool is approved):
 ```bash
-git diff --cached --name-only | grep -E '^(references/private|data/private_corpus)/|\.env' && echo "BLOCK"
+git diff --cached --name-only | grep -E '^(references/private|data/private_corpus)/|(^|/)\.env(\.[^/]*)?$' | grep -v '\.env\.example$' && echo "BLOCK"
 git diff --cached | grep -inE 'api[_-]?key|secret|token|password|BEGIN .*PRIVATE KEY' || echo "no secret patterns"
 # Anonymity: the term list is private (Git-ignored) and must never be copied into tracked files.
 git grep -inFf references/private/anonymity_terms.txt || echo "no identifying terms"
