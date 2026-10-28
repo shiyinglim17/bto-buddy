@@ -1,0 +1,2643 @@
+{
+ "report_version": "1.0.0",
+ "generated_from": "data/private_corpus (local only)",
+ "note": "Counts, IDs and short heading labels only; no source passages (D-054).",
+ "html_sources": [
+  {
+   "source_id": "S01",
+   "raw_sha256": "f0d477655219055266701ce7a5d58d91db3aa4f5c6e3c3c4f7d7dc304c48f0f5",
+   "extractor_version": "1.0.0",
+   "snapshots": 1,
+   "counts": {
+    "sections": 23,
+    "passages": 22,
+    "blocks": 79,
+    "tables": 20,
+    "raw_tables": 20,
+    "accordions_extracted": 5,
+    "accordion_toggles_raw": 5,
+    "accordions_collapsed_at_capture": 5
+   },
+   "accordions": [
+    {
+     "section_id": "S01.a",
+     "title": "Fiancé and fiancée",
+     "body_block_kinds": [
+      "footnote",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S01.b",
+     "title": "Married couples and/ or parent(s) with child(ren)",
+     "body_block_kinds": [
+      "footnote",
+      "list",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S01.c",
+     "title": "Multi-generation families",
+     "body_block_kinds": [
+      "footnote",
+      "list",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S01.d",
+     "title": "Orphaned siblings",
+     "body_block_kinds": [
+      "footnote",
+      "list",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S01.e",
+     "title": "Families with non-residents",
+     "body_block_kinds": [
+      "paragraph",
+      "table"
+     ]
+    }
+   ],
+   "sections": [
+    {
+     "section_id": "S01.a",
+     "title": "Fiancé and fiancée",
+     "scope": "authored",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S01.a.1",
+     "title": "Core family nucleus",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S01.a.2",
+     "title": "Eligibility conditions",
+     "scope": "authored",
+     "content": [
+      "footnote",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S01.a.3",
+     "title": "Solemnisation of marriage",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S01.a.4",
+     "title": "If your fiancé/ fiancée is below 21 years old",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S01.a.5",
+     "title": "No change of persons listed in the application",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S01.b",
+     "title": "Married couples and/ or parent(s) with child(ren)",
+     "scope": "authored",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S01.b.1",
+     "title": "Core family nucleus",
+     "scope": "authored",
+     "content": [
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S01.b.2",
+     "title": "Eligibility conditions",
+     "scope": "authored",
+     "content": [
+      "footnote",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S01.b.3",
+     "title": "Related scheme",
+     "scope": "outside",
+     "content": []
+    },
+    {
+     "section_id": "S01.b.4",
+     "title": "Fresh Start Housing Scheme (New flats only)",
+     "scope": "outside",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S01.c",
+     "title": "Multi-generation families",
+     "scope": "outside",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S01.c.1",
+     "title": "Core family nucleus",
+     "scope": "outside",
+     "content": [
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S01.c.2",
+     "title": "Eligibility conditions",
+     "scope": "outside",
+     "content": [
+      "footnote",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S01.d",
+     "title": "Orphaned siblings",
+     "scope": "outside",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S01.d.1",
+     "title": "Core family nucleus",
+     "scope": "outside",
+     "content": [
+      "footnote",
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S01.d.2",
+     "title": "Eligibility conditions",
+     "scope": "outside",
+     "content": [
+      "footnote",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S01.e",
+     "title": "Families with non-residents",
+     "scope": "authored",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S01.e.1",
+     "title": "Non-resident spouse",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S01.e.2",
+     "title": "Non-resident parents/ child(ren)",
+     "scope": "outside",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S01.e.3",
+     "title": "Core family nucleus",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S01.e.4",
+     "title": "Eligibility conditions",
+     "scope": "authored",
+     "content": [
+      "table"
+     ]
+    }
+   ],
+   "headings": {
+    "page_total": 39,
+    "as_sections": 18,
+    "inside_table_or_list_text": [
+     "interest or ownership in a property",
+     "non-residential property",
+     "private residential property"
+    ],
+    "site_chrome": 6,
+    "not_extracted": []
+   },
+   "page_data_coverage": {
+    "sentences": 542,
+    "in_extracted_blocks": 527,
+    "site_chrome_excluded": 12,
+    "not_rendered_metadata": 3,
+    "rendered_but_not_extracted": 0
+   },
+   "tables": [
+    {
+     "block_id": "S01.b011",
+     "section_id": "S01.a.2",
+     "rows": 12,
+     "cells": 30,
+     "header_rows": 1,
+     "merged_cells": 5,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S01.b012",
+     "section_id": "S01.a.2",
+     "rows": 2,
+     "cells": 4,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b011"
+    },
+    {
+     "block_id": "S01.b013",
+     "section_id": "S01.a.2",
+     "rows": 3,
+     "cells": 6,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b011"
+    },
+    {
+     "block_id": "S01.b014",
+     "section_id": "S01.a.2",
+     "rows": 4,
+     "cells": 8,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b011"
+    },
+    {
+     "block_id": "S01.b034",
+     "section_id": "S01.b.2",
+     "rows": 12,
+     "cells": 30,
+     "header_rows": 1,
+     "merged_cells": 5,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S01.b035",
+     "section_id": "S01.b.2",
+     "rows": 2,
+     "cells": 4,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b034"
+    },
+    {
+     "block_id": "S01.b036",
+     "section_id": "S01.b.2",
+     "rows": 3,
+     "cells": 6,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b034"
+    },
+    {
+     "block_id": "S01.b037",
+     "section_id": "S01.b.2",
+     "rows": 4,
+     "cells": 8,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b034"
+    },
+    {
+     "block_id": "S01.b052",
+     "section_id": "S01.c.2",
+     "rows": 12,
+     "cells": 30,
+     "header_rows": 1,
+     "merged_cells": 5,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S01.b053",
+     "section_id": "S01.c.2",
+     "rows": 2,
+     "cells": 4,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b052"
+    },
+    {
+     "block_id": "S01.b054",
+     "section_id": "S01.c.2",
+     "rows": 3,
+     "cells": 6,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b052"
+    },
+    {
+     "block_id": "S01.b055",
+     "section_id": "S01.c.2",
+     "rows": 4,
+     "cells": 8,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b052"
+    },
+    {
+     "block_id": "S01.b067",
+     "section_id": "S01.d.2",
+     "rows": 12,
+     "cells": 30,
+     "header_rows": 1,
+     "merged_cells": 5,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S01.b068",
+     "section_id": "S01.d.2",
+     "rows": 2,
+     "cells": 4,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b067"
+    },
+    {
+     "block_id": "S01.b069",
+     "section_id": "S01.d.2",
+     "rows": 3,
+     "cells": 6,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b067"
+    },
+    {
+     "block_id": "S01.b070",
+     "section_id": "S01.d.2",
+     "rows": 4,
+     "cells": 8,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b067"
+    },
+    {
+     "block_id": "S01.b084",
+     "section_id": "S01.e.4",
+     "rows": 12,
+     "cells": 31,
+     "header_rows": 1,
+     "merged_cells": 4,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S01.b085",
+     "section_id": "S01.e.4",
+     "rows": 2,
+     "cells": 4,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b084"
+    },
+    {
+     "block_id": "S01.b086",
+     "section_id": "S01.e.4",
+     "rows": 3,
+     "cells": 6,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b084"
+    },
+    {
+     "block_id": "S01.b087",
+     "section_id": "S01.e.4",
+     "rows": 4,
+     "cells": 8,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S01.b084"
+    }
+   ],
+   "links": [
+    {
+     "href": "#fs",
+     "kind": "same_page",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S01.a.2"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "#fs-housing-subsidies",
+     "kind": "same_page",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S01.a.1"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "#multi-gen",
+     "kind": "same_page",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S01.c.2"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "#multigen-housing-subsidies",
+     "kind": "same_page",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S01.c.1"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "#nc-families",
+     "kind": "same_page",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S01.e.4"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "#nc-housing-subsidies",
+     "kind": "same_page",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S01.e.3"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "#or-housing-subsidies",
+     "kind": "same_page",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S01.d.1"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "#or-scheme",
+     "kind": "same_page",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S01.d.2"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "#pa",
+     "kind": "same_page",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S01.b.2"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "#pa-housing-subsidies",
+     "kind": "same_page",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S01.b.1"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "/-/media/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families/Income-ceiling-for-extended-family-guide.pdf?sc_lang=en&hash=0E76F0C419381FFAE7EE016",
+     "kind": "pdf",
+     "target_source_id": "S09",
+     "count": 8,
+     "sections": [
+      "S01.a.2",
+      "S01.b.2",
+      "S01.c.2",
+      "S01.d.2"
+     ],
+     "status": "manifest:outside_mvp"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/conditions-after-buying-a-new-flat?anchor=mop",
+     "kind": "same_page",
+     "target_source_id": "S14",
+     "count": 5,
+     "sections": [
+      "S01.a.1",
+      "S01.b.1",
+      "S01.c.1",
+      "S01.d.1",
+      "S01.e.3"
+     ],
+     "status": "manifest:outside_mvp"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/conditions-after-buying-a-new-flat?anchor=resale-levy",
+     "kind": "same_page",
+     "target_source_id": "S14",
+     "count": 4,
+     "sections": [
+      "S01.a.2",
+      "S01.b.2",
+      "S01.c.2",
+      "S01.d.2"
+     ],
+     "status": "manifest:outside_mvp"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/fresh-start-housing-scheme",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S01.b.4"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Fresh Start Housing Scheme: not a first-timer couple scheme (D-033)"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application?anchor=changes-to-flat-application",
+     "kind": "same_page",
+     "target_source_id": "S04",
+     "count": 1,
+     "sections": [
+      "S01.a.5"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter",
+     "kind": "internal",
+     "target_source_id": "S02",
+     "count": 2,
+     "sections": [
+      "S01.0",
+      "S01.a.4"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families#fs",
+     "kind": "internal",
+     "target_source_id": "S01",
+     "count": 1,
+     "sections": [
+      "S01.c.1"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families#multi-gen",
+     "kind": "internal",
+     "target_source_id": "S01",
+     "count": 1,
+     "sections": [
+      "S01.a.1"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families#pa",
+     "kind": "internal",
+     "target_source_id": "S01",
+     "count": 1,
+     "sections": [
+      "S01.c.1"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families/cpf-housing-grants",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 5,
+     "sections": [
+      "S01.a.2",
+      "S01.b.2",
+      "S01.c.2",
+      "S01.d.2",
+      "S01.e.4"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Grant pages: calculation is Excluded (D-008); the HFE-grant relationship is Context via S02"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families/enhanced-cpf-housing-grant",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 8,
+     "sections": [
+      "S01.a.2",
+      "S01.b.2",
+      "S01.c.2",
+      "S01.d.2"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Grant pages: calculation is Excluded (D-008); the HFE-grant relationship is Context via S02"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families/proximity-housing-grant",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 3,
+     "sections": [
+      "S01.a.2",
+      "S01.b.2",
+      "S01.c.2"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Grant pages: calculation is Excluded (D-008); the HFE-grant relationship is Context via S02"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families/stepup-cpf-housing-grant",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 6,
+     "sections": [
+      "S01.a.2",
+      "S01.b.2",
+      "S01.c.2"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Grant pages: calculation is Excluded (D-008); the HFE-grant relationship is Context via S02"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=multi-gen",
+     "kind": "same_page",
+     "target_source_id": "S01",
+     "count": 1,
+     "sections": [
+      "S01.b.1"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/couples-and-families?anchor=pa",
+     "kind": "same_page",
+     "target_source_id": "S01",
+     "count": 1,
+     "sections": [
+      "S01.e.1"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/housing-loan/housing-loan-from-hdb",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 5,
+     "sections": [
+      "S01.a.2",
+      "S01.b.2",
+      "S01.c.2",
+      "S01.d.2",
+      "S01.e.4"
+     ],
+     "status": "dependency:context_only",
+     "note": "HDB housing loan page: financing is Excluded; link only"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/seniors",
+     "kind": "internal",
+     "target_source_id": "S12",
+     "count": 26,
+     "sections": [
+      "S01.0",
+      "S01.a.2",
+      "S01.b.2",
+      "S01.c.2",
+      "S01.d.2",
+      "S01.e.4"
+     ],
+     "status": "manifest:outside_mvp"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/singles/cpf-housing-grant",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S01.b.2",
+      "S01.e.4"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Grant pages: calculation is Excluded (D-008); the HFE-grant relationship is Context via S02"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/singles/enhanced-cpf-housing-grant",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 4,
+     "sections": [
+      "S01.b.2",
+      "S01.e.4"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Grant pages: calculation is Excluded (D-008); the HFE-grant relationship is Context via S02"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/singles/proximity-housing-grant",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S01.b.2",
+      "S01.e.4"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Grant pages: calculation is Excluded (D-008); the HFE-grant relationship is Context via S02"
+    },
+    {
+     "href": "/buying-a-flat/resale-flats/process-for-buying-a-resale-flat",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S01.a.5"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Resale process: other housing (D-008)"
+    },
+    {
+     "href": "/managing-my-home/finances/citizen-topup",
+     "kind": "internal",
+     "target_source_id": "S13",
+     "count": 4,
+     "sections": [
+      "S01.a.2",
+      "S01.b.2",
+      "S01.c.2",
+      "S01.d.2"
+     ],
+     "status": "manifest:outside_mvp"
+    },
+    {
+     "href": "https://homes.hdb.gov.sg/home/landing",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S01.0"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://www.hdb.gov.sg/write-to-us",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 5,
+     "sections": [
+      "S01.0",
+      "S01.a.3",
+      "S01.a.4",
+      "S01.b.1"
+     ],
+     "status": "dependency:service_contact",
+     "note": "HDB contact/service pages: redirect targets for discretionary cases, never evidence"
+    },
+    {
+     "href": "https://www.ica.gov.sg/reside/LTVP/apply",
+     "kind": "external",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S01.e.4"
+     ],
+     "status": "dependency:external_reference",
+     "note": "ICA/MOM pass pages: referenced for the non-resident spouse pass condition; link only"
+    },
+    {
+     "href": "https://www.ica.gov.sg/visitor/see-more",
+     "kind": "external",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S01.e.4"
+     ],
+     "status": "dependency:external_reference",
+     "note": "ICA/MOM pass pages: referenced for the non-resident spouse pass condition; link only"
+    },
+    {
+     "href": "https://www.mom.gov.sg/passes-and-permits",
+     "kind": "external",
+     "target_source_id": null,
+     "count": 4,
+     "sections": [
+      "S01.e.4"
+     ],
+     "status": "dependency:external_reference",
+     "note": "ICA/MOM pass pages: referenced for the non-resident spouse pass condition; link only"
+    }
+   ],
+   "duplicates": {
+    "passages": [],
+    "blocks": [
+     [
+      "S01.b008",
+      "S01.b028",
+      "S01.b047",
+      "S01.b062",
+      "S01.b081"
+     ],
+     [
+      "S01.b012",
+      "S01.b035",
+      "S01.b053",
+      "S01.b068"
+     ],
+     [
+      "S01.b013",
+      "S01.b036",
+      "S01.b054",
+      "S01.b069"
+     ],
+     [
+      "S01.b014",
+      "S01.b055",
+      "S01.b070"
+     ],
+     [
+      "S01.b015",
+      "S01.b038"
+     ]
+    ]
+   },
+   "empty_sections": [
+    "S01.b.3"
+   ],
+   "passage_ids_unique": true,
+   "temporal": {
+    "retrieved_at": [
+     "2026-10-28T09:18:06Z"
+    ],
+    "page_last_updated": [
+     "2026-08-23"
+    ],
+    "effective_date_known": false
+   },
+   "issues": [
+    {
+     "kind": "manual_check",
+     "where": "S01.b011",
+     "detail": "5 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "manual_check",
+     "where": "S01.b034",
+     "detail": "5 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "manual_check",
+     "where": "S01.b052",
+     "detail": "5 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "manual_check",
+     "where": "S01.b067",
+     "detail": "5 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "manual_check",
+     "where": "S01.b084",
+     "detail": "4 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "temporal_gap",
+     "where": "S01",
+     "detail": "no stated effective date; page 'last updated' date only"
+    },
+    {
+     "kind": "limitation",
+     "where": "S01",
+     "detail": "single default-state snapshot: no default-vs-expanded diff. Mitigation: collapsed panels present in DOM + page-data check"
+    }
+   ]
+  },
+  {
+   "source_id": "S02",
+   "raw_sha256": "e2e44274bad84b9a7294eef81d7628ceafa008ceb3990cfe6962a8f145482c59",
+   "extractor_version": "1.0.0",
+   "snapshots": 1,
+   "counts": {
+    "sections": 13,
+    "passages": 13,
+    "blocks": 39,
+    "tables": 7,
+    "raw_tables": 7,
+    "accordions_extracted": 5,
+    "accordion_toggles_raw": 5,
+    "accordions_collapsed_at_capture": 4
+   },
+   "accordions": [
+    {
+     "section_id": "S02.a",
+     "title": "When to apply",
+     "body_block_kinds": [
+      "list",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S02.b",
+     "title": "How to apply",
+     "body_block_kinds": [
+      "media",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S02.c",
+     "title": "Income guidelines",
+     "body_block_kinds": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S02.d",
+     "title": "Validity and possible review of HFE letter",
+     "body_block_kinds": [
+      "table"
+     ]
+    },
+    {
+     "section_id": "S02.e",
+     "title": "Next steps with your HFE letter",
+     "body_block_kinds": [
+      "media",
+      "paragraph"
+     ]
+    }
+   ],
+   "sections": [
+    {
+     "section_id": "S02.h1",
+     "title": "Make an informed decision",
+     "scope": "context",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S02.h2",
+     "title": "Integrated loan application service",
+     "scope": "context",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S02.h3",
+     "title": "Guide to HFE letter application",
+     "scope": "chrome",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S02.a",
+     "title": "When to apply",
+     "scope": "authored",
+     "content": [
+      "accordion_summary",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S02.a.1",
+     "title": "Additional notes",
+     "scope": "authored",
+     "content": [
+      "list"
+     ]
+    },
+    {
+     "section_id": "S02.b",
+     "title": "How to apply",
+     "scope": "authored",
+     "content": [
+      "accordion_summary",
+      "media",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S02.b.1",
+     "title": "Step 1: Check Preliminary HDB Flat Eligibility (HFE)",
+     "scope": "media_only",
+     "content": [
+      "media"
+     ]
+    },
+    {
+     "section_id": "S02.b.2",
+     "title": "Step 2: Apply for HDB Flat Eligibility (HFE) Letter",
+     "scope": "media_only",
+     "content": [
+      "media"
+     ]
+    },
+    {
+     "section_id": "S02.b.3",
+     "title": "Additional information",
+     "scope": "authored",
+     "content": [
+      "table"
+     ]
+    },
+    {
+     "section_id": "S02.c",
+     "title": "Income guidelines",
+     "scope": "authored",
+     "content": [
+      "accordion_summary",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S02.d",
+     "title": "Validity and possible review of HFE letter",
+     "scope": "authored",
+     "content": [
+      "accordion_summary",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S02.e",
+     "title": "Next steps with your HFE letter",
+     "scope": "context",
+     "content": [
+      "accordion_summary",
+      "media",
+      "paragraph"
+     ]
+    }
+   ],
+   "headings": {
+    "page_total": 12,
+    "as_sections": 8,
+    "inside_table_or_list_text": [
+     "next steps"
+    ],
+    "site_chrome": 3,
+    "not_extracted": []
+   },
+   "page_data_coverage": {
+    "sentences": 125,
+    "in_extracted_blocks": 115,
+    "site_chrome_excluded": 6,
+    "not_rendered_metadata": 4,
+    "rendered_but_not_extracted": 0
+   },
+   "tables": [
+    {
+     "block_id": "S02.b009",
+     "section_id": "S02.a",
+     "rows": 2,
+     "cells": 4,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S02.b025",
+     "section_id": "S02.b.3",
+     "rows": 5,
+     "cells": 10,
+     "header_rows": 0,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S02.b026",
+     "section_id": "S02.b.3",
+     "rows": 5,
+     "cells": 10,
+     "header_rows": 0,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S02.b025"
+    },
+    {
+     "block_id": "S02.b027",
+     "section_id": "S02.b.3",
+     "rows": 2,
+     "cells": 4,
+     "header_rows": 0,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S02.b025"
+    },
+    {
+     "block_id": "S02.b037",
+     "section_id": "S02.d",
+     "rows": 4,
+     "cells": 8,
+     "header_rows": 0,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S02.b038",
+     "section_id": "S02.d",
+     "rows": 3,
+     "cells": 6,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S02.b037"
+    },
+    {
+     "block_id": "S02.b039",
+     "section_id": "S02.d",
+     "rows": 2,
+     "cells": 4,
+     "header_rows": 0,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S02.b038"
+    }
+   ],
+   "links": [
+    {
+     "href": "#how-to-apply",
+     "kind": "same_page",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S02.h1"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/conditions-after-buying-a-new-flat?anchor=resale-levy",
+     "kind": "same_page",
+     "target_source_id": "S14",
+     "count": 1,
+     "sections": [
+      "S02.h1"
+     ],
+     "status": "manifest:outside_mvp"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application?anchor=cancellation",
+     "kind": "same_page",
+     "target_source_id": "S04",
+     "count": 1,
+     "sections": [
+      "S02.d"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter/income-guidelines-and-documents",
+     "kind": "internal",
+     "target_source_id": "S03",
+     "count": 1,
+     "sections": [
+      "S02.c"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/housing-loan/housing-loan-from-financial-institutions?anchor=integrated-loan-service",
+     "kind": "same_page",
+     "target_source_id": "S16",
+     "count": 1,
+     "sections": [
+      "S02.h2"
+     ],
+     "status": "manifest:context_only"
+    },
+    {
+     "href": "/hdb-flat-portal/hfe/get-help",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S02.h1"
+     ],
+     "status": "dependency:excluded_by_policy",
+     "note": "HFE FAQ pages (former S10): excluded because robots.txt disallows /hdb-flat-portal (D-060). Links are recorded, never followed or used as evidence"
+    },
+    {
+     "href": "/hdb-flat-portal/hfe/get-help/hfe-letter-application-process#household-details",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 3,
+     "sections": [
+      "S02.b.3",
+      "S02.d"
+     ],
+     "status": "dependency:excluded_by_policy",
+     "note": "HFE FAQ pages (former S10): excluded because robots.txt disallows /hdb-flat-portal (D-060). Links are recorded, never followed or used as evidence"
+    },
+    {
+     "href": "https://homes.hdb.gov.sg/",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 7,
+     "sections": [
+      "S02.b.3",
+      "S02.d"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://homes.hdb.gov.sg/home/landing",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S02.h1",
+      "S02.e"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://services2.hdb.gov.sg/web/bp27/HFEEnquiry/",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S02.d"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://services2.hdb.gov.sg/web/bp27/HFEeService/cancel",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 3,
+     "sections": [
+      "S02.b.3",
+      "S02.d"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://services2.hdb.gov.sg/web/bp27/HFEeService/update",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S02.b.3"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://services2.hdb.gov.sg/webapp/BE15AWMyRequest/BE15PMain",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 5,
+     "sections": [
+      "S02.b.3",
+      "S02.d"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://www.mynicehome.gov.sg/get-started/hdb-hfe-guide",
+     "kind": "external",
+     "target_source_id": "S11",
+     "count": 1,
+     "sections": [
+      "S02.b"
+     ],
+     "status": "manifest:context_only"
+    },
+    {
+     "href": "https://www.singpass.gov.sg/main",
+     "kind": "external",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S02.b.3"
+     ],
+     "status": "transactional_or_service"
+    }
+   ],
+   "duplicates": {
+    "passages": [
+     [
+      "S02.b.1.p1",
+      "S02.b.2.p1"
+     ]
+    ],
+    "blocks": []
+   },
+   "empty_sections": [],
+   "passage_ids_unique": true,
+   "temporal": {
+    "retrieved_at": [
+     "2026-10-28T09:30:08Z"
+    ],
+    "page_last_updated": [
+     "2026-10-28"
+    ],
+    "effective_date_known": false
+   },
+   "issues": [
+    {
+     "kind": "temporal_gap",
+     "where": "S02",
+     "detail": "no stated effective date; page 'last updated' date only"
+    },
+    {
+     "kind": "limitation",
+     "where": "S02",
+     "detail": "single default-state snapshot: no default-vs-expanded diff. Mitigation: collapsed panels present in DOM + page-data check"
+    }
+   ]
+  },
+  {
+   "source_id": "S03",
+   "raw_sha256": "0e8793a9221b3533e63f77ce6deab5e3370939011b44cea1d0bc09db98b0fa9e",
+   "extractor_version": "1.0.0",
+   "snapshots": 1,
+   "counts": {
+    "sections": 3,
+    "passages": 3,
+    "blocks": 17,
+    "tables": 3,
+    "raw_tables": 3,
+    "accordions_extracted": 0,
+    "accordion_toggles_raw": 0,
+    "accordions_collapsed_at_capture": 0
+   },
+   "accordions": [],
+   "sections": [
+    {
+     "section_id": "S03.h1",
+     "title": "Income guidelines",
+     "scope": "authored",
+     "content": [
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S03.h2",
+     "title": "Documents",
+     "scope": "authored",
+     "content": [
+      "list",
+      "paragraph"
+     ]
+    }
+   ],
+   "headings": {
+    "page_total": 8,
+    "as_sections": 3,
+    "inside_table_or_list_text": [],
+    "site_chrome": 5,
+    "not_extracted": []
+   },
+   "page_data_coverage": {
+    "sentences": 59,
+    "in_extracted_blocks": 47,
+    "site_chrome_excluded": 9,
+    "not_rendered_metadata": 3,
+    "rendered_but_not_extracted": 0
+   },
+   "tables": [
+    {
+     "block_id": "S03.b005",
+     "section_id": "S03.h1",
+     "rows": 5,
+     "cells": 10,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S03.b006",
+     "section_id": "S03.h1",
+     "rows": 5,
+     "cells": 18,
+     "header_rows": 1,
+     "merged_cells": 1,
+     "empty_cells": 1,
+     "nested_in": "S03.b005"
+    },
+    {
+     "block_id": "S03.b008",
+     "section_id": "S03.h1",
+     "rows": 19,
+     "cells": 27,
+     "header_rows": 2,
+     "merged_cells": 4,
+     "empty_cells": 0,
+     "nested_in": null
+    }
+   ],
+   "links": [
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S03.h1"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Grant pages: calculation is Excluded (D-008); the HFE-grant relationship is Context via S02"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter?anchor=review-HFE",
+     "kind": "same_page",
+     "target_source_id": "S02",
+     "count": 1,
+     "sections": [
+      "S03.0"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/housing-loan/housing-loan-from-hdb",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S03.h1"
+     ],
+     "status": "dependency:context_only",
+     "note": "HDB housing loan page: financing is Excluded; link only"
+    },
+    {
+     "href": "/hdb-flat-portal/hfe/get-help",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S03.0"
+     ],
+     "status": "dependency:excluded_by_policy",
+     "note": "HFE FAQ pages (former S10): excluded because robots.txt disallows /hdb-flat-portal (D-060). Links are recorded, never followed or used as evidence"
+    },
+    {
+     "href": "https://go.gov.sg/hfe-employment-status-guide",
+     "kind": "pdf",
+     "target_source_id": "S07",
+     "count": 1,
+     "sections": [
+      "S03.0"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "https://go.gov.sg/hfe-income-declaration-guide",
+     "kind": "pdf",
+     "target_source_id": "S08",
+     "count": 1,
+     "sections": [
+      "S03.0"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "https://homes.hdb.gov.sg/",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S03.h2"
+     ],
+     "status": "transactional_or_service"
+    }
+   ],
+   "duplicates": {
+    "passages": [],
+    "blocks": []
+   },
+   "empty_sections": [],
+   "passage_ids_unique": true,
+   "temporal": {
+    "retrieved_at": [
+     "2026-10-28T09:30:57Z"
+    ],
+    "page_last_updated": [
+     "2026-07-24"
+    ],
+    "effective_date_known": false
+   },
+   "issues": [
+    {
+     "kind": "manual_check",
+     "where": "S03.b006",
+     "detail": "1 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "manual_check",
+     "where": "S03.b008",
+     "detail": "4 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "temporal_gap",
+     "where": "S03",
+     "detail": "no stated effective date; page 'last updated' date only"
+    },
+    {
+     "kind": "limitation",
+     "where": "S03",
+     "detail": "single default-state snapshot: no default-vs-expanded diff. Mitigation: collapsed panels present in DOM + page-data check"
+    }
+   ]
+  },
+  {
+   "source_id": "S04",
+   "raw_sha256": "4397707f5878f78c079f5ab45de781f180e3b081dcff9436f3966396dcc77373",
+   "extractor_version": "1.0.0",
+   "snapshots": 1,
+   "counts": {
+    "sections": 7,
+    "passages": 7,
+    "blocks": 29,
+    "tables": 4,
+    "raw_tables": 4,
+    "accordions_extracted": 5,
+    "accordion_toggles_raw": 5,
+    "accordions_collapsed_at_capture": 5
+   },
+   "accordions": [
+    {
+     "section_id": "S04.a",
+     "title": "Priority schemes",
+     "body_block_kinds": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S04.b",
+     "title": "Fresh Start Housing Scheme",
+     "body_block_kinds": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S04.c",
+     "title": "Application status",
+     "body_block_kinds": [
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S04.d",
+     "title": "Changes to flat application",
+     "body_block_kinds": [
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S04.e",
+     "title": "Cancellation of flat application",
+     "body_block_kinds": [
+      "footnote",
+      "paragraph",
+      "table"
+     ]
+    }
+   ],
+   "sections": [
+    {
+     "section_id": "S04.a",
+     "title": "Priority schemes",
+     "scope": "authored",
+     "content": [
+      "accordion_summary",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S04.b",
+     "title": "Fresh Start Housing Scheme",
+     "scope": "outside",
+     "content": [
+      "accordion_summary",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S04.c",
+     "title": "Application status",
+     "scope": "outside",
+     "content": [
+      "accordion_summary",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S04.d",
+     "title": "Changes to flat application",
+     "scope": "authored",
+     "content": [
+      "accordion_summary",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S04.e",
+     "title": "Cancellation of flat application",
+     "scope": "authored",
+     "content": [
+      "accordion_summary",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S04.e.1",
+     "title": "Financial forfeitures and consequences after cancellation",
+     "scope": "authored",
+     "content": [
+      "footnote",
+      "table"
+     ]
+    }
+   ],
+   "headings": {
+    "page_total": 7,
+    "as_sections": 2,
+    "inside_table_or_list_text": [
+     "key collection"
+    ],
+    "site_chrome": 4,
+    "not_extracted": []
+   },
+   "page_data_coverage": {
+    "sentences": 88,
+    "in_extracted_blocks": 80,
+    "site_chrome_excluded": 6,
+    "not_rendered_metadata": 2,
+    "rendered_but_not_extracted": 0
+   },
+   "tables": [
+    {
+     "block_id": "S04.b018",
+     "section_id": "S04.c",
+     "rows": 5,
+     "cells": 7,
+     "header_rows": 1,
+     "merged_cells": 1,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S04.b025",
+     "section_id": "S04.d",
+     "rows": 5,
+     "cells": 12,
+     "header_rows": 2,
+     "merged_cells": 3,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S04.b033",
+     "section_id": "S04.e.1",
+     "rows": 5,
+     "cells": 14,
+     "header_rows": 1,
+     "merged_cells": 1,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S04.b034",
+     "section_id": "S04.e.1",
+     "rows": 2,
+     "cells": 4,
+     "header_rows": 0,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": "S04.b033"
+    }
+   ],
+   "links": [
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/frequently-asked-questions-on-sales-exercises",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.0"
+     ],
+     "status": "dependency:unacquired_dependency",
+     "note": "Sales-exercise FAQs: may hold application-procedure detail; not in the approved source list (G-16)"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/fresh-start-housing-scheme",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.b"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Fresh Start Housing Scheme: not a first-timer couple scheme (D-033)"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes",
+     "kind": "internal",
+     "target_source_id": "S05",
+     "count": 2,
+     "sections": [
+      "S04.a",
+      "S04.d"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application?anchor=application-status",
+     "kind": "same_page",
+     "target_source_id": "S04",
+     "count": 1,
+     "sections": [
+      "S04.0"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application?anchor=cancellation",
+     "kind": "same_page",
+     "target_source_id": "S04",
+     "count": 1,
+     "sections": [
+      "S04.d"
+     ],
+     "status": "same_page"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter",
+     "kind": "internal",
+     "target_source_id": "S02",
+     "count": 1,
+     "sections": [
+      "S04.0"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/hdb-flat-portal/hfe/get-help",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.0"
+     ],
+     "status": "dependency:excluded_by_policy",
+     "note": "HFE FAQ pages (former S10): excluded because robots.txt disallows /hdb-flat-portal (D-060). Links are recorded, never followed or used as evidence"
+    },
+    {
+     "href": "https://homes.hdb.gov.sg/",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.e.1"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://homes.hdb.gov.sg/home/finding-a-flat",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.c"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://homes.hdb.gov.sg/home/landing",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 4,
+     "sections": [
+      "S04.0",
+      "S04.c",
+      "S04.d"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://iam.hdb.gov.sg/common/login?spcptracking=1724645184270__b499_433140d5b224",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.d"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://services-homes.hdb.gov.sg/sales/application-rate/BTO/202602",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.c"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://services-homes.hdb.gov.sg/sales/application-rate/SBF/202602",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.c"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://services-homes.hdb.gov.sg/sales/application-rate/bto/202606",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.c"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://services2.hdb.gov.sg/web/bp28/TimeLine/my-flat-dashboard",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S04.d",
+      "S04.e.1"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://services2.hdb.gov.sg/webapp/BE15AWMyRequest/BE15PMain",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 2,
+     "sections": [
+      "S04.d",
+      "S04.e"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://services2.hdb.gov.sg/webapp/BF08CESS/Index.jsp",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.0"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://services2.hdb.gov.sg/webapp/BP13BTOENQWeb/BP13J011BTOOct25.jsp",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.c"
+     ],
+     "status": "transactional_or_service"
+    },
+    {
+     "href": "https://www.hdb.gov.sg/myhdb-page",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S04.c"
+     ],
+     "status": "dependency:service_contact",
+     "note": "HDB contact/service pages: redirect targets for discretionary cases, never evidence"
+    }
+   ],
+   "duplicates": {
+    "passages": [],
+    "blocks": []
+   },
+   "empty_sections": [],
+   "passage_ids_unique": true,
+   "temporal": {
+    "retrieved_at": [
+     "2026-10-28T09:38:29Z"
+    ],
+    "page_last_updated": [
+     "2026-10-22"
+    ],
+    "effective_date_known": false
+   },
+   "issues": [
+    {
+     "kind": "manual_check",
+     "where": "S04.b018",
+     "detail": "1 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "manual_check",
+     "where": "S04.b025",
+     "detail": "3 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "manual_check",
+     "where": "S04.b033",
+     "detail": "1 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "temporal_gap",
+     "where": "S04",
+     "detail": "no stated effective date; page 'last updated' date only"
+    },
+    {
+     "kind": "limitation",
+     "where": "S04",
+     "detail": "single default-state snapshot: no default-vs-expanded diff. Mitigation: collapsed panels present in DOM + page-data check"
+    }
+   ]
+  },
+  {
+   "source_id": "S05",
+   "raw_sha256": "595eb09b08227b58ec7d17945d5c094e4e26697da9e90fc470ad7eb6e14891d8",
+   "extractor_version": "1.0.0",
+   "snapshots": 1,
+   "counts": {
+    "sections": 36,
+    "passages": 35,
+    "blocks": 87,
+    "tables": 4,
+    "raw_tables": 4,
+    "accordions_extracted": 8,
+    "accordion_toggles_raw": 8,
+    "accordions_collapsed_at_capture": 8
+   },
+   "accordions": [
+    {
+     "section_id": "S05.a",
+     "title": "First-Timer (Parents & Married Couples), or FT(PMC) category",
+     "body_block_kinds": [
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.b",
+     "title": "Family and Parenthood Priority Scheme (FPPS)",
+     "body_block_kinds": [
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.c",
+     "title": "Third Child Priority Scheme (TCPS)",
+     "body_block_kinds": [
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.d",
+     "title": "Assistance Scheme for Second-Timers (Divorced/ Widowed Parents) (ASSI…",
+     "body_block_kinds": [
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.e",
+     "title": "Family Care Scheme (FCS) (Proximity)",
+     "body_block_kinds": [
+      "footnote",
+      "list",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S05.f",
+     "title": "Family Care Scheme (FCS) (Joint Balloting)",
+     "body_block_kinds": [
+      "footnote",
+      "list",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S05.g",
+     "title": "Senior Priority Scheme (SPS) (near existing home)",
+     "body_block_kinds": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.h",
+     "title": "Tenants’ Priority Scheme (TPS)",
+     "body_block_kinds": [
+      "paragraph"
+     ]
+    }
+   ],
+   "sections": [
+    {
+     "section_id": "S05.h1",
+     "title": "Greater priority for first-timer families",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.a",
+     "title": "First-Timer (Parents & Married Couples), or FT(PMC) category",
+     "scope": "authored",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S05.a.1",
+     "title": "Flat allocation",
+     "scope": "authored",
+     "content": [
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.a.2",
+     "title": "Additional ballot chance",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.b",
+     "title": "Family and Parenthood Priority Scheme (FPPS)",
+     "scope": "authored",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S05.b.1",
+     "title": "Flat allocation",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.b.2",
+     "title": "Eligibility conditions",
+     "scope": "authored",
+     "content": [
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.b.3",
+     "title": "Balloting process",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.h2",
+     "title": "Priority schemes for different groups of flat buyers",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.h3",
+     "title": "Couples expecting a child and families with child(ren)",
+     "scope": "chrome",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.c",
+     "title": "Third Child Priority Scheme (TCPS)",
+     "scope": "outside",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S05.c.1",
+     "title": "Flat allocation",
+     "scope": "outside",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.c.2",
+     "title": "Eligibility conditions",
+     "scope": "outside",
+     "content": [
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.d",
+     "title": "Assistance Scheme for Second-Timers (Divorced/ Widowed Parents) (ASSI…",
+     "scope": "outside",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S05.d.1",
+     "title": "Flat allocation",
+     "scope": "outside",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.d.2",
+     "title": "Eligibility conditions",
+     "scope": "outside",
+     "content": [
+      "list"
+     ]
+    },
+    {
+     "section_id": "S05.h4",
+     "title": "Parents and child(ren) who wish to live with/ near each other",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.e",
+     "title": "Family Care Scheme (FCS) (Proximity)",
+     "scope": "authored",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S05.e.1",
+     "title": "Flat allocation",
+     "scope": "authored",
+     "content": [
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.e.2",
+     "title": "Eligibility conditions",
+     "scope": "authored",
+     "content": [
+      "list",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S05.e.3",
+     "title": "Quota of flats given priority under FCS (Proximity) for families and …",
+     "scope": "authored",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.e.4",
+     "title": "BTO allocation quota for non-seniors",
+     "scope": "authored",
+     "content": [
+      "footnote",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S05.e.5",
+     "title": "SBF allocation quota for non-seniors",
+     "scope": "authored",
+     "content": [
+      "footnote",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S05.f",
+     "title": "Family Care Scheme (FCS) (Joint Balloting)",
+     "scope": "authored",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S05.f.1",
+     "title": "Flat allocation",
+     "scope": "authored",
+     "content": [
+      "list",
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.f.2",
+     "title": "Eligibility conditions",
+     "scope": "authored",
+     "content": [
+      "list"
+     ]
+    },
+    {
+     "section_id": "S05.f.3",
+     "title": "Balloting process",
+     "scope": "authored",
+     "content": [
+      "footnote",
+      "paragraph",
+      "table"
+     ]
+    },
+    {
+     "section_id": "S05.h5",
+     "title": "Seniors who wish to live near their existing home",
+     "scope": "outside",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.g",
+     "title": "Senior Priority Scheme (SPS) (near existing home)",
+     "scope": "outside",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S05.g.1",
+     "title": "Flat allocation",
+     "scope": "outside",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.g.2",
+     "title": "Eligibility conditions",
+     "scope": "outside",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.h6",
+     "title": "Public rental tenants who wish to purchase their own home",
+     "scope": "outside",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.h",
+     "title": "Tenants’ Priority Scheme (TPS)",
+     "scope": "outside",
+     "content": [
+      "accordion_summary"
+     ]
+    },
+    {
+     "section_id": "S05.h.1",
+     "title": "Flat allocation",
+     "scope": "outside",
+     "content": [
+      "paragraph"
+     ]
+    },
+    {
+     "section_id": "S05.h.2",
+     "title": "Eligibility conditions",
+     "scope": "outside",
+     "content": [
+      "paragraph"
+     ]
+    }
+   ],
+   "headings": {
+    "page_total": 33,
+    "as_sections": 28,
+    "inside_table_or_list_text": [],
+    "site_chrome": 5,
+    "not_extracted": []
+   },
+   "page_data_coverage": {
+    "sentences": 148,
+    "in_extracted_blocks": 138,
+    "site_chrome_excluded": 8,
+    "not_rendered_metadata": 2,
+    "rendered_but_not_extracted": 0
+   },
+   "tables": [
+    {
+     "block_id": "S05.b054",
+     "section_id": "S05.e.2",
+     "rows": 4,
+     "cells": 8,
+     "header_rows": 1,
+     "merged_cells": 0,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S05.b060",
+     "section_id": "S05.e.4",
+     "rows": 5,
+     "cells": 31,
+     "header_rows": 2,
+     "merged_cells": 4,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S05.b063",
+     "section_id": "S05.e.5",
+     "rows": 5,
+     "cells": 31,
+     "header_rows": 2,
+     "merged_cells": 4,
+     "empty_cells": 0,
+     "nested_in": null
+    },
+    {
+     "block_id": "S05.b076",
+     "section_id": "S05.f.3",
+     "rows": 3,
+     "cells": 8,
+     "header_rows": 1,
+     "merged_cells": 1,
+     "empty_cells": 0,
+     "nested_in": null
+    }
+   ],
+   "links": [
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/conditions-after-buying-a-new-flat?anchor=mop",
+     "kind": "same_page",
+     "target_source_id": "S14",
+     "count": 1,
+     "sections": [
+      "S05.e.2"
+     ],
+     "status": "manifest:outside_mvp"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes#fcs-proximity",
+     "kind": "internal",
+     "target_source_id": "S05",
+     "count": 1,
+     "sections": [
+      "S05.h2"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes#fpps",
+     "kind": "internal",
+     "target_source_id": "S05",
+     "count": 1,
+     "sections": [
+      "S05.h2"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes#tcps",
+     "kind": "internal",
+     "target_source_id": "S05",
+     "count": 1,
+     "sections": [
+      "S05.h2"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application?anchor=cancellation",
+     "kind": "same_page",
+     "target_source_id": "S04",
+     "count": 1,
+     "sections": [
+      "S05.f.3"
+     ],
+     "status": "manifest:essential"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/modes-of-sales",
+     "kind": "internal",
+     "target_source_id": "S06",
+     "count": 3,
+     "sections": [
+      "S05.h1",
+      "S05.e.1",
+      "S05.g.1"
+     ],
+     "status": "manifest:supporting"
+    },
+    {
+     "href": "/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/modes-of-sales?anchor=additional-ballot-sbf",
+     "kind": "same_page",
+     "target_source_id": "S06",
+     "count": 1,
+     "sections": [
+      "S05.h1"
+     ],
+     "status": "manifest:supporting"
+    },
+    {
+     "href": "/buying-a-flat/flat-grant-and-loan-eligibility",
+     "kind": "internal",
+     "target_source_id": null,
+     "count": 1,
+     "sections": [
+      "S05.d.2"
+     ],
+     "status": "dependency:outside_mvp",
+     "note": "Grant pages: calculation is Excluded (D-008); the HFE-grant relationship is Context via S02"
+    },
+    {
+     "href": "https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/modes-of-sales?anchor=additional-ballot-bto",
+     "kind": "internal",
+     "target_source_id": "S06",
+     "count": 1,
+     "sections": [
+      "S05.h1"
+     ],
+     "status": "manifest:supporting"
+    }
+   ],
+   "duplicates": {
+    "passages": [],
+    "blocks": []
+   },
+   "empty_sections": [
+    "S05.0"
+   ],
+   "passage_ids_unique": true,
+   "temporal": {
+    "retrieved_at": [
+     "2026-10-28T10:29:58Z"
+    ],
+    "page_last_updated": [
+     "2026-10-23"
+    ],
+    "effective_date_known": false
+   },
+   "issues": [
+    {
+     "kind": "manual_check",
+     "where": "S05.b060",
+     "detail": "4 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "manual_check",
+     "where": "S05.b063",
+     "detail": "4 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "manual_check",
+     "where": "S05.b076",
+     "detail": "1 merged cell(s): confirm which rows a value applies to against the rendered page"
+    },
+    {
+     "kind": "temporal_gap",
+     "where": "S05",
+     "detail": "no stated effective date; page 'last updated' date only"
+    },
+    {
+     "kind": "limitation",
+     "where": "S05",
+     "detail": "single default-state snapshot: no default-vs-expanded diff. Mitigation: collapsed panels present in DOM + page-data check"
+    }
+   ]
+  }
+ ],
+ "pdf_sources": [
+  {
+   "source_id": "S07",
+   "raw_sha256": "891c00138e722a45b2f50fc211e4414a420bf39925b431fcf8b4c7104fe2d4a9",
+   "method": "manual page review (D-052); no text extraction",
+   "pages": 2,
+   "pages_reviewed": [
+    1,
+    2
+   ],
+   "structure": "one table: employment status | description | examples (6 statuses; examples marked non-exhaustive)",
+   "scope": "authored",
+   "area": "hfe_documents",
+   "finding": "Defines employment statuses only; no per-status document list"
+  },
+  {
+   "source_id": "S08",
+   "raw_sha256": "918bfebc82eb2bbe65ef3c7110db0f7bfb8ad77da09711b7644733834024d98e",
+   "method": "manual page review (D-052); no text extraction",
+   "pages": 4,
+   "pages_reviewed": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "structure": "p1 route to (A) 2 jobs / (B) more than 2 jobs; p2 (A) steps 1-5; p3-4 (B) steps 1-6 with grouping scenarios",
+   "scope": "authored",
+   "area": "hfe_documents",
+   "finding": "Declaration steps for 2+ jobs; the self-employed averaging formula is income computation and is not authored (D-013); no per-status document list"
+  }
+ ]
+}

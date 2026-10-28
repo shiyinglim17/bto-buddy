@@ -1,0 +1,389 @@
+{
+  "about": "Completeness checklist for extraction (docs/data_sources.md §2.2, §12; matrix in 02 §3). Each item matches an extracted section by regex over its lower-cased heading path (page title excluded). scope: authored = facts are written from it; context = Context-only tier; outside = captured but never authored (D-008, D-013, D-033); chrome = site navigation text; media_only = video or image with no text.",
+  "html": {
+    "S01": [
+      {
+        "label": "Fiancé and fiancée",
+        "match": "^fianc. and fianc.e$",
+        "scope": "authored",
+        "area": "household_composition"
+      },
+      {
+        "label": "Fiancé(e): core family nucleus",
+        "match": "^fianc. and fianc.e > core family nucleus$",
+        "scope": "authored",
+        "area": "household_composition"
+      },
+      {
+        "label": "Fiancé(e): eligibility conditions (new-flat column only)",
+        "match": "^fianc. and fianc.e > eligibility conditions$",
+        "scope": "authored",
+        "area": "household_composition"
+      },
+      {
+        "label": "Fiancé(e): solemnisation of marriage",
+        "match": "^fianc. and fianc.e > solemnisation of marriage$",
+        "scope": "authored",
+        "area": "household_composition"
+      },
+      {
+        "label": "Fiancé(e) below 21",
+        "match": "^fianc. and fianc.e > if your fianc.*below 21",
+        "scope": "authored",
+        "area": "household_composition"
+      },
+      {
+        "label": "No change of persons listed",
+        "match": "^fianc. and fianc.e > no change of persons",
+        "scope": "authored",
+        "area": "application_requirements"
+      },
+      {
+        "label": "Married couples",
+        "match": "^married couples and/ or parent\\(s\\) with child\\(ren\\)$",
+        "scope": "authored",
+        "area": "household_composition"
+      },
+      {
+        "label": "Married couples: core family nucleus",
+        "match": "^married couples.* > core family nucleus$",
+        "scope": "authored",
+        "area": "household_composition"
+      },
+      {
+        "label": "Married couples: eligibility conditions (new-flat column only)",
+        "match": "^married couples.* > eligibility conditions$",
+        "scope": "authored",
+        "area": "household_composition"
+      },
+      {
+        "label": "Married couples: related scheme",
+        "match": "^married couples.* > related scheme",
+        "scope": "outside",
+        "area": "other_housing"
+      },
+      {
+        "label": "Multi-generation families",
+        "match": "^multi-generation families",
+        "scope": "outside",
+        "area": "other_housing"
+      },
+      {
+        "label": "Orphaned siblings",
+        "match": "^orphaned siblings",
+        "scope": "outside",
+        "area": "other_housing"
+      },
+      {
+        "label": "Families with non-residents",
+        "match": "^families with non-residents$",
+        "scope": "authored",
+        "area": "household_composition"
+      },
+      {
+        "label": "Non-resident spouse (D-047)",
+        "match": "^families with non-residents > non-resident spouse$",
+        "scope": "authored",
+        "area": "household_composition"
+      },
+      {
+        "label": "Non-resident parents/children",
+        "match": "^families with non-residents > non-resident parents",
+        "scope": "outside",
+        "area": "other_housing"
+      },
+      {
+        "label": "Non-residents: core family nucleus",
+        "match": "^families with non-residents > core family nucleus$",
+        "scope": "authored",
+        "area": "household_composition"
+      },
+      {
+        "label": "Non-residents: eligibility conditions (spouse, new-flat column only)",
+        "match": "^families with non-residents > eligibility conditions$",
+        "scope": "authored",
+        "area": "household_composition"
+      }
+    ],
+    "S02": [
+      {
+        "label": "Make an informed decision",
+        "match": "^make an informed decision$",
+        "scope": "context",
+        "area": "hfe_grant_loan_context"
+      },
+      {
+        "label": "Integrated loan application service",
+        "match": "^integrated loan application service$",
+        "scope": "context",
+        "area": "hfe_grant_loan_context"
+      },
+      {
+        "label": "Guide to HFE letter application (intro line)",
+        "match": "guide to hfe letter application$",
+        "scope": "chrome",
+        "area": "hfe_process"
+      },
+      {
+        "label": "When to apply",
+        "match": "^when to apply$",
+        "scope": "authored",
+        "area": "hfe_process"
+      },
+      {
+        "label": "When to apply: additional notes",
+        "match": "^when to apply > additional notes$",
+        "scope": "authored",
+        "area": "hfe_process"
+      },
+      {
+        "label": "How to apply",
+        "match": "^how to apply$",
+        "scope": "authored",
+        "area": "hfe_process"
+      },
+      {
+        "label": "Step 1 (video only, M03)",
+        "match": "^how to apply > step 1",
+        "scope": "media_only",
+        "area": "hfe_process"
+      },
+      {
+        "label": "Step 2 (video only, M04)",
+        "match": "^how to apply > step 2",
+        "scope": "media_only",
+        "area": "hfe_process"
+      },
+      {
+        "label": "How to apply: additional information",
+        "match": "^how to apply > additional information$",
+        "scope": "authored",
+        "area": "hfe_process"
+      },
+      {
+        "label": "Income guidelines (pointer to S03)",
+        "match": "^income guidelines$",
+        "scope": "authored",
+        "area": "hfe_documents"
+      },
+      {
+        "label": "Validity and possible review",
+        "match": "^validity and possible review",
+        "scope": "authored",
+        "area": "hfe_process"
+      },
+      {
+        "label": "Next steps (text plus infographic M02)",
+        "match": "^next steps with your hfe letter$",
+        "scope": "context",
+        "area": "application_requirements"
+      }
+    ],
+    "S03": [
+      {
+        "label": "Income guidelines (assessment period only; no calculation, D-013)",
+        "match": "^income guidelines$",
+        "scope": "authored",
+        "area": "hfe_documents"
+      },
+      {
+        "label": "Documents",
+        "match": "^documents$",
+        "scope": "authored",
+        "area": "hfe_documents"
+      }
+    ],
+    "S04": [
+      {
+        "label": "Priority schemes (pointer to S05)",
+        "match": "^priority schemes$",
+        "scope": "authored",
+        "area": "priority_considerations"
+      },
+      {
+        "label": "Fresh Start Housing Scheme",
+        "match": "^fresh start housing scheme$",
+        "scope": "outside",
+        "area": "other_housing"
+      },
+      {
+        "label": "Application status",
+        "match": "^application status$",
+        "scope": "outside",
+        "area": "application_requirements"
+      },
+      {
+        "label": "Changes to flat application",
+        "match": "^changes to flat application$",
+        "scope": "authored",
+        "area": "application_requirements"
+      },
+      {
+        "label": "Cancellation of flat application",
+        "match": "^cancellation of flat application$",
+        "scope": "authored",
+        "area": "non_selection"
+      },
+      {
+        "label": "Financial forfeitures and consequences (incl. non-selection waiver)",
+        "match": "^cancellation of flat application > financial forfeitures",
+        "scope": "authored",
+        "area": "non_selection"
+      }
+    ],
+    "S05": [
+      {
+        "label": "Greater priority for first-timer families",
+        "match": "^greater priority for first-timer families$",
+        "scope": "authored",
+        "area": "priority_considerations"
+      },
+      {
+        "label": "FT(PMC)",
+        "match": "^first-timer \\(parents & married couples\\), or ft\\(pmc\\) category",
+        "scope": "authored",
+        "area": "priority_considerations"
+      },
+      {
+        "label": "FPPS",
+        "match": "^family and parenthood priority scheme \\(fpps\\)",
+        "scope": "authored",
+        "area": "priority_considerations"
+      },
+      {
+        "label": "Priority schemes for different groups",
+        "match": "^priority schemes for different groups of flat buyers$",
+        "scope": "authored",
+        "area": "priority_considerations"
+      },
+      {
+        "label": "Group heading: couples expecting / families with children",
+        "match": "^priority schemes for different groups of flat buyers > couples expecting",
+        "scope": "chrome",
+        "area": "priority_considerations"
+      },
+      {
+        "label": "TCPS",
+        "match": "^third child priority scheme",
+        "scope": "outside",
+        "area": "other_housing"
+      },
+      {
+        "label": "Assistance scheme for second-timer parents",
+        "match": "^assistance scheme for second-timers",
+        "scope": "outside",
+        "area": "other_housing"
+      },
+      {
+        "label": "Group heading: parents and children living with/near",
+        "match": "^parents and child\\(ren\\) who wish to live",
+        "scope": "authored",
+        "area": "priority_considerations"
+      },
+      {
+        "label": "FCS (Proximity)",
+        "match": "^family care scheme \\(fcs\\) \\(proximity\\)",
+        "scope": "authored",
+        "area": "priority_considerations"
+      },
+      {
+        "label": "FCS (Joint Balloting)",
+        "match": "^family care scheme \\(fcs\\) \\(joint balloting\\)",
+        "scope": "authored",
+        "area": "priority_considerations"
+      },
+      {
+        "label": "Group heading: seniors",
+        "match": "^seniors who wish to live near",
+        "scope": "outside",
+        "area": "other_housing"
+      },
+      {
+        "label": "SPS",
+        "match": "^senior priority scheme",
+        "scope": "outside",
+        "area": "other_housing"
+      },
+      {
+        "label": "Group heading: rental tenants",
+        "match": "^public rental tenants",
+        "scope": "outside",
+        "area": "other_housing"
+      },
+      {
+        "label": "TPS",
+        "match": "^tenants. priority scheme",
+        "scope": "outside",
+        "area": "other_housing"
+      }
+    ]
+  },
+  "pdf": {
+    "S07": {
+      "pages": 2,
+      "pages_reviewed": [
+        1,
+        2
+      ],
+      "structure": "one table: employment status | description | examples (6 statuses; examples marked non-exhaustive)",
+      "scope": "authored",
+      "area": "hfe_documents",
+      "finding": "Defines employment statuses only; no per-status document list"
+    },
+    "S08": {
+      "pages": 4,
+      "pages_reviewed": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "structure": "p1 route to (A) 2 jobs / (B) more than 2 jobs; p2 (A) steps 1-5; p3-4 (B) steps 1-6 with grouping scenarios",
+      "scope": "authored",
+      "area": "hfe_documents",
+      "finding": "Declaration steps for 2+ jobs; the self-employed averaging formula is income computation and is not authored (D-013); no per-status document list"
+    }
+  },
+  "link_dependencies": [
+    {
+      "match": "cpf-housing-grant|enhanced-cpf|stepup-cpf|proximity-housing-gran|/flat-grant-and-loan-eligibility/?$",
+      "class": "outside_mvp",
+      "note": "Grant pages: calculation is Excluded (D-008); the HFE-grant relationship is Context via S02"
+    },
+    {
+      "match": "housing-loan-from-hdb",
+      "class": "context_only",
+      "note": "HDB housing loan page: financing is Excluded; link only"
+    },
+    {
+      "match": "frequently-asked-questions-on-sales-exercises",
+      "class": "unacquired_dependency",
+      "note": "Sales-exercise FAQs: may hold application-procedure detail; not in the approved source list (G-16)"
+    },
+    {
+      "match": "fresh-start-housing-scheme",
+      "class": "outside_mvp",
+      "note": "Fresh Start Housing Scheme: not a first-timer couple scheme (D-033)"
+    },
+    {
+      "match": "process-for-buying-a-resale-flat",
+      "class": "outside_mvp",
+      "note": "Resale process: other housing (D-008)"
+    },
+    {
+      "match": "ica\\.gov\\.sg|mom\\.gov\\.sg",
+      "class": "external_reference",
+      "note": "ICA/MOM pass pages: referenced for the non-resident spouse pass condition; link only"
+    },
+    {
+      "match": "write-to-us|myhdb-page",
+      "class": "service_contact",
+      "note": "HDB contact/service pages: redirect targets for discretionary cases, never evidence"
+    },
+    {
+      "match": "hdb-flat-portal/hfe/get-help",
+      "class": "excluded_by_policy",
+      "note": "HFE FAQ pages (former S10): excluded because robots.txt disallows /hdb-flat-portal (D-060). Links are recorded, never followed or used as evidence"
+    }
+  ]
+}
