@@ -1,0 +1,122 @@
+{
+ "kb_version": "kb-2026-10-28.1",
+ "policy_period": "HDB sources retrieved 28 Oct 2026 (UTC); no stated effective dates",
+ "extractor_version": "1.0.0",
+ "sources": [
+  {
+   "source_id": "S01",
+   "retrieved_at": "2026-10-28T09:18:06Z",
+   "raw_sha256": "f0d477655219055266701ce7a5d58d91db3aa4f5c6e3c3c4f7d7dc304c48f0f5",
+   "text_sha256": "3c984d538c905bb9f2215752169d2234ed7343e58eee27dae1e3e647d533b60a",
+   "page_last_updated": "2026-08-23",
+   "effective_date": null,
+   "effective_date_status": "page_last_updated_only",
+   "l1_passages": 22,
+   "facts": 25
+  },
+  {
+   "source_id": "S02",
+   "retrieved_at": "2026-10-28T09:30:08Z",
+   "raw_sha256": "e2e44274bad84b9a7294eef81d7628ceafa008ceb3990cfe6962a8f145482c59",
+   "text_sha256": "8d37943ebbd6b1b7887986950c3ee2a92c89b29af99c9fd00a18652c3c982502",
+   "page_last_updated": "2026-10-28",
+   "effective_date": null,
+   "effective_date_status": "page_last_updated_only",
+   "l1_passages": 13,
+   "facts": 16
+  },
+  {
+   "source_id": "S03",
+   "retrieved_at": "2026-10-28T09:30:57Z",
+   "raw_sha256": "0e8793a9221b3533e63f77ce6deab5e3370939011b44cea1d0bc09db98b0fa9e",
+   "text_sha256": "7fd6ae8e36057452b629d418df5fe47ceda99cb514bcf5edf2968c535ea8658b",
+   "page_last_updated": "2026-07-24",
+   "effective_date": null,
+   "effective_date_status": "page_last_updated_only",
+   "l1_passages": 3,
+   "facts": 7
+  },
+  {
+   "source_id": "S04",
+   "retrieved_at": "2026-10-28T09:38:29Z",
+   "raw_sha256": "4397707f5878f78c079f5ab45de781f180e3b081dcff9436f3966396dcc77373",
+   "text_sha256": "d5cdcbdc649c9106e3c59ccaafc8d5fb8c55ac569235b61010fbd7c62ae1eb0a",
+   "page_last_updated": "2026-10-22",
+   "effective_date": null,
+   "effective_date_status": "page_last_updated_only",
+   "l1_passages": 7,
+   "facts": 17
+  },
+  {
+   "source_id": "S05",
+   "retrieved_at": "2026-10-28T10:29:58Z",
+   "raw_sha256": "595eb09b08227b58ec7d17945d5c094e4e26697da9e90fc470ad7eb6e14891d8",
+   "text_sha256": "172c6f3c1b0b16725085a8e207bdefab4ddc0ba18b2f2342b3589eaff7c1829b",
+   "page_last_updated": "2026-10-23",
+   "effective_date": null,
+   "effective_date_status": "page_last_updated_only",
+   "l1_passages": 35,
+   "facts": 15
+  },
+  {
+   "source_id": "S07",
+   "retrieved_at": "2026-10-28T10:30:40Z",
+   "raw_sha256": "891c00138e722a45b2f50fc211e4414a420bf39925b431fcf8b4c7104fe2d4a9",
+   "text_sha256": null,
+   "page_last_updated": "2025-12-19",
+   "effective_date": null,
+   "effective_date_status": "pdf_metadata_date_only",
+   "l1_passages": null,
+   "facts": 6
+  },
+  {
+   "source_id": "S08",
+   "retrieved_at": "2026-10-28T10:30:35Z",
+   "raw_sha256": "918bfebc82eb2bbe65ef3c7110db0f7bfb8ad77da09711b7644733834024d98e",
+   "text_sha256": null,
+   "page_last_updated": "2025-12-19",
+   "effective_date": null,
+   "effective_date_status": "pdf_metadata_date_only",
+   "l1_passages": null,
+   "facts": 3
+  }
+ ],
+ "fact_count": 89,
+ "rules_version": "rules-2026-10-29.1",
+ "fact_counts": {
+  "topic": {
+   "household_composition": 21,
+   "application_requirements": 11,
+   "hfe_process": 14,
+   "hfe_documents": 15,
+   "priority_considerations": 15,
+   "non_selection": 8,
+   "hfe_grant_loan_context": 5
+  },
+  "scope_tier": {
+   "core": 61,
+   "limited": 23,
+   "context": 5
+  },
+  "validation": {
+   "verified": 51,
+   "snapshot_checked": 38
+  },
+  "rights": {
+   "overlap_checked": 89
+  }
+ },
+ "files_sha256": {
+  "data/policy_facts.jsonl": "0affd03237e6e6ce4b52f62b464e550ae80b0b39b8a6f225dcdac441fafe6dd3",
+  "data/visual_resources.json": "7991774bdb241681e69b1d88c7536bb5eae4639ebc57d091172cd09a2eaad189",
+  "data/source_coverage.csv": "e8e090692accf5368177186f438d717a039fe3024e96f1c29b8224d0065f73bf",
+  "data/sources_manifest.json": "dbf5e4d25407341a8eeecd23bd9942dd2e2c591873dfb697f89e81a9d9118503",
+  "data/corpus/expected_sections.json": "ef980ffd29391f79f658228963934268107f308c26906227a738fb25861d1956",
+  "data/policy_rules.yaml": "3179cf4dc9c9c71fd8d1435cf750c93d910f94b6d77b41aa20684c4d0051fd64",
+  "data/corpus/critical_fact_review.json": "684d0b45dd94b85ba50d853b9e3ad25ba1d1637b97e9dc1afc2dedb141a17d94",
+  "data/corpus/fact_verification.json": "b374a436fbb86ab296ae54ebdd895f2d2a6bced88ff41f6f4ce6a9bf76cf0f9a",
+  "data/corpus/extraction_report.json": "312f2f731f82d032c13e4d5bbf4cd002b665878fa7d77094052528ce5658c5be",
+  "data/corpus/fact_check_report.json": "c95cc72ebf0b3f2a2846b8e309ed1b6b1b097567d8345f2216c4411ef366e746"
+ },
+ "freeze_status": "frozen: scope (D-061), verification (D-058) and rules (D-062) approved"
+}

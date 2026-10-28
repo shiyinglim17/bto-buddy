@@ -1,0 +1,574 @@
+{
+ "reviewed_at": "2026-10-29",
+ "results": [
+  {
+   "fact_id": "HH-COUPLE-001",
+   "checklist": "C-01",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-COUPLE-002",
+   "checklist": "C-05",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-CIT-001",
+   "checklist": "C-02",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-AGE-001",
+   "checklist": "C-02",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "21"
+   ],
+   "anchors_checked": 1,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-AGE-002",
+   "checklist": "C-04",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "21"
+   ],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-MARRY-001",
+   "checklist": "C-04",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "3"
+   ],
+   "anchors_checked": 4,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-CHANGE-001",
+   "checklist": "C-04",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-PROP-001",
+   "checklist": "C-03",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "30"
+   ],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-SUBSIDY-001",
+   "checklist": "C-03",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-SUBSIDY-002",
+   "checklist": "C-03",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-NONRES-001",
+   "checklist": "C-06",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "2"
+   ],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-NONRES-002",
+   "checklist": "C-06",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "35"
+   ],
+   "anchors_checked": 1,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-NONRES-003",
+   "checklist": "C-06",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HH-OTHER-001",
+   "checklist": "rules",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "APP-HFE-001",
+   "checklist": "C-10",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "APP-FEE-001",
+   "checklist": "C-10",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "$10"
+   ],
+   "anchors_checked": 4,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "APP-BALLOT-001",
+   "checklist": "C-10",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "APP-CHANGE-001",
+   "checklist": "C-11",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "$10"
+   ],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "APP-CHANGE-002",
+   "checklist": "C-11",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "APP-CHANGE-003",
+   "checklist": "C-11",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HFE-APPLY-001",
+   "checklist": "C-10",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HFE-SINGPASS-001",
+   "checklist": "C-08",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HFE-STEPS-001",
+   "checklist": "C-08",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "1",
+    "2",
+    "30"
+   ],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HFE-STEPS-002",
+   "checklist": "C-08",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "1"
+   ],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HFE-TIME-001",
+   "checklist": "C-07",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HFE-VALID-001",
+   "checklist": "C-09",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "9"
+   ],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HFE-VALID-002",
+   "checklist": "C-09",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HFE-RENEW-001",
+   "checklist": "C-09",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "30"
+   ],
+   "anchors_checked": 4,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HFE-REVIEW-001",
+   "checklist": "C-09",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HFE-HOUSEHOLD-001",
+   "checklist": "C-09",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "HFE-HOUSEHOLD-002",
+   "checklist": "C-09",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "1",
+    "2"
+   ],
+   "anchors_checked": 4,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "DOC-MYINFO-001",
+   "checklist": "C-12",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "DOC-PERIOD-001",
+   "checklist": "C-12",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "12",
+    "2",
+    "2023",
+    "2024"
+   ],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "DOC-STATUS-001",
+   "checklist": "C-13",
+   "method": "manual_pdf_page_check",
+   "numbers": [],
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "DOC-MULTIJOB-001",
+   "checklist": "rules",
+   "method": "manual_pdf_page_check",
+   "numbers": [
+    "1",
+    "2"
+   ],
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "DOC-MULTIJOB-002",
+   "checklist": "rules",
+   "method": "manual_pdf_page_check",
+   "numbers": [
+    "1",
+    "2"
+   ],
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "PRI-GEN-001",
+   "checklist": "C-15",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 1,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "PRI-GEN-002",
+   "checklist": "C-15",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "PRI-FT-001",
+   "checklist": "C-15",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 1,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "PRI-FTPMC-001",
+   "checklist": "C-15",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "18",
+    "40",
+    "5"
+   ],
+   "anchors_checked": 4,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "PRI-FTPMC-002",
+   "checklist": "rules",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 1,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "PRI-FTPMC-003",
+   "checklist": "C-15",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "1",
+    "2",
+    "3"
+   ],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "PRI-FPPS-001",
+   "checklist": "C-15",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "18"
+   ],
+   "anchors_checked": 4,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "PRI-FCS-002",
+   "checklist": "C-16",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "4"
+   ],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "NS-CANCEL-001",
+   "checklist": "C-14",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "NS-CANCEL-002",
+   "checklist": "C-14",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "NS-QUEUE-001",
+   "checklist": "C-14",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "NS-COUNT-001",
+   "checklist": "C-14",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "NS-WAIVE-001",
+   "checklist": "C-14",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "10",
+    "5"
+   ],
+   "anchors_checked": 2,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "NS-FT-001",
+   "checklist": "C-14",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "0",
+    "1"
+   ],
+   "anchors_checked": 3,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  },
+  {
+   "fact_id": "NS-BOOKED-001",
+   "checklist": "C-14",
+   "method": "anchor_check_on_cited_section+agent_reading",
+   "numbers": [
+    "1",
+    "5%"
+   ],
+   "anchors_checked": 4,
+   "missing": [],
+   "anchor_too_long": [],
+   "result": "pass"
+  }
+ ],
+ "unreviewed_critical": []
+}

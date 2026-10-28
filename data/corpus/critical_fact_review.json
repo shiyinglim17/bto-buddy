@@ -1,0 +1,478 @@
+{
+ "about": "Structured re-verification of policy-critical facts (checklist C-01 to C-16, data_sources §13) plus non-critical facts cited by rules. Each term anchor (a short phrase) must appear in the fact's cited L1 section of the hash-pinned 2026-10-28 snapshot; numbers in the statement are checked automatically. Notes record the agent's reading of conditions, applicant group and exceptions. Not a live-page check (HDB blocks automated access); see D-058 as revised.",
+ "reviewed_at": "2026-10-29",
+ "reviewer": "coding agent (D-054 as revised)",
+ "items": [
+  {
+   "fact_id": "HH-COUPLE-001",
+   "checklist": "C-01",
+   "term_anchors": [
+    "fiancé",
+    "core family nucleus"
+   ],
+   "notes": "Engaged couple forms the nucleus for a flat from HDB."
+  },
+  {
+   "fact_id": "HH-CIT-001",
+   "checklist": "C-02",
+   "term_anchors": [
+    "singapore citizen",
+    "at least 1 other sc or",
+    "new flats"
+   ],
+   "notes": "New-flat column (shared with resale Plus/Prime): SC applicant plus at least one more SC/SPR."
+  },
+  {
+   "fact_id": "HH-AGE-001",
+   "checklist": "C-02",
+   "term_anchors": [
+    "at least 21 years old"
+   ],
+   "notes": "Age cell spans both value columns (colspan 2), so it applies to new flats."
+  },
+  {
+   "fact_id": "HH-PROP-001",
+   "checklist": "C-03",
+   "term_anchors": [
+    "private residential property",
+    "30 months",
+    "legal completion"
+   ],
+   "notes": "Nested table row for 'buying a flat from HDB'. The 30-month wording is confirmed by worked example [6] (disposal on 1 Jul 2024, may apply from 1 Jan 2027). Applies to all applicants and occupiers."
+  },
+  {
+   "fact_id": "HH-SUBSIDY-001",
+   "checklist": "C-03",
+   "term_anchors": [
+    "second-timer",
+    "subsidised housing unit"
+   ],
+   "notes": "Subsidy list matches. The first-timer definition is the complement of the second-timer one; corroborated by S01.e.4 ('only first-timer core members may qualify')."
+  },
+  {
+   "fact_id": "HH-SUBSIDY-002",
+   "checklist": "C-03",
+   "term_anchors": [
+    "2 housing subsidies",
+    "core occupier"
+   ],
+   "notes": "CORRECTED: the source's 'you and/or any core members' wording is kept; per-person vs household counting is not stated (I-09)."
+  },
+  {
+   "fact_id": "HH-MARRY-001",
+   "checklist": "C-04",
+   "term_anchors": [
+    "solemnise",
+    "3 months",
+    "marriage certificate",
+    "overseas"
+   ],
+   "notes": "Engaged couples only; overseas registration goes through write-to-us within 3 months."
+  },
+  {
+   "fact_id": "HH-AGE-002",
+   "checklist": "C-04",
+   "term_anchors": [
+    "below 21",
+    "core occupier",
+    "before you submit"
+   ],
+   "notes": "Fiancé(e) under 21: core occupier only; write to HDB before the HFE application."
+  },
+  {
+   "fact_id": "HH-CHANGE-001",
+   "checklist": "C-04",
+   "term_anchors": [
+    "no changes to the persons",
+    "break-up"
+   ],
+   "notes": "Break-up cancels the application."
+  },
+  {
+   "fact_id": "HH-COUPLE-002",
+   "checklist": "C-05",
+   "term_anchors": [
+    "your spouse",
+    "core family nucleus"
+   ],
+   "notes": "CORRECTED: S01 lists 'you, your spouse and child(ren)'. The childless-couple reading is attributed to S05 FT(PMC), not asserted from S01."
+  },
+  {
+   "fact_id": "HH-NONRES-001",
+   "checklist": "C-06",
+   "term_anchors": [
+    "2-room flexi",
+    "non-resident spouse",
+    "married couples"
+   ],
+   "notes": "New flat: 2-room Flexi only; an SC/SPR child switches the household to the married couples rules."
+  },
+  {
+   "fact_id": "HH-NONRES-002",
+   "checklist": "C-06",
+   "term_anchors": [
+    "at least 35 years old"
+   ],
+   "notes": "Age of the SC applicant, new-flat column."
+  },
+  {
+   "fact_id": "HH-NONRES-003",
+   "checklist": "C-06",
+   "term_anchors": [
+    "visit pass or work pass",
+    "any validity period",
+    "collect the keys"
+   ],
+   "notes": "Required at the HFE letter and at the new flat application; renewal per footnote [3]."
+  },
+  {
+   "fact_id": "HFE-TIME-001",
+   "checklist": "C-07",
+   "term_anchors": [
+    "up to a month",
+    "sales exercise",
+    "sms and email"
+   ],
+   "notes": "Processing starts once the full set of documents is received."
+  },
+  {
+   "fact_id": "HFE-SINGPASS-001",
+   "checklist": "C-08",
+   "term_anchors": [
+    "singpass account",
+    "required occupiers"
+   ],
+   "notes": "All applicants and required occupiers."
+  },
+  {
+   "fact_id": "HFE-STEPS-001",
+   "checklist": "C-08",
+   "term_anchors": [
+    "30 calendar days",
+    "same calendar month",
+    "employment and income details"
+   ],
+   "notes": "Two conditions: a 30-day window, and a same-calendar-month preference (otherwise details must be updated). Complementary, not contradictory (I-04)."
+  },
+  {
+   "fact_id": "HFE-STEPS-002",
+   "checklist": "C-08",
+   "term_anchors": [
+    "afresh",
+    "cancel"
+   ],
+   "notes": "No edits after submission; cancel and re-apply."
+  },
+  {
+   "fact_id": "HFE-VALID-001",
+   "checklist": "C-09",
+   "term_anchors": [
+    "9 months",
+    "date of issue"
+   ],
+   "notes": "The day-count convention at month ends is not stated (I-02)."
+  },
+  {
+   "fact_id": "HFE-VALID-002",
+   "checklist": "C-09",
+   "term_anchors": [
+    "proceed with the flat purchase",
+    "need a fresh hfe letter"
+   ],
+   "notes": "From the validity and re-application rows."
+  },
+  {
+   "fact_id": "HFE-RENEW-001",
+   "checklist": "C-09",
+   "term_anchors": [
+    "next 30 days",
+    "first applicant",
+    "prevailing policies",
+    "unexpired"
+   ],
+   "notes": "Inclusive/exclusive 30-day boundary not stated (I-03)."
+  },
+  {
+   "fact_id": "HFE-REVIEW-001",
+   "checklist": "C-09",
+   "term_anchors": [
+    "untrue or incorrect",
+    "changes in your family members"
+   ],
+   "notes": "Three review triggers match."
+  },
+  {
+   "fact_id": "HFE-HOUSEHOLD-001",
+   "checklist": "C-09",
+   "term_anchors": [
+    "must remain the same",
+    "reserves the right to cancel"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "HFE-HOUSEHOLD-002",
+   "checklist": "C-09",
+   "term_anchors": [
+    "no action required",
+    "marital status",
+    "citizenship",
+    "myrequest@hdb"
+   ],
+   "notes": "Nested tables: approved stage, before vs after flat application. Engaged-couple marriage is not addressed (U-01)."
+  },
+  {
+   "fact_id": "HFE-APPLY-001",
+   "checklist": "C-10",
+   "term_anchors": [
+    "apply for an hfe letter online",
+    "free of charge"
+   ],
+   "notes": "CORRECTED: source section moved to S02.a.1, where 'online only' and 'free' are stated; Singpass login is in the S02 introduction."
+  },
+  {
+   "fact_id": "APP-HFE-001",
+   "checklist": "C-10",
+   "term_anchors": [
+    "valid hdb flat eligibility (hfe) letter",
+    "sales exercises"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "APP-FEE-001",
+   "checklist": "C-10",
+   "term_anchors": [
+    "$10",
+    "non-refundable",
+    "credit card",
+    "qr code"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "APP-BALLOT-001",
+   "checklist": "C-10",
+   "term_anchors": [
+    "computerised ballot",
+    "queue order"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "APP-CHANGE-001",
+   "checklist": "C-11",
+   "term_anchors": [
+    "re-apply",
+    "$10",
+    "cannot change"
+   ],
+   "notes": "Header cells 'during'/'after' sales exercise confirmed from spans."
+  },
+  {
+   "fact_id": "APP-CHANGE-002",
+   "checklist": "C-11",
+   "term_anchors": [
+    "same as the approved hfe letter",
+    "ongoing sales exercise"
+   ],
+   "notes": "During-sales-exercise cell."
+  },
+  {
+   "fact_id": "APP-CHANGE-003",
+   "checklist": "C-11",
+   "term_anchors": [
+    "myrequest@hdb",
+    "will be cancelled"
+   ],
+   "notes": "After-sales-exercise cell."
+  },
+  {
+   "fact_id": "DOC-PERIOD-001",
+   "checklist": "C-12",
+   "term_anchors": [
+    "12 months",
+    "2 months preceding",
+    "april 2023 to march 2024"
+   ],
+   "notes": "Documentation use only (D-013)."
+  },
+  {
+   "fact_id": "DOC-MYINFO-001",
+   "checklist": "C-12",
+   "term_anchors": [
+    "myinfo",
+    "supporting documents",
+    "employer"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "DOC-STATUS-001",
+   "checklist": "C-13",
+   "term_anchors": [],
+   "notes": "PDF S07 pp.1–2: six statuses; examples 'not exhaustive'. Manual page check (D-052)."
+  },
+  {
+   "fact_id": "NS-CANCEL-001",
+   "checklist": "C-14",
+   "term_anchors": [
+    "no penalty",
+    "my flat dashboard"
+   ],
+   "notes": "During-sales-exercise row."
+  },
+  {
+   "fact_id": "NS-CANCEL-002",
+   "checklist": "C-14",
+   "term_anchors": [
+    "before the release of ballot results",
+    "cannot be reinstated"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "NS-QUEUE-001",
+   "checklist": "C-14",
+   "term_anchors": [
+    "within the flat supply",
+    "subsequent bto"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "NS-COUNT-001",
+   "checklist": "C-14",
+   "term_anchors": [
+    "non-selection count",
+    "rejected a chance"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "NS-WAIVE-001",
+   "checklist": "C-14",
+   "term_anchors": [
+    "10 or fewer bto flats",
+    "5 or fewer sbf flats"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "NS-FT-001",
+   "checklist": "C-14",
+   "term_anchors": [
+    "second-timer category",
+    "set to 0",
+    "another year"
+   ],
+   "notes": "Nested consequences table, first-timer families row (incl. FT(PMC))."
+  },
+  {
+   "fact_id": "NS-BOOKED-001",
+   "checklist": "C-14",
+   "term_anchors": [
+    "option fee",
+    "5% of the purchase price",
+    "1-year period",
+    "full forfeiture"
+   ],
+   "notes": "The consequences cell has rowspan=2 (recorded in spans), so it covers both post-booking stages."
+  },
+  {
+   "fact_id": "PRI-FT-001",
+   "checklist": "C-15",
+   "term_anchors": [
+    "first-timer and a second-timer"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "PRI-GEN-001",
+   "checklist": "C-15",
+   "term_anchors": [
+    "do not guarantee"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "PRI-GEN-002",
+   "checklist": "C-15",
+   "term_anchors": [
+    "1 priority scheme",
+    "hdb flat eligibility (hfe) letter",
+    "1 other priority scheme"
+   ],
+   "notes": "Matches."
+  },
+  {
+   "fact_id": "PRI-FTPMC-001",
+   "checklist": "C-15",
+   "term_anchors": [
+    "aged 40 and below",
+    "18 and below",
+    "5 years",
+    "never owned or sold"
+   ],
+   "notes": "Whose age counts towards 'married couples aged 40 and below' is not stated (I-01). Engaged couples not named (U-02)."
+  },
+  {
+   "fact_id": "PRI-FTPMC-003",
+   "checklist": "C-15",
+   "term_anchors": [
+    "1 additional ballot chance",
+    "total of 3 ballot chances"
+   ],
+   "notes": "A count, not a probability."
+  },
+  {
+   "fact_id": "PRI-FPPS-001",
+   "checklist": "C-15",
+   "term_anchors": [
+    "first-timer buyers",
+    "aged 18 or below",
+    "adoption order",
+    "doctor's certification"
+   ],
+   "notes": "'You and your spouse': engaged couples not named (U-04)."
+  },
+  {
+   "fact_id": "PRI-FCS-002",
+   "checklist": "C-16",
+   "term_anchors": [
+    "singapore permanent resident",
+    "within 4 km"
+   ],
+   "notes": "Live-with vs live-near conditions match."
+  },
+  {
+   "fact_id": "PRI-FTPMC-002",
+   "checklist": "rules",
+   "term_anchors": [
+    "do not need to request"
+   ],
+   "notes": "HDB assesses FT(PMC) after the flat application."
+  },
+  {
+   "fact_id": "DOC-MULTIJOB-001",
+   "checklist": "rules",
+   "term_anchors": [],
+   "notes": "PDF S08 pp.1–2: enter 2 positions; status and income per job. Manual page check."
+  },
+  {
+   "fact_id": "DOC-MULTIJOB-002",
+   "checklist": "rules",
+   "term_anchors": [],
+   "notes": "PDF S08 pp.3–4: group jobs by status; all three statuses → omit the CPF job and consent to Myinfo retrieval. Manual page check."
+  },
+  {
+   "fact_id": "HH-OTHER-001",
+   "checklist": "rules",
+   "term_anchors": [
+    "write to us",
+    "assess and advise"
+   ],
+   "notes": "S01 introduction."
+  }
+ ]
+}

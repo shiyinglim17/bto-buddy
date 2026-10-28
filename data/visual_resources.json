@@ -1,0 +1,48 @@
+{
+  "about": "Official HDB visual resources shown to users as links only (REQ-SRC-010, REQ-SRC-011). Nothing is downloaded or embedded. These are never policy evidence and never cited as a fact source. URLs were checked against the 2026-10-28 S02 snapshot (data/sources_manifest.json M00-M04). D-057: linking is limited to the private, locally run prototype.",
+  "kb_version": "kb-2026-10-28.1",
+  "resources": [
+    {
+      "resource_id": "M00",
+      "kind": "infographic",
+      "title": "What is the HDB Flat Eligibility (HFE) letter?",
+      "url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter",
+      "media_url": "https://www.hdb.gov.sg/-/media/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter/What-is-an-HFE-letter-implementation.png",
+      "host_page_source_id": "S02",
+      "topics": ["hfe_process", "hfe_grant_loan_context"],
+      "stages": ["before_hfe"],
+      "display_when": "The question is about what the HFE letter is or why it is needed, and the user has not started the HFE application."
+    },
+    {
+      "resource_id": "M01",
+      "kind": "infographic",
+      "title": "Apply for an HDB Flat Eligibility (HFE) letter",
+      "url": "https://www.hdb.gov.sg/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter?anchor=how-to-apply",
+      "media_url": "https://www.hdb.gov.sg/-/media/buying-a-flat/flat-grant-and-loan-eligibility/application-for-an-hdb-flat-eligibility-hfe-letter/Apply-for-an-HFE-letter-Infographic_27-Oct-2026.png",
+      "host_page_source_id": "S02",
+      "topics": ["hfe_process"],
+      "stages": ["before_hfe", "hfe_application"],
+      "display_when": "The question is about how or when to apply for the HFE letter (Steps 1 and 2, timing)."
+    },
+    {
+      "resource_id": "M03",
+      "kind": "video",
+      "title": "Step 1: Check Preliminary HDB Flat Eligibility (HFE)",
+      "url": "https://www.youtube.com/watch?v=Lfmf3KJZy8k",
+      "host_page_source_id": "S02",
+      "topics": ["hfe_process"],
+      "stages": ["before_hfe", "hfe_application"],
+      "display_when": "The question is about starting the HFE application or Step 1 (preliminary eligibility check)."
+    },
+    {
+      "resource_id": "M04",
+      "kind": "video",
+      "title": "Step 2: Apply for HDB Flat Eligibility (HFE) Letter",
+      "url": "https://www.youtube.com/watch?v=bsno0iJUocs",
+      "host_page_source_id": "S02",
+      "topics": ["hfe_process", "hfe_documents"],
+      "stages": ["hfe_application"],
+      "display_when": "The question is about Step 2 of the HFE application or uploading documents."
+    }
+  ]
+}

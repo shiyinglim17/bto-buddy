@@ -118,8 +118,8 @@
       "rights_id": "R-HDB-WWW",
       "permission_status": "local_analysis_only",
       "review": {
-        "status": "pending",
-        "notes": "File modified ~8 min after creation; developer to confirm no edit after paste."
+        "status": "confirmed",
+        "notes": "Developer confirmed on 2026-10-29 that the file was not edited after pasting (R-dates closed)."
       }
     },
     {
@@ -292,8 +292,8 @@
       "rights_id": "R-HDB-WWW",
       "permission_status": "local_analysis_only",
       "review": {
-        "status": "pending",
-        "notes": "File modified ~2 min after creation; developer to confirm no edit after paste."
+        "status": "confirmed",
+        "notes": "Developer confirmed on 2026-10-29 that the file was not edited after pasting (R-dates closed)."
       }
     },
     {
@@ -446,41 +446,6 @@
       "permission_status": "not_permitted",
       "review": {
         "status": "reviewed",
-        "notes": ""
-      }
-    },
-    {
-      "source_id": "S10",
-      "record_kind": "document",
-      "title": "HFE FAQs (get help)",
-      "original_url": "https://www.hdb.gov.sg/hdb-flat-portal/hfe/get-help",
-      "canonical_url": "https://www.hdb.gov.sg/hdb-flat-portal/hfe/get-help",
-      "host": "www.hdb.gov.sg",
-      "parent_source_id": "S02",
-      "link_relation": "linked_page",
-      "content_format": [
-        "html_text"
-      ],
-      "matrix_refs": [
-        "Row 2, APP p.10"
-      ],
-      "policy_areas": [
-        "hfe_process"
-      ],
-      "mvp_class": "pending",
-      "mvp_class_reason": "5 sub-links unmapped (Q-08). robots.txt disallows /hdb-flat-portal: no automated access. Developer may read titles manually.",
-      "page_last_updated": null,
-      "effective_date": null,
-      "effective_date_status": "unknown",
-      "acquisition": {
-        "method": "not_acquired",
-        "requested_url": null,
-        "final_url": null
-      },
-      "rights_id": "R-HDB-WWW",
-      "permission_status": "unresolved",
-      "review": {
-        "status": "pending",
         "notes": ""
       }
     },
@@ -900,6 +865,18 @@
         "status": "pending",
         "notes": "si= stripped in canonical_url (D-049)."
       }
+    }
+  ],
+  "excluded_sources": [
+    {
+      "source_id": "S10",
+      "title": "HFE FAQs (get help)",
+      "url": "https://www.hdb.gov.sg/hdb-flat-portal/hfe/get-help",
+      "parent_source_id": "S02",
+      "excluded_on": "2026-10-29",
+      "decision": "D-060",
+      "reason": "HDB robots.txt disallows /hdb-flat-portal. The developer excluded the page and its sub-pages from the source list: no capture, no manual title inspection, no facts and no link-based evidence. The ID is never reused.",
+      "effect": "Any HFE exceptions or per-status document lists it may hold are not represented. Related gaps (G-17, U-01) are reported to users as evidence gaps with a redirect to S02."
     }
   ]
 }
